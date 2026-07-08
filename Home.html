@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OrbitGrow — Social Media, Meta & Google Ads, Web Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ===== HOME — SERVICE CARD ARROW ===== */
+        .svc-card .card-footer-link {
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--lime);
+            text-decoration: none;
+            transition: gap .3s var(--ease), color .3s var(--ease);
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: var(--ff-body);
+        }
+        .svc-card .card-footer-link svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--lime);
+            stroke-width: 2.5;
+            fill: none;
+            transition: transform .3s var(--ease);
+        }
+        .svc-card .card-footer-link:hover {
+            gap: 14px;
+            color: #fff;
+        }
+        .svc-card .card-footer-link:hover svg {
+            transform: translateX(4px);
+            stroke: #fff;
+        }
+
+        /* ===== HOME BLOG — image-only cards, right-aligned "See Details" ===== */
+        .home-blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .home-blog-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: var(--ink-soft);
+            border: 1px solid rgba(255, 255, 255, .08);
+            transition: transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+            aspect-ratio: 16 / 10;
+        }
+        .home-blog-card:hover {
+            transform: scale(1.04) translateY(-6px);
+            border-color: rgba(203, 255, 79, .5);
+            box-shadow: 0 20px 50px -16px rgba(0, 0, 0, .6);
+            z-index: 2;
+        }
+
+        .home-blog-card .home-blog-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s var(--ease);
+        }
+        .home-blog-card:hover .home-blog-image {
+            transform: scale(1.06);
+        }
+
+        /* Overlay — "See Details" on the right */
+        .home-blog-card .blog-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 8, 36, 0);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 24px;
+            opacity: 0;
+            transition: opacity .4s var(--ease), background .4s var(--ease);
+            border-radius: var(--radius);
+            pointer-events: none;
+            z-index: 3;
+        }
+        .home-blog-card:hover .blog-overlay {
+            opacity: 1;
+            background: rgba(11, 8, 36, .45);
+            pointer-events: auto;
+        }
+
+        .home-blog-card .blog-overlay .blog-detail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--lime);
+            color: var(--ink);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 12px 26px;
+            border-radius: 50px;
+            text-decoration: none;
+            transform: translateX(30px) scale(.92);
+            transition: transform .45s var(--ease-bounce), box-shadow .3s;
+            box-shadow: 0 8px 30px -8px rgba(0, 0, 0, .4);
+            border: none;
+            cursor: pointer;
+            font-family: var(--ff-body);
+            white-space: nowrap;
+        }
+        .home-blog-card:hover .blog-overlay .blog-detail-link {
+            transform: translateX(0) scale(1);
+        }
+        .home-blog-card .blog-overlay .blog-detail-link:hover {
+            box-shadow: 0 12px 36px -8px rgba(203, 255, 79, .4);
+            transform: scale(1.05) !important;
+        }
+        .home-blog-card .blog-overlay .blog-detail-link svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--ink);
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* ===== TYPEWRITER HERO ===== */
+        .hero-title .typing-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-size: inherit;
+            line-height: 1.2;
+            white-space: nowrap;
+            min-height: 1.2em;
+        }
+
+        .hero-title .typing-text {
+            display: inline-block;
+            font-weight: 700;
+            transition: color 0.2s ease;
+            min-width: 4px;
+        }
+
+        .hero-title .cursor-blink {
+            display: inline-block;
+            font-weight: 300;
+            color: var(--lime, #cbff4f);
+            font-size: 1em;
+            line-height: 1;
+            animation: blink 0.7s step-end infinite;
+            margin-left: 2px;
+            transform: translateY(-2px);
+        }
+
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+           HERO VIDEO BACKGROUND
+           ============================================================ */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .hero-video-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+            /* so it doesn't interfere with clicks */;
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 8, 36, 0.55);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* adjust hero-glow z-index to sit above overlay */
+        .hero .hero-glow {
+            z-index: 2;
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 80%;
+            height: 120%;
+            background: radial-gradient(ellipse at 70% 50%, rgba(203, 255, 79, 0.10), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-wave {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* ============================================================
+           MOBILE RESPONSIVE OVERRIDES
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .home-blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .home-blog-card {
+                aspect-ratio: 16 / 11;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* --- Hero --- */
+            .hero {
+                min-height: auto;
+                padding: 100px 0 40px;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 16px;
+            }
+            .hero-title {
+                font-size: 32px;
+            }
+            .hero-title .typing-wrapper {
+                font-size: 32px;
+                white-space: normal;
+                min-height: 1.3em;
+            }
+            .hero-title .cursor-blink {
+                font-size: 0.9em;
+            }
+            .hero-desc {
+                font-size: 14px;
+                max-width: 100%;
+            }
+            .hero .stats-row {
+                gap: 0;
+                justify-content: flex-start;
+            }
+            .hero .stat-item {
+                padding-right: 14px;
+                margin-right: 14px;
+                min-width: 60px;
+            }
+            .hero .stat-item:last-child {
+                padding-right: 0;
+                margin-right: 0;
+            }
+            .hero .stat-num {
+                font-size: 22px;
+            }
+            .hero .stat-label {
+                font-size: 10px;
+            }
+            .hero .btn-row {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .hero .btn-primary-hero {
+                font-size: 13px;
+                padding: 12px 22px;
+            }
+            .hero .btn-secondary {
+                font-size: 13px;
+            }
+
+            /* --- Hero Right (Cards) --- */
+            .hero-right {
+                min-height: auto;
+                padding: 20px 5px;
+                position: relative;
+            }
+            .hero .main-card {
+                max-width: 100%;
+                padding: 16px 18px;
+            }
+            .hero .mc-title {
+                font-size: 18px;
+            }
+            .hero .mc-sub {
+                font-size: 12px;
+            }
+            .hero .pill {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+
+            /* Float Cards — reposition to fit small screens */
+            .hero .float-card {
+                position: absolute;
+                transform: scale(0.8);
+                transform-origin: top left;
+                padding: 8px 12px;
+                border-radius: 10px;
+            }
+            .hero .fc-left {
+                left: -5px;
+                top: 0px;
+            }
+            .hero .fc-right {
+                right: -5px;
+                bottom: 15px;
+                transform: scale(0.8);
+                transform-origin: bottom right;
+            }
+            .hero .fc-val {
+                font-size: 18px;
+            }
+            .hero .fc-label {
+                font-size: 9px;
+            }
+            .hero .fc-trend-up {
+                font-size: 10px;
+            }
+            .hero .fc-trend-label {
+                font-size: 9px;
+            }
+
+            /* --- Services --- */
+            .services-section .services-inner {
+                padding: 0 16px;
+            }
+            .services-section .top-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .services-section .headline {
+                font-size: 28px;
+            }
+            .services-section .desc {
+                font-size: 14px;
+            }
+            .services-section .main-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .services-section .service-name {
+                font-size: 18px;
+            }
+            .services-section .service-row.active .service-name {
+                font-size: 20px;
+            }
+            .svc-card {
+                padding: 20px !important;
+                min-height: auto !important;
+            }
+            .svc-card .card-title {
+                font-size: 20px;
+            }
+            .svc-card .card-body {
+                font-size: 13px;
+            }
+            .svc-card .card-num {
+                font-size: 50px;
+            }
+            .svc-card .tag {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .services-section .bottom-strip {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .services-section .bottom-title {
+                font-size: 18px;
+            }
+            .services-section .bottom-text {
+                font-size: 12px;
+            }
+
+            /* --- Counters --- */
+            .counters-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .count-num {
+                font-size: 28px;
+            }
+            .count-label {
+                font-size: 11px;
+            }
+
+            /* --- Why --- */
+            .why-inner {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .w-item h4 {
+                font-size: 14px;
+            }
+            .w-item p {
+                font-size: 13px;
+            }
+
+            /* --- Process --- */
+            .process-steps {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .p-step {
+                padding: 20px 16px;
+            }
+            .p-step h4 {
+                font-size: 16px;
+            }
+            .p-step p {
+                font-size: 13px;
+            }
+
+            /* --- Industries --- */
+            .industries-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .industry-item {
+                padding: 16px 10px;
+            }
+            .industry-item h4 {
+                font-size: 13px;
+            }
+            .industry-item p {
+                font-size: 11px;
+            }
+            .industry-btn {
+                font-size: 10px;
+                padding: 6px 12px;
+                max-width: 100%;
+            }
+
+            /* --- Blog (Home) --- */
+            .home-blog-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+            .home-blog-card {
+                aspect-ratio: 16 / 11;
+            }
+            .home-blog-card .blog-overlay {
+                padding: 12px 14px;
+            }
+            .home-blog-card .blog-overlay .blog-detail-link {
+                font-size: 11px;
+                padding: 8px 14px;
+                gap: 6px;
+            }
+            .home-blog-card .blog-overlay .blog-detail-link svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            /* --- Reviews --- */
+            .ticker-item {
+                min-width: 260px;
+                padding: 14px 18px;
+            }
+            .ticker-item .ticker-quote {
+                font-size: 13px;
+            }
+
+            /* --- Footer --- */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .f-col ul li {
+                font-size: 13px;
+            }
+            .f-contact li {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wrap {
+                padding: 0 12px;
+            }
+
+            /* Hero */
+            .hero {
+                padding: 80px 0 30px;
+            }
+            .hero-title {
+                font-size: 26px;
+            }
+            .hero-title .typing-wrapper {
+                font-size: 26px;
+            }
+            .hero-title .cursor-blink {
+                font-size: 0.85em;
+            }
+            .hero .stat-num {
+                font-size: 18px;
+            }
+            .hero .stat-item {
+                padding-right: 10px;
+                margin-right: 10px;
+                min-width: 50px;
+            }
+            .hero .stat-label {
+                font-size: 9px;
+            }
+            .hero .btn-primary-hero {
+                font-size: 12px;
+                padding: 10px 18px;
+            }
+            .hero .btn-secondary {
+                font-size: 12px;
+            }
+            .hero .play-icon {
+                width: 38px;
+                height: 38px;
+            }
+            .hero .play-icon svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            /* Float Cards — scale down more */
+            .hero .float-card {
+                transform: scale(0.7);
+            }
+            .hero .fc-left {
+                left: -12px;
+                top: -10px;
+            }
+            .hero .fc-right {
+                right: -12px;
+                bottom: 5px;
+            }
+            .hero .fc-val {
+                font-size: 14px;
+            }
+            .hero .fc-label {
+                font-size: 8px;
+            }
+            .hero .main-card {
+                padding: 12px 14px;
+            }
+            .hero .mc-title {
+                font-size: 16px;
+            }
+            .hero .services-pills {
+                gap: 4px;
+            }
+            .hero .pill {
+                font-size: 9px;
+                padding: 3px 8px;
+            }
+            .hero .mc-bar-label {
+                font-size: 10px;
+            }
+
+            /* Services */
+            .services-section .headline {
+                font-size: 24px;
+            }
+            .services-section .service-name {
+                font-size: 16px;
+            }
+            .services-section .service-row.active .service-name {
+                font-size: 18px;
+            }
+            .svc-card {
+                padding: 16px !important;
+            }
+            .svc-card .card-title {
+                font-size: 18px;
+            }
+            .svc-card .card-body {
+                font-size: 12px;
+            }
+            .svc-card .card-num {
+                font-size: 40px;
+                bottom: 5px;
+                right: 10px;
+            }
+            .svc-card .card-icon-wrap {
+                width: 44px;
+                height: 44px;
+            }
+            .svc-card .card-icon-wrap svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            /* Counters */
+            .counters-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .count-num {
+                font-size: 24px;
+            }
+
+            /* Industries */
+            .industries-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .industry-item {
+                padding: 12px 8px;
+            }
+            .industry-item .i-icon {
+                width: 36px;
+                height: 36px;
+            }
+            .industry-item .i-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+            .industry-item h4 {
+                font-size: 12px;
+            }
+            .industry-btn {
+                font-size: 9px;
+                padding: 5px 10px;
+            }
+
+            /* Blog */
+            .home-blog-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .home-blog-card {
+                aspect-ratio: 16 / 12;
+            }
+            .home-blog-card .blog-overlay {
+                padding: 8px 10px;
+            }
+            .home-blog-card .blog-overlay .blog-detail-link {
+                font-size: 9px;
+                padding: 5px 10px;
+                gap: 4px;
+                border-radius: 30px;
+            }
+            .home-blog-card .blog-overlay .blog-detail-link svg {
+                width: 10px;
+                height: 10px;
+            }
+
+            /* Reviews */
+            .ticker-item {
+                min-width: 200px;
+                padding: 12px 14px;
+            }
+            .ticker-item .ticker-quote {
+                font-size: 12px;
+            }
+            .ticker-item .ticker-name {
+                font-size: 12px;
+            }
+            .ticker-item .ticker-company {
+                font-size: 10px;
+            }
+            .ticker-item .ticker-avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 10px;
+            }
+
+            /* Footer */
+            .f-brand p {
+                font-size: 13px;
+                max-width: 100%;
+            }
+            .f-col h5 {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 22px;
+            }
+            .hero-title .typing-wrapper {
+                font-size: 22px;
+            }
+            .hero .stat-num {
+                font-size: 15px;
+            }
+            .hero .float-card {
+                transform: scale(0.6);
+            }
+            .hero .fc-left {
+                left: -18px;
+                top: -20px;
+            }
+            .hero .fc-right {
+                right: -18px;
+                bottom: -10px;
+            }
+            .home-blog-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .home-blog-card {
+                aspect-ratio: 16 / 10;
+            }
+            .counters-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .industries-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ============================================================
+           SCROLL ANIMATIONS -- SECTIONS & CARDS (left / right / bottom / top)
+           Self-contained so the animations work regardless of style.css.
+           ============================================================ */
+        [data-animate] {
+            opacity: 0;
+            transition: opacity 0.9s cubic-bezier(.16,.84,.44,1),
+                        transform 0.9s cubic-bezier(.16,.84,.44,1);
+            will-change: transform, opacity;
+        }
+        [data-animate="left"]   { transform: translateX(-70px); }
+        [data-animate="right"]  { transform: translateX(70px); }
+        [data-animate="bottom"] { transform: translateY(60px); }
+        [data-animate="top"]    { transform: translateY(-60px); }
+        [data-animate].in-view {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Wave-style stagger for groups of cards / list items */
+        [data-animate]:nth-child(1)  { transition-delay: 0ms; }
+        [data-animate]:nth-child(2)  { transition-delay: 80ms; }
+        [data-animate]:nth-child(3)  { transition-delay: 160ms; }
+        [data-animate]:nth-child(4)  { transition-delay: 240ms; }
+        [data-animate]:nth-child(5)  { transition-delay: 320ms; }
+        [data-animate]:nth-child(6)  { transition-delay: 400ms; }
+        [data-animate]:nth-child(7)  { transition-delay: 480ms; }
+        [data-animate]:nth-child(8)  { transition-delay: 560ms; }
+        [data-animate]:nth-child(9)  { transition-delay: 640ms; }
+        [data-animate]:nth-child(10) { transition-delay: 720ms; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header" id="siteHeader">
+        <div class="wrap nav-wrap">
+            <a href="index.html" class="logo" id="brandLogo">
+                <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
+                <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blog.html">Blog</a>
+            </nav>
+            <div class="nav-right">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== HERO with VIDEO BACKGROUND ===== -->
+        <section class="hero" id="hero">
+            <!-- Video Background -->
+            <div class="hero-video-wrapper">
+                <video class="hero-video-bg" autoplay muted loop playsinline poster="https://picsum.photos/seed/hero-bg/1920/1080">
+                    <!--
+                    ═══════════════════════════════════════════════════════════
+                    REPLACE the src URL below with your own video file or CDN link.
+                    Supported formats: MP4, WebM, Ogg.
+                    ═══════════════════════════════════════════════════════════
+                    -->
+                    <source src="hero section animated vadio.mp4" type="video/mp4">
+                    <!-- fallback: if the browser doesn't support the video, show nothing -->
+                </video>
+                <div class="hero-video-overlay"></div>
+            </div>
+
+            <div class="hero-glow"></div>
+
+            <div class="hero-grid">
+                <div class="hero-left" data-animate="bottom">
+                    <div class="badge">
+                        <div class="badge-dot"></div>
+                        <div class="badge-text">Digital Marketing Agency</div>
+                    </div>
+                    <h1 class="hero-title">
+                        We Grow Your<br>
+                        Business <span>Online</span><br>
+                        <span class="typing-wrapper">
+                            <span class="typing-text" id="typingText"></span>
+                            <span class="cursor-blink" id="cursorBlink">|</span>
+                        </span>
+                    </h1>
+                    <p class="hero-desc">From Social Media Marketing to SEO, Google &amp; Meta Ads, Lead Generation, Web Development and Branding — we handle everything so you can focus on what you do best.</p>
+                    <div class="stats-row" id="heroStats">
+                        <div class="stat-item">
+                            <div class="stat-num"><span class="num-val" data-target="50">0</span><span class="suf">+</span></div>
+                            <div class="stat-label">Clients Served</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-num"><span class="num-val" data-target="2.3">0</span><span class="suf">x</span></div>
+                            <div class="stat-label">Avg ROI</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-num"><span class="num-val" data-target="94">0</span><span class="suf">%</span></div>
+                            <div class="stat-label">Satisfaction</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-num"><span class="num-val" data-target="2">0</span><span class="suf">yr</span></div>
+                            <div class="stat-label">Experience</div>
+                        </div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn-primary-hero" onclick="window.location.href='contact.html'">Get Free Consultation</button>
+                        <button class="btn-secondary" onclick="window.location.href='#services'">
+                            <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                            See Our Work
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-right" data-animate="right">
+                    <div class="float-card fc-left">
+                        <div class="fc-label">Monthly Leads</div>
+                        <div class="fc-val">1,<span>248</span></div>
+                        <div class="fc-trend"><span class="fc-trend-up">+32%</span><span class="fc-trend-label">this month</span></div>
+                    </div>
+                    <div class="main-card">
+                        <div class="mc-top">
+                            <div class="mc-avatar"><img src="images/OrbitGrow logo.png" alt=""></div>
+                            <div class="mc-status"><div class="status-dot"></div>Active Campaign</div>
+                        </div>
+                        <div class="mc-title">Your Brand, Amplified.</div>
+                        <div class="mc-sub">Full-service digital growth partner</div>
+                        <div class="services-pills">
+                            <div class="pill">Social Media</div><div class="pill">SEO</div><div class="pill">Meta Ads</div>
+                            <div class="pill">Google Ads</div><div class="pill">Lead Gen</div><div class="pill">Web Dev</div><div class="pill">Branding</div>
+                        </div>
+                        <div class="mc-bar-wrap"><div class="mc-bar-label"><span>Campaign Performance</span><span>84%</span></div><div class="mc-bar"><div class="mc-bar-fill" style="width:84%"></div></div></div>
+                        <div class="mc-bar-wrap"><div class="mc-bar-label"><span>Lead Conversion</span><span>67%</span></div><div class="mc-bar"><div class="mc-bar-fill" style="width:67%"></div></div></div>
+                    </div>
+                    <div class="float-card fc-right">
+                        <div class="fc-label">Projects Done</div>
+                        <div class="fc-val"><span>120</span>+</div>
+                        <div class="fc-sub">Across all services</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-wave">
+                <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C360,110 1080,-20 1440,40 L1440,90 L0,90 Z" fill="#F3F4EF"/></svg>
+            </div>
+        </section>
+
+        <!-- ===== HISTORY ===== -->
+        <section class="history" id="about" data-animate="left">
+            <div class="wrap history-inner">
+                <div class="history-content reveal" data-animate="left">
+                    <span class="eyebrow on-dark">Our Story</span>
+                    <h2>Started in a small office.<br>Built for big growth.</h2>
+                    <p>OrbitGrow began in Karachi with a small team, one client, and a conviction that marketing should be judged by revenue, not reach. That belief hasn't changed.</p>
+                    <p>Today we're a full-service growth partner — strategists, media buyers, designers and developers working from one dashboard, one goal: more qualified customers per rupee spent.</p>
+                </div>
+                <div class="timeline">
+                    <div class="t-item reveal" data-animate="bottom"><span class="t-year">2024</span><h4>Founded in Karachi</h4><p>Started with a small team, one client, and a commitment to results-driven marketing.</p></div>
+                    <div class="t-item reveal" data-animate="bottom"><span class="t-year">2025</span><h4>Opened the web development studio</h4><p>Brought design and development in-house so campaigns and websites finally talk to each other.</p></div>
+                    <div class="t-item reveal" data-animate="bottom"><span class="t-year">2026</span><h4>20+ brands, three countries</h4><p>Now serving clients across Pakistan, the UAE and Saudi Arabia.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SERVICES SECTION (HOME) ===== -->
+        <section class="services-section" id="services" data-animate="right">
+            <div class="services-inner">
+                <div class="top-grid">
+                    <div>
+                        <div class="label">Our Service</div>
+                        <div class="headline">What <span>Services</span><br>We're Offering</div>
+                    </div>
+                    <div class="top-right">
+                        <div class="desc">We offer services that can help businesses improve their visibility and business reputation online, expand market reach, and increase turnover through effective digital strategies. Following are the services we provide.</div>
+                        <button class="arrow-btn" aria-label="Next" onclick="nextService()">
+                            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="main-grid">
+                    <div class="services-list" id="servicesList">
+                        <div class="service-row active" data-key="branding" data-animate="left" onclick="setActive(this)">
+                            <div class="svc-left"><div class="service-name">Branding</div><div class="dot"></div></div>
+                            <div class="row-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                        </div>
+                        <div class="service-row" data-key="smm" data-animate="left" onclick="setActive(this)">
+                            <div class="svc-left"><div class="service-name">Social Media Marketing</div><div class="dot"></div></div>
+                            <div class="row-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                        </div>
+                        <div class="service-row" data-key="ads" data-animate="left" onclick="setActive(this)">
+                            <div class="svc-left"><div class="service-name">Meta and Google Ads</div><div class="dot"></div></div>
+                            <div class="row-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                        </div>
+                        <div class="service-row" data-key="leads" data-animate="left" onclick="setActive(this)">
+                            <div class="svc-left"><div class="service-name">Lead Generation</div><div class="dot"></div></div>
+                            <div class="row-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                        </div>
+                        <div class="service-row" data-key="seo" data-animate="left" onclick="setActive(this)">
+                            <div class="svc-left"><div class="service-name">SEO</div><div class="dot"></div></div>
+                            <div class="row-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                        </div>
+                        <div class="service-row" data-key="webdev" data-animate="left" onclick="setActive(this)">
+                            <div class="svc-left"><div class="service-name">Web Development</div><div class="dot"></div></div>
+                            <div class="row-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="svc-card" id="svc-card"></div>
+                    </div>
+                </div>
+                <div class="bottom-strip">
+                    <div class="bottom-text">Here are some common stages in the work process that we offer</div>
+                    <div class="bottom-title">our<span>work</span>?</div>
+                    <button class="arrow-btn" aria-label="See work">
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== COUNTERS ===== -->
+        <section class="counters" data-animate="bottom">
+            <div class="wrap counters-grid">
+                <div class="reveal" data-animate="bottom"><div class="count-num"><span data-count="20">0</span><span class="suf">+</span></div><div class="count-label">Brands Served</div></div>
+                <div class="reveal" data-animate="bottom"><div class="count-num"><span data-count="150">0</span><span class="suf">+</span></div><div class="count-label">Campaigns Launched</div></div>
+                <div class="reveal" data-animate="bottom"><div class="count-num"><span data-count="120">0</span><span class="suf">+</span></div><div class="count-label">Projects Completed</div></div>
+                <div class="reveal" data-animate="bottom"><div class="count-num"><span data-count="2.3">0</span><span class="suf">x</span></div><div class="count-label">Average ROAS</div></div>
+            </div>
+        </section>
+
+        <!-- ===== WHY ===== -->
+        <section class="why" data-animate="left">
+            <div class="wrap why-inner">
+                <div class="reveal" data-animate="top">
+                    <span class="eyebrow">Why OrbitGrow</span>
+                    <h2 class="h-lg">Marketing that's measured, not guessed.</h2>
+                    <p style="color:var(--muted);margin-top:16px;font-size:16px;max-width:380px;">No vanity dashboards. Every recommendation we make is tied to a number you actually care about.</p>
+                </div>
+                <div class="why-grid">
+                    <div class="w-item reveal" data-animate="left"><div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></div><div><h4>Data-driven strategy</h4><p>Every decision is backed by performance data, not assumptions.</p></div></div>
+                    <div class="w-item reveal" data-animate="right"><div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div><h4>In-house team</h4><p>Strategy, creative and development under one roof — no outsourcing delays.</p></div></div>
+                    <div class="w-item reveal" data-animate="bottom"><div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><h4>Transparent reporting</h4><p>Live dashboards, not month-end PDFs you have to chase us for.</p></div></div>
+                    <div class="w-item reveal" data-animate="left"><div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div><h4>Fast turnaround</h4><p>Campaigns live in days, not the six-week agency shuffle.</p></div></div>
+                    <div class="w-item reveal" data-animate="right"><div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><h4>One account manager</h4><p>A single point of contact who actually knows your account.</p></div></div>
+                    <div class="w-item reveal" data-animate="bottom"><div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 4v6c0 5-4 8-9 10-5-2-9-5-9-10V6l9-4z"/></svg></div><div><h4>ROI-first mindset</h4><p>We grow when your revenue grows — that's the only metric that matters.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROCESS ===== -->
+        <section class="process" id="process" data-animate="bottom">
+            <div class="wrap">
+                <div class="section-head reveal" data-animate="top">
+                    <span class="eyebrow">Our Process</span>
+                    <h2 class="h-lg">How We Work</h2>
+                    <p>A repeatable loop that takes you from audit to optimized, reported results.</p>
+                </div>
+                <div class="process-steps" id="processSteps">
+                    <div class="p-step" data-delay="0" data-animate="bottom">
+                        <div class="p-num">01</div>
+                        <h4>Discovery</h4>
+                        <p>We audit your brand, audience, funnel and competitors before recommending a single rupee of spend.</p>
+                    </div>
+                    <div class="p-step" data-delay="100" data-animate="bottom">
+                        <div class="p-num">02</div>
+                        <h4>Strategy</h4>
+                        <p>Channel plan, budget allocation and creative direction mapped to your actual revenue goals.</p>
+                    </div>
+                    <div class="p-step" data-delay="200" data-animate="bottom">
+                        <div class="p-num">03</div>
+                        <h4>Execution</h4>
+                        <p>Campaigns launched, content published, and your website built or optimized for conversion.</p>
+                    </div>
+                    <div class="p-step" data-delay="300" data-animate="bottom">
+                        <div class="p-num">04</div>
+                        <h4>Reporting</h4>
+                        <p>Weekly check-ins, monthly deep-dive reports, and a constant optimization loop.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== INDUSTRIES ===== -->
+        <section class="industries" id="industries" data-animate="right">
+            <div class="wrap">
+                <div class="section-head reveal" data-animate="top">
+                    <span class="eyebrow">Industries</span>
+                    <h2 class="h-lg">We Serve Across Sectors</h2>
+                    <p>From real estate to healthcare, we bring the same data-led approach to every vertical.</p>
+                </div>
+                <div class="industries-grid" id="industriesGrid">
+                    <div class="industry-item reveal" data-animate="left">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l4-3 4 3v14"/><path d="M10 11h4"/><path d="M10 15h4"/></svg></div>
+                        <h4>Real Estate</h4>
+                        <p>Lead gen &amp; property</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="right">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                        <h4>E-commerce</h4>
+                        <p>Conversion &amp; retention</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="bottom">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                        <h4>Healthcare</h4>
+                        <p>Patient acquisition</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="left">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+                        <h4>Education</h4>
+                        <p>Enrollment &amp; courses</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="right">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                        <h4>Professional Services</h4>
+                        <p>Consulting &amp; B2B</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="bottom">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 22v-4M4 12H2M6 12H4M20 12h-2M22 12h-2M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83M19.07 19.07l-2.83-2.83M4.93 4.93l2.83 2.83"/></svg></div>
+                        <h4>Technology</h4>
+                        <p>SaaS &amp; product</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="left">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                        <h4>Hospitality</h4>
+                        <p>Booking &amp; guest</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="right">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 4v16"/><path d="M15 4v16"/></svg></div>
+                        <h4>Retail</h4>
+                        <p>Omnichannel &amp; foot</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="bottom">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+                        <h4>Automotive</h4>
+                        <p>Service &amp; sales</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="left">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg></div>
+                        <h4>Food &amp; Beverage</h4>
+                        <p>Delivery &amp; loyalty</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BLOG (HOME) — 6 image‑only cards with right‑aligned "See Details" ===== -->
+        <section class="blog" id="blog" data-animate="left">
+            <div class="wrap">
+                <div class="section-head reveal" data-animate="top">
+                    <span class="eyebrow on-dark">Latest Blogs</span>
+                    <h2 class="h-lg">Stories from the frontlines</h2>
+                    <p>Real-world results, tactical breakdowns, and lessons learned from the campaigns we've run.</p>
+                </div>
+                <div class="home-blog-grid" id="homeBlogGrid"></div>
+                <div class="blog-load-more">
+                    <a href="blog.html" class="btn-load" style="display:inline-flex;">
+                        <span>View All Articles</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVIEWS TICKER ===== -->
+        <section class="reviews-ticker" id="reviews" data-animate="bottom">
+            <div class="wrap">
+                <div class="section-head reveal" data-animate="top">
+                    <span class="eyebrow">Client Reviews</span>
+                    <h2 class="h-lg">What Our Clients Say</h2>
+                    <p>Real feedback from real businesses we've helped grow.</p>
+                </div>
+            </div>
+            <div class="ticker-container">
+                <div class="ticker-track" id="tickerTrack"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="contact" data-animate="bottom">
+    <div class="wrap">
+        <div class="footer-grid">
+            <!-- Brand Column -->
+            <div class="f-brand">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
+                    <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
+                </a>
+                <p>A performance marketing &amp; web development studio helping Pakistani brands turn ad spend into real revenue.</p>
+                <div class="f-social">
+                    <a href="https://www.facebook.com/share/19E6NcZP18/" target="_blank" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/orbitgrow.agency" target="_blank" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/orbit-grow" target="_blank" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://wa.me/923192699626" target="_blank" aria-label="WhatsApp">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Services Column -->
+            <div class="f-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="services.html#services-grid">Branding</a></li>
+                    <li><a href="services.html#services-grid">Social Media Marketing</a></li>
+                    <li><a href="services.html#services-grid">Meta and Google Ads</a></li>
+                    <li><a href="services.html#services-grid">Lead Generation</a></li>
+                    <li><a href="services.html#services-grid">SEO</a></li>
+                    <li><a href="services.html#services-grid">Web Development</a></li>
+                </ul>
+            </div>
+
+            <!-- Company Column — UPDATED with all pages -->
+            <div class="f-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Column — UPDATED phone number -->
+            <div class="f-col">
+                <h5>Contact</h5>
+                <ul class="f-contact">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Gulberg III, Lahore, Pakistan
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+                        <a href="tel:+923192699626" style="color:inherit;text-decoration:none;">0319 2699626</a>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+                        <a href="mailto:hello@orbitgrow.pk" style="color:inherit;text-decoration:none;">hello@orbitgrow.pk</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <span>&copy; <span id="year"></span> All rights reserved.</span>
+            <div>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- ===== FAB ===== -->
+    <a href="#" class="fab-whatsapp" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="blog-data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // ============================================================
+        // DIRECTIONAL SCROLL ANIMATIONS (left / right / bottom / top)
+        // Applies to any element with a data-animate="left|right|bottom|top"
+        // attribute -- used on the main sections and on repeating cards
+        // / list items. Re-callable so dynamically injected content
+        // (e.g. the home blog cards) gets picked up too.
+        // ============================================================
+        (function() {
+            const animObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        animObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+            function initScrollAnimations() {
+                document.querySelectorAll('[data-animate]:not(.observed)').forEach(el => {
+                    el.classList.add('observed');
+                    animObserver.observe(el);
+                });
+            }
+
+            window.__initScrollAnimations = initScrollAnimations;
+            initScrollAnimations();
+        })();
+
+        // ============================================================
+        // TYPEWRITER — cycles: Faster. / Smarter. / Scalable. (ALL LIME)
+        // ============================================================
+        (function() {
+            const words = [
+                { text: 'Faster.', color: 'var(--lime)' },
+                { text: 'Smarter.', color: 'var(--lime)' },
+                { text: 'Scalable.', color: 'var(--lime)' }
+            ];
+
+            const typingEl = document.getElementById('typingText');
+            const cursorEl = document.getElementById('cursorBlink');
+            if (!typingEl || !cursorEl) return;
+
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let timer = null;
+
+            const TYPING_SPEED = 80;
+            const DELETING_SPEED = 50;
+            const PAUSE_AFTER_TYPED = 1600;
+            const PAUSE_AFTER_DELETED = 400;
+
+            function typeEffect() {
+                const currentWord = words[wordIndex];
+                const fullText = currentWord.text;
+                const color = currentWord.color;
+
+                typingEl.style.color = color;
+
+                if (!isDeleting) {
+                    typingEl.textContent = fullText.substring(0, charIndex + 1);
+                    charIndex++;
+
+                    if (charIndex === fullText.length) {
+                        isDeleting = true;
+                        timer = setTimeout(typeEffect, PAUSE_AFTER_TYPED);
+                    } else {
+                        timer = setTimeout(typeEffect, TYPING_SPEED);
+                    }
+                } else {
+                    typingEl.textContent = fullText.substring(0, charIndex - 1);
+                    charIndex--;
+
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                        timer = setTimeout(typeEffect, PAUSE_AFTER_DELETED);
+                    } else {
+                        timer = setTimeout(typeEffect, DELETING_SPEED);
+                    }
+                }
+            }
+
+            setTimeout(typeEffect, 600);
+
+            window.addEventListener('beforeunload', function() {
+                if (timer) clearTimeout(timer);
+            });
+        })();
+
+        // ============================================================
+// HOME PAGE BLOG — latest 6 posts, image‑only, right overlay
+// ============================================================
+(function() {
+    const grid = document.getElementById('homeBlogGrid');
+    if (!grid) return;
+    if (typeof BLOG_POSTS === 'undefined') return;
+
+    const posts = BLOG_POSTS.slice(0, 6);
+    const directions = ['left', 'right', 'bottom'];
+
+    grid.innerHTML = posts.map((post, i) => {
+        // 🔥 CUSTOM IMAGE SUPPORT: Agar post.image hai toh woh, nahi toh picsum fallback
+        const imgSrc = post.image ? post.image : `https://picsum.photos/seed/${post.slug}/600/380`;
+        return `
+                    <div class="home-blog-card" data-animate="${directions[i % directions.length]}">
+                        <img src="${imgSrc}" alt="${post.title}" class="home-blog-image" loading="lazy" />
+                        <div class="blog-overlay">
+                            <a href="blog-post.html?slug=${post.slug}" class="blog-detail-link">
+                                See Details
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                `;
+    }).join('');
+
+    if (window.__initScrollAnimations) window.__initScrollAnimations();
+})();
+
+        // ============================================================
+        // SERVICES JS — interactive list + card (HOME)
+        // ============================================================
+        (function() {
+            const icons = {
+                branding: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+                smm: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+                ads: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+                leads: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+                seo: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+                webdev: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`
+            };
+
+            const data = {
+                branding: {
+                    num: '01',
+                    title: 'Branding',
+                    body: 'We craft powerful brand identities that resonate with your target audience. From logo design to complete brand guidelines, we build lasting impressions that set you apart from the competition and make your business unforgettable.',
+                    tags: ['Logo Design', 'Brand Strategy', 'Identity', 'Guidelines', 'Visual Language']
+                },
+                smm: {
+                    num: '02',
+                    title: 'Social Media Marketing',
+                    body: 'We grow your presence across Instagram, Facebook, TikTok, LinkedIn and beyond. From content calendars to community management, we turn followers into customers with data-backed strategies tailored to your brand voice.',
+                    tags: ['Instagram', 'Facebook', 'TikTok', 'Content Creation', 'Community Management']
+                },
+                ads: {
+                    num: '03',
+                    title: 'Meta and Google Ads',
+                    body: 'Maximize your ad spend with precision-targeted campaigns on Meta and Google. We research, build, and optimise paid campaigns that drive real conversions — not just clicks — so every rupee works harder for your business.',
+                    tags: ['Meta Ads', 'Google Ads', 'Retargeting', 'A/B Testing', 'Conversion Tracking']
+                },
+                leads: {
+                    num: '04',
+                    title: 'Lead Generation',
+                    body: 'We build end-to-end lead generation systems that fill your sales pipeline with high-quality prospects. From landing pages to email funnels, we design every touchpoint to capture, nurture, and convert leads at scale.',
+                    tags: ['Landing Pages', 'Email Funnels', 'CRM Integration', 'Automation', 'Conversion Optimisation']
+                },
+                seo: {
+                    num: '05',
+                    title: 'SEO',
+                    body: 'Data-driven search engine optimisation that drives organic traffic and boosts your rankings. We analyse, optimise, and monitor to ensure your business stays at the top of search results and attracts the right audience consistently.',
+                    tags: ['On-Page SEO', 'Link Building', 'Technical SEO', 'Keywords', 'Analytics']
+                },
+                webdev: {
+                    num: '06',
+                    title: 'Web Development',
+                    body: 'We build fast, scalable, and visually striking websites that make a strong first impression. From landing pages to full e-commerce platforms, our development work is clean, responsive, and built to convert visitors into customers.',
+                    tags: ['React', 'Next.js', 'WordPress', 'E-Commerce', 'Responsive Design']
+                }
+            };
+
+            function renderCard(key) {
+                const d = data[key];
+                const card = document.getElementById('svc-card');
+                if (!card) return;
+                card.classList.remove('card-anim');
+                void card.offsetWidth;
+                card.classList.add('card-anim');
+                card.innerHTML = `
+                                  <div class="card-icon-wrap">${icons[key]}</div>
+                                  <div class="card-title">${d.title}</div>
+                                  <div class="card-body">${d.body}</div>
+                                  <div class="card-tags">${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                                  <div class="card-num">${d.num}</div>
+                                  <button class="card-footer-link" onclick="window.location.href='services.html?service=${key}'">
+                                      Learn More
+                                      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                  </button>
+                                `;
+            }
+
+            window.setActive = function(row) {
+                document.querySelectorAll('.service-row').forEach(r => r.classList.remove('active'));
+                row.classList.add('active');
+                renderCard(row.dataset.key);
+            };
+
+            const serviceKeys = ['branding', 'smm', 'ads', 'leads', 'seo', 'webdev'];
+            let currentIndex = 0;
+
+            window.nextService = function() {
+                currentIndex = (currentIndex + 1) % serviceKeys.length;
+                const rows = document.querySelectorAll('.service-row');
+                rows.forEach((row, idx) => {
+                    if (row.dataset.key === serviceKeys[currentIndex]) {
+                        window.setActive(row);
+                    }
+                });
+            };
+
+            const initialCard = document.querySelector('.service-row.active');
+            if (initialCard) {
+                renderCard(initialCard.dataset.key);
+            } else {
+                renderCard('branding');
+            }
+        })();
+
+        // ============================================================
+        // YEAR
+        // ============================================================
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

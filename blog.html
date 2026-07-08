@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — OrbitGrow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ============================================================
+           BLOG — MODERN ANIMATED CARD SYSTEM (OrbitGrow)
+           ============================================================ */
+        :root {
+            --og-bg: #F3F4EF;
+            --og-card: #FFFFFF;
+            --og-ink: #14171A;
+            --og-ink-soft: #5B6167;
+            --og-line: rgba(20, 23, 26, 0.10);
+            --og-lime: #C6FF3D;
+            --og-lime-ink: #233312;
+            --og-navy: #16233F;
+            --og-shadow: 0 1px 2px rgba(20, 23, 26, .04), 0 20px 40px -20px rgba(20, 23, 26, .25);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .blog-post-item,
+            .recent-item,
+            .post-image,
+            .orbit-ring,
+            .post-cta-arrow {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        #blogPosts.blog-posts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 34px 28px;
+        }
+
+        @media (max-width: 760px) {
+            #blogPosts.blog-posts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .blog-post-item {
+            position: relative;
+            background: var(--og-card);
+            border: 1px solid var(--og-line);
+            border-radius: 18px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s cubic-bezier(.2, .7, .2, 1), transform .6s cubic-bezier(.2, .7, .2, 1),
+                box-shadow .35s ease, border-color .35s ease;
+            transition-delay: calc(var(--i, 0) * 70ms);
+        }
+
+        .blog-post-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .blog-post-item:hover {
+            border-color: transparent;
+            box-shadow: var(--og-shadow);
+            transform: translateY(-6px);
+        }
+
+        .post-image-wrap {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: var(--og-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-image-wrap .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #f0f1ec;
+            transition: transform .7s cubic-bezier(.2, .7, .2, 1), filter .5s ease;
+            filter: saturate(.96);
+        }
+
+        .blog-post-item:hover .post-image-wrap .post-image {
+            transform: scale(1.04) rotate(0.3deg);
+            filter: saturate(1.05);
+        }
+
+        .post-image-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(20, 23, 26, 0) 45%, rgba(20, 23, 26, .55) 100%);
+            opacity: 0;
+            transition: opacity .4s ease;
+            pointer-events: none;
+        }
+
+        .blog-post-item:hover .post-image-wrap::after {
+            opacity: 1;
+        }
+
+        .post-cta-arrow {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--og-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px) scale(.8);
+            transition: opacity .35s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
+            z-index: 2;
+        }
+
+        .post-cta-arrow svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--og-ink);
+        }
+
+        .blog-post-item:hover .post-cta-arrow {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .post-content {
+            padding: 22px 22px 24px;
+        }
+
+        .post-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.28rem;
+            line-height: 1.32;
+            font-weight: 700;
+            margin: 0 0 14px;
+            letter-spacing: -.01em;
+        }
+
+        .post-title a {
+            color: var(--og-ink);
+            text-decoration: none;
+            background-image: linear-gradient(var(--og-ink), var(--og-ink));
+            background-repeat: no-repeat;
+            background-size: 0% 1.5px;
+            background-position: 0 100%;
+            transition: background-size .4s cubic-bezier(.2, .7, .2, 1);
+            padding-bottom: 1px;
+        }
+
+        .post-title a:hover {
+            background-size: 100% 1.5px;
+        }
+
+        .post-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--og-ink-soft);
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--og-ink);
+            font-weight: 600;
+        }
+
+        .post-author .avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--og-navy);
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .post-author .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .post-author .avatar::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1.5px solid var(--og-lime);
+            opacity: 0;
+            transform: scale(.7);
+            transition: opacity .35s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .blog-post-item:hover .post-author .avatar::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .post-date::before {
+            content: "·";
+            margin-right: 10px;
+            color: var(--og-line);
+        }
+
+        #recentPosts .recent-item {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            padding: 10px 8px;
+            margin: 0 -8px;
+            border-radius: 12px;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateX(14px);
+            transition: opacity .5s ease, transform .5s cubic-bezier(.2, .7, .2, 1), background .25s ease;
+            transition-delay: calc(var(--i, 0) * 60ms);
+        }
+
+        #recentPosts .recent-item.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #recentPosts .recent-item:hover {
+            background: var(--og-bg);
+        }
+
+        #recentPosts .recent-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        #recentPosts .recent-item:hover .recent-img {
+            transform: scale(1.08) rotate(-1.5deg);
+        }
+
+        .recent-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .recent-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--og-ink);
+            line-height: 1.3;
+            white-space: normal;
+        }
+
+        .recent-date {
+            font-family: 'Space Mono', monospace;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--og-ink-soft);
+        }
+
+        .sidebar-card {
+            background: var(--og-card);
+            border: 1px solid var(--og-line);
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-card .lime-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--og-lime);
+            flex-shrink: 0;
+        }
+
+        .sidebar-cta {
+            background: var(--og-bg);
+            border-radius: 18px;
+            padding: 28px 24px;
+            text-align: center;
+            border: 1px solid var(--og-line);
+        }
+
+        .sidebar-cta h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 8px;
+            color: var(--og-ink);
+        }
+
+        .sidebar-cta p {
+            font-size: 14px;
+            color: var(--og-ink-soft);
+            margin: 0 0 18px;
+            line-height: 1.6;
+        }
+
+        .btn-cta-side {
+            display: inline-block;
+            background: var(--og-ink);
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 30px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: background .3s ease, transform .25s ease;
+        }
+
+        .btn-cta-side:hover {
+            background: var(--og-lime-ink);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER with CLEAN URLs ===== -->
+    <header class="site-header" id="siteHeader">
+        <div class="wrap nav-wrap">
+            <a href="/" class="logo" id="brandLogo">
+                <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
+                <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blog.html">Blog</a>
+            </nav>
+            <div class="nav-right">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ===== BLOG HERO ===== -->
+        <section class="blog-hero">
+            <div class="hero-glow"></div>
+            <div class="blog-hero-content">
+                <div class="hero-text">
+                    <h1><span>Blogs</span></h1>
+                    <p class="sub">Expert perspectives on trends, innovations, and industry dynamics</p>
+                </div>
+                <div class="hero-notes">
+                    <div class="notes-row" aria-hidden="true">
+                        <div class="note"><span>B</span></div>
+                        <div class="note"><span>L</span></div>
+                        <div class="note"><span>O</span></div>
+                        <div class="note"><span>G</span></div>
+                        <div class="note"><span>S</span></div>
+                    </div>
+                </div>
+                <div class="hero-footer">
+                    <span class="brand-signature">— <span>OrbitGrow</span> —</span>
+                </div>
+            </div>
+            <div class="wave">
+                <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F3F4EF"/></svg>
+            </div>
+        </section>
+
+        <!-- ===== BLOG MAIN ===== -->
+        <section class="blog-main">
+            <div class="wrap">
+                <div class="blog-layout">
+
+                    <!-- LEFT: Blog Grid -->
+                    <div class="blog-posts" id="blogPosts">
+                        <!-- Rendered by JavaScript -->
+                    </div>
+
+                    <!-- RIGHT: Sidebar -->
+                    <aside class="blog-sidebar">
+                        <div class="sidebar-card">
+                            <h3><span class="lime-dot"></span> Recent Posts</h3>
+                            <div id="recentPosts">
+                                <!-- Rendered by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="sidebar-cta">
+                            <h4>Grow with OrbitGrow</h4>
+                            <p>From web development to full‑funnel ad management — see how we can help.</p>
+                            <a href="/services" class="btn-cta-side">Explore Services</a>
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER with CLEAN URLs ===== -->
+    <footer class="site-footer" id="contact">
+        <div class="wrap">
+            <div class="footer-grid">
+                <div class="f-brand">
+                    <a href="/" class="logo footer-logo">
+                        <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
+                        <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
+                    </a>
+                    <p>A performance marketing &amp; web development studio helping Pakistani brands turn ad spend into real revenue.</p>
+                    <div class="f-social">
+                        <a href="https://www.facebook.com/share/19E6NcZP18/" target="_blank" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/orbitgrow.agency" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/orbit-grow" target="_blank" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="https://wa.me/923192699626" target="_blank" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="f-col">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="/services#services-grid">Branding</a></li>
+                        <li><a href="/services#services-grid">Social Media Marketing</a></li>
+                        <li><a href="/services#services-grid">Meta and Google Ads</a></li>
+                        <li><a href="/services#services-grid">Lead Generation</a></li>
+                        <li><a href="/services#services-grid">SEO</a></li>
+                        <li><a href="/services#services-grid">Web Development</a></li>
+                    </ul>
+                </div>
+
+                <div class="f-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/services">Services</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="f-col">
+                    <h5>Contact</h5>
+                    <ul class="f-contact">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Gulberg III, Lahore, Pakistan
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:+923192699626" style="color:inherit;text-decoration:none;">0319 2699626</a>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+                            <a href="mailto:hello@orbitgrow.pk" style="color:inherit;text-decoration:none;">hello@orbitgrow.pk</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; <span id="year"></span> All rights reserved.</span>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== FAB ===== -->
+    <a href="#" class="fab-whatsapp" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="blog-data.js"></script>
+    <script>
+        // ============================================================
+        // RENDER BLOG POSTS + SIDEBAR with CLEAN URLs (/blog/slug)
+        // ============================================================
+        (function() {
+            const posts = typeof BLOG_POSTS !== 'undefined' ? BLOG_POSTS.slice() : [];
+
+            const arrowSvg = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>`;
+
+            const blogContainer = document.getElementById('blogPosts');
+            if (blogContainer) {
+                blogContainer.innerHTML = posts.map((post, i) => {
+                    const imageUrl = post.image ? post.image : `https://picsum.photos/seed/${post.slug}/600/340`;
+                    return `
+                            <article class="blog-post-item" style="--i:${i}">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="${imageUrl}" alt="${post.title}" loading="lazy" />
+                                    <span class="post-cta-arrow">${arrowSvg}</span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title"><a href="/blog/${post.slug}">${post.title}</a></h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar">
+                                                ${post.authorImage ? `<img src="${post.authorImage}" alt="${post.author}" />` : (post.authorInitials || 'OG')}
+                                            </span>
+                                            ${post.author}
+                                        </span>
+                                        <span class="post-date">${post.date}</span>
+                                    </div>
+                                </div>
+                            </article>
+                        `;
+                }).join('');
+            }
+
+            const recentContainer = document.getElementById('recentPosts');
+            if (recentContainer) {
+                const recentPosts = posts.slice(0, 6);
+                recentContainer.innerHTML = recentPosts.map((post, i) => {
+                    const thumbUrl = post.thumbnail ? post.thumbnail : (post.image ? post.image : `https://picsum.photos/seed/${post.slug}/150/150`);
+                    return `
+                            <a href="/blog/${post.slug}" class="recent-item" style="--i:${i}">
+                                <img class="recent-img" src="${thumbUrl}" alt="${post.title}" loading="lazy" />
+                                <div class="recent-info">
+                                    <span class="recent-date">${post.date}</span>
+                                    <span class="recent-title">${post.title}</span>
+                                </div>
+                            </a>
+                        `;
+                }).join('');
+            }
+
+            // ============================================================
+            // SCROLL-TRIGGERED REVEAL
+            // ============================================================
+            const revealTargets = document.querySelectorAll('.blog-post-item, #recentPosts .recent-item');
+            if ('IntersectionObserver' in window && revealTargets.length) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            io.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                revealTargets.forEach(el => io.observe(el));
+            } else {
+                revealTargets.forEach(el => el.classList.add('is-visible'));
+            }
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
+            const header = document.getElementById('siteHeader');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 30);
+            });
+
+            // ============================================================
+            // MOBILE NAV
+            // ============================================================
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', () => {
+                    navToggle.classList.toggle('open');
+                    navLinks.classList.toggle('open');
+                });
+                navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                    navToggle.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }));
+            }
+
+            // ============================================================
+            // YEAR
+            // ============================================================
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
+    </script>
+
+</body>
+</html>
