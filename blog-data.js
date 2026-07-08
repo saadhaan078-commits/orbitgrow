@@ -1,12 +1,12 @@
 /* ===== blog-data.js =====
-   All 6 posts with custom images & author images.
+   All 6 posts with clean, SEO-friendly slugs
    All paths now use consistent folder structure.
 */
 
 const BLOG_POSTS = [
   // 1. Digital Marketing Strategy Guide 2026
   {
-    slug: "digital-marketing-strategy-2026",
+    slug: "digital-marketing-strategy-guide-2026",
     tag: "Digital Marketing",
     date: "April 3, 2026",
     author: "Saad Khan",

@@ -1,3 +1,10 @@
 {
   "cleanUrls": true
 }
+
+
+{
+  "rewrites": [
+    { "source": "/blog/:slug", "destination": "/blog-post.html?slug=:slug" }
+  ]
+}
