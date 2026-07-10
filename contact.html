@@ -276,6 +276,97 @@
             }
         }
 
+        /* ============================================================
+           FOOTER — MOBILE OVERRIDES (Company + Contact side by side)
+           ============================================================ */
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+            .f-brand {
+                grid-column: 1 / -1;
+            }
+            /* Hide the Services column (second child) */
+            .f-col:nth-child(2) {
+                display: none;
+            }
+            /* Company (third child) — left */
+            .f-col:nth-child(3) {
+                grid-column: 1 / 2;
+                padding-right: 8px;
+            }
+            /* Contact (fourth child) — right with separator */
+            .f-col:nth-child(4) {
+                grid-column: 2 / 3;
+                padding-left: 12px;
+                border-left: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 6px;
+                font-size: 13px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 16px;
+                height: 16px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .f-col h5 {
+                font-size: 11px;
+            }
+            .f-col ul li {
+                font-size: 13px;
+            }
+            .f-brand p {
+                font-size: 13px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                gap: 24px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 4px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 8px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 4px;
+                font-size: 12px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .footer-grid {
+                gap: 16px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 2px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 6px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 3px;
+                font-size: 11px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
         /* Status message styling */
         #formStatus {
             display: none;

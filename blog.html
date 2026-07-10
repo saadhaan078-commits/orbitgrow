@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css" />
     <style>
         /* ============================================================
-           BLOG — MODERN ANIMATED CARD SYSTEM (OrbitGrow)
+           BLOG — CLEAN, NO SCROLL ANIMATIONS
            ============================================================ */
         :root {
             --og-bg: #F3F4EF;
@@ -43,7 +43,9 @@
             padding: 0 20px;
         }
 
-        /* ===== HEADER ===== */
+        /* ============================================================
+           HEADER — FIXED WITH MOBILE TOGGLE
+           ============================================================ */
         .site-header {
             position: fixed;
             top: 0;
@@ -67,6 +69,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: relative;
         }
 
         .logo {
@@ -124,6 +127,11 @@
             border-radius: 2px;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-toggle {
             display: none;
             flex-direction: column;
@@ -132,6 +140,7 @@
             border: none;
             padding: 8px;
             cursor: pointer;
+            z-index: 1001;
         }
 
         .nav-toggle span {
@@ -157,6 +166,7 @@
             .nav-toggle {
                 display: flex;
             }
+
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -164,14 +174,16 @@
                 right: 0;
                 background: var(--og-card);
                 flex-direction: column;
-                padding: 20px;
+                padding: 20px 24px;
                 gap: 16px;
                 border-bottom: 1px solid var(--og-line);
                 opacity: 0;
                 transform: translateY(-10px);
                 pointer-events: none;
                 transition: opacity .3s ease, transform .3s ease;
+                box-shadow: 0 12px 28px -8px rgba(20, 23, 26, .1);
             }
+
             .nav-links.open {
                 opacity: 1;
                 transform: translateY(0);
@@ -179,7 +191,9 @@
             }
         }
 
-        /* ===== BLOG HERO ===== */
+        /* ============================================================
+           BLOG HERO
+           ============================================================ */
         .blog-hero {
             position: relative;
             padding: 140px 0 80px;
@@ -294,6 +308,7 @@
             .blog-hero-content {
                 grid-template-columns: 1fr;
                 gap: 24px;
+                text-align: center;
             }
             .hero-notes .notes-row {
                 justify-content: center;
@@ -307,9 +322,14 @@
                 padding: 120px 0 60px;
                 min-height: 340px;
             }
+            .hero-text .sub {
+                margin: 0 auto;
+            }
         }
 
-        /* ===== BLOG MAIN ===== */
+        /* ============================================================
+           BLOG MAIN
+           ============================================================ */
         .blog-main {
             padding: 60px 0 80px;
             background: var(--og-bg);
@@ -341,84 +361,20 @@
             }
         }
 
-        /* ===== DIRECTIONAL SCROLL ANIMATIONS ===== */
-        [data-animate] {
-            opacity: 0;
-            transition: opacity 0.9s cubic-bezier(.16, .84, .44, 1),
-                transform 0.9s cubic-bezier(.16, .84, .44, 1);
-            will-change: transform, opacity;
-        }
-        [data-animate="left"] {
-            transform: translateX(-70px);
-        }
-        [data-animate="right"] {
-            transform: translateX(70px);
-        }
-        [data-animate="bottom"] {
-            transform: translateY(60px);
-        }
-        [data-animate="top"] {
-            transform: translateY(-60px);
-        }
-        [data-animate].in-view {
-            opacity: 1;
-            transform: translate(0, 0);
-        }
-
-        /* Staggered delays for blog posts */
-        .blog-posts [data-animate]:nth-child(1) {
-            transition-delay: 0ms;
-        }
-        .blog-posts [data-animate]:nth-child(2) {
-            transition-delay: 80ms;
-        }
-        .blog-posts [data-animate]:nth-child(3) {
-            transition-delay: 160ms;
-        }
-        .blog-posts [data-animate]:nth-child(4) {
-            transition-delay: 240ms;
-        }
-        .blog-posts [data-animate]:nth-child(5) {
-            transition-delay: 320ms;
-        }
-        .blog-posts [data-animate]:nth-child(6) {
-            transition-delay: 400ms;
-        }
-
-        /* Staggered delays for recent posts in sidebar */
-        #recentPosts [data-animate]:nth-child(1) {
-            transition-delay: 0ms;
-        }
-        #recentPosts [data-animate]:nth-child(2) {
-            transition-delay: 60ms;
-        }
-        #recentPosts [data-animate]:nth-child(3) {
-            transition-delay: 120ms;
-        }
-        #recentPosts [data-animate]:nth-child(4) {
-            transition-delay: 180ms;
-        }
-        #recentPosts [data-animate]:nth-child(5) {
-            transition-delay: 240ms;
-        }
-        #recentPosts [data-animate]:nth-child(6) {
-            transition-delay: 300ms;
-        }
-
-        /* ===== BLOG POST CARDS ===== */
+        /* ============================================================
+           BLOG POST CARDS — NO SCROLL ANIMATIONS
+           ============================================================ */
         .blog-post-item {
-            position: relative;
             background: var(--og-card);
             border: 1px solid var(--og-line);
             border-radius: 18px;
             overflow: hidden;
-            transition: border-color .35s ease, box-shadow .35s ease, transform .35s var(--ease, cubic-bezier(.16, .84, .44, 1));
+            transition: border-color .35s ease, box-shadow .35s ease, transform .35s cubic-bezier(.16, .84, .44, 1);
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .blog-post-item:hover,
-        .blog-post-item.in-view-hover {
+        .blog-post-item:hover {
             border-color: transparent;
             box-shadow: var(--og-shadow);
             transform: translateY(-6px);
@@ -450,8 +406,7 @@
             filter: saturate(.96);
         }
 
-        .blog-post-item:hover .post-image-wrap .post-image,
-        .blog-post-item.in-view-hover .post-image-wrap .post-image {
+        .blog-post-item:hover .post-image-wrap .post-image {
             transform: scale(1.04) rotate(0.3deg);
             filter: saturate(1.05);
         }
@@ -466,8 +421,7 @@
             pointer-events: none;
         }
 
-        .blog-post-item:hover .post-image-wrap::after,
-        .blog-post-item.in-view-hover .post-image-wrap::after {
+        .blog-post-item:hover .post-image-wrap::after {
             opacity: 1;
         }
 
@@ -494,8 +448,7 @@
             stroke: var(--og-ink);
         }
 
-        .blog-post-item:hover .post-cta-arrow,
-        .blog-post-item.in-view-hover .post-cta-arrow {
+        .blog-post-item:hover .post-cta-arrow {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
@@ -521,8 +474,7 @@
             padding-bottom: 2px;
         }
 
-        .blog-post-item:hover .post-title,
-        .blog-post-item.in-view-hover .post-title {
+        .blog-post-item:hover .post-title {
             background-size: 100% 2px;
         }
 
@@ -579,8 +531,7 @@
             transition: opacity .35s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
         }
 
-        .blog-post-item:hover .post-author .avatar::before,
-        .blog-post-item.in-view-hover .post-author .avatar::before {
+        .blog-post-item:hover .post-author .avatar::before {
             opacity: 1;
             transform: scale(1);
         }
@@ -591,7 +542,9 @@
             color: var(--og-line);
         }
 
-        /* ===== SIDEBAR ===== */
+        /* ============================================================
+           SIDEBAR
+           ============================================================ */
         .sidebar-card {
             background: var(--og-card);
             border: 1px solid var(--og-line);
@@ -627,13 +580,12 @@
             margin: 0 -8px;
             border-radius: 12px;
             text-decoration: none;
-            transition: background .25s ease, transform .3s var(--ease, cubic-bezier(.16, .84, .44, 1));
+            transition: background .25s ease, transform .3s cubic-bezier(.16, .84, .44, 1);
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        #recentPosts .recent-item:hover,
-        #recentPosts .recent-item.in-view-hover {
+        #recentPosts .recent-item:hover {
             background: var(--og-bg);
             transform: translateX(4px);
         }
@@ -647,8 +599,7 @@
             transition: transform .4s cubic-bezier(.2, .7, .2, 1);
         }
 
-        #recentPosts .recent-item:hover .recent-img,
-        #recentPosts .recent-item.in-view-hover .recent-img {
+        #recentPosts .recent-item:hover .recent-img {
             transform: scale(1.08) rotate(-1.5deg);
         }
 
@@ -904,7 +855,9 @@
             color: var(--og-lime);
         }
 
-        /* ===== FAB ===== */
+        /* ============================================================
+           FAB
+           ============================================================ */
         .fab-whatsapp {
             position: fixed;
             bottom: 24px;
@@ -941,18 +894,9 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            [data-animate],
-            .blog-post-item,
-            .recent-item,
-            .post-image,
-            .post-cta-arrow,
-            .fab-whatsapp {
+            * {
                 transition: none !important;
                 animation: none !important;
-            }
-            [data-animate] {
-                opacity: 1 !important;
-                transform: none !important;
             }
         }
     </style>
@@ -988,12 +932,12 @@
         <!-- ===== BLOG HERO ===== -->
         <section class="blog-hero">
             <div class="hero-glow"></div>
-            <div class="blog-hero-content" data-animate="bottom">
+            <div class="blog-hero-content">
                 <div class="hero-text">
                     <h1><span>Blogs</span></h1>
                     <p class="sub">Expert perspectives on trends, innovations, and industry dynamics</p>
                 </div>
-                <div class="hero-notes" data-animate="top">
+                <div class="hero-notes">
                     <div class="notes-row" aria-hidden="true">
                         <div class="note"><span>B</span></div>
                         <div class="note"><span>L</span></div>
@@ -1002,7 +946,7 @@
                         <div class="note"><span>S</span></div>
                     </div>
                 </div>
-                <div class="hero-footer" data-animate="bottom">
+                <div class="hero-footer">
                     <span class="brand-signature">— <span>OrbitGrow</span> —</span>
                 </div>
             </div>
@@ -1025,13 +969,13 @@
 
                     <!-- RIGHT: Sidebar -->
                     <aside class="blog-sidebar">
-                        <div class="sidebar-card" data-animate="right">
+                        <div class="sidebar-card">
                             <h3><span class="lime-dot"></span> Recent Posts</h3>
                             <div id="recentPosts">
                                 <!-- Rendered by JavaScript -->
                             </div>
                         </div>
-                        <div class="sidebar-cta" data-animate="bottom">
+                        <div class="sidebar-cta">
                             <h4>Grow with OrbitGrow</h4>
                             <p>From web development to full‑funnel ad management — see how we can help.</p>
                             <a href="services.html" class="btn-cta-side">Explore Services</a>
@@ -1045,7 +989,7 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="site-footer" id="contact" data-animate="bottom">
+    <footer class="site-footer" id="contact">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="f-brand">
@@ -1145,19 +1089,16 @@
 
             const arrowSvg = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>`;
 
-            const directions = ['left', 'right', 'bottom'];
-
             // ===== RENDER BLOG POSTS =====
             const blogContainer = document.getElementById('blogPosts');
             if (blogContainer) {
                 if (posts.length === 0) {
                     blogContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--og-ink-soft);">No blog posts available.</p>';
                 } else {
-                    blogContainer.innerHTML = posts.map((post, i) => {
+                    blogContainer.innerHTML = posts.map((post) => {
                         const imageUrl = post.image ? post.image : `https://picsum.photos/seed/${post.slug}/600/340`;
-                        const dir = directions[i % directions.length];
                         return `
-                            <article class="blog-post-item" data-animate="${dir}">
+                            <article class="blog-post-item">
                                 <a href="blog-post.html?slug=${post.slug}">
                                     <div class="post-image-wrap">
                                         <img class="post-image" src="${imageUrl}" alt="${post.title}" loading="lazy" />
@@ -1189,11 +1130,10 @@
                 if (recentPosts.length === 0) {
                     recentContainer.innerHTML = '<p style="color:var(--og-ink-soft);font-size:14px;">No recent posts.</p>';
                 } else {
-                    recentContainer.innerHTML = recentPosts.map((post, i) => {
+                    recentContainer.innerHTML = recentPosts.map((post) => {
                         const thumbUrl = post.thumbnail ? post.thumbnail : (post.image ? post.image : `https://picsum.photos/seed/${post.slug}/150/150`);
-                        const dir = directions[i % directions.length];
                         return `
-                            <a href="blog-post.html?slug=${post.slug}" class="recent-item" data-animate="${dir}">
+                            <a href="blog-post.html?slug=${post.slug}" class="recent-item">
                                 <img class="recent-img" src="${thumbUrl}" alt="${post.title}" loading="lazy" />
                                 <div class="recent-info">
                                     <span class="recent-date">${post.date}</span>
@@ -1206,66 +1146,6 @@
             }
 
             // ============================================================
-            // DIRECTIONAL SCROLL ANIMATIONS
-            // ============================================================
-            (function() {
-                const animEls = document.querySelectorAll('[data-animate]');
-                const animObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in-view');
-                            animObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-                animEls.forEach(el => animObserver.observe(el));
-            })();
-
-            // ============================================================
-            // SCROLL-TRIGGERED HOVER — for blog posts and recent items
-            // ============================================================
-            (function() {
-                const hoverElements = document.querySelectorAll('.blog-post-item, #recentPosts .recent-item');
-
-                const hoverObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('in-view-hover');
-                        } else {
-                            entry.target.classList.remove('in-view-hover');
-                        }
-                    });
-                }, {
-                    threshold: 0.20,
-                    rootMargin: '0px 0px -20px 0px'
-                });
-
-                hoverElements.forEach(el => hoverObserver.observe(el));
-
-                // Touch fallback
-                const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-                if (isTouchDevice) {
-                    hoverElements.forEach(el => {
-                        el.addEventListener('touchstart', function(e) {
-                            const parent = this.closest('.blog-posts, #recentPosts');
-                            if (parent) {
-                                parent.querySelectorAll('.touch-active').forEach(sibling => {
-                                    if (sibling !== this) sibling.classList.remove('touch-active');
-                                });
-                            }
-                            this.classList.add('touch-active');
-                        }, { passive: true });
-                        el.addEventListener('touchend', function(e) {
-                            this.classList.remove('touch-active');
-                        }, { passive: true });
-                        el.addEventListener('touchcancel', function(e) {
-                            this.classList.remove('touch-active');
-                        }, { passive: true });
-                    });
-                }
-            })();
-
-            // ============================================================
             // HEADER SCROLL
             // ============================================================
             const header = document.getElementById('siteHeader');
@@ -1274,19 +1154,34 @@
             });
 
             // ============================================================
-            // MOBILE NAV
+            // MOBILE NAV — FIXED TOGGLE
             // ============================================================
             const navToggle = document.getElementById('navToggle');
             const navLinks = document.getElementById('navLinks');
+
             if (navToggle && navLinks) {
-                navToggle.addEventListener('click', () => {
-                    navToggle.classList.toggle('open');
+                // Toggle menu on button click
+                navToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
                     navLinks.classList.toggle('open');
                 });
-                navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-                    navToggle.classList.remove('open');
-                    navLinks.classList.remove('open');
-                }));
+
+                // Close menu when a link is clicked
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navToggle.classList.remove('open');
+                        navLinks.classList.remove('open');
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                        navToggle.classList.remove('open');
+                        navLinks.classList.remove('open');
+                    }
+                });
             }
 
             // ============================================================
