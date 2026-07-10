@@ -44,7 +44,7 @@
         }
 
         /* ============================================================
-           HEADER — FIXED WITH MOBILE TOGGLE
+           HEADER — FIXED WITH MOBILE TOGGLE (NO OVERLAP)
            ============================================================ */
         .site-header {
             position: fixed;
@@ -82,6 +82,7 @@
             color: var(--og-ink);
             text-decoration: none;
             flex-shrink: 0;
+            z-index: 1001;
         }
 
         .logo-img {
@@ -130,6 +131,7 @@
         .nav-right {
             display: flex;
             align-items: center;
+            z-index: 1001;
         }
 
         .nav-toggle {
@@ -140,7 +142,8 @@
             border: none;
             padding: 8px;
             cursor: pointer;
-            z-index: 1001;
+            position: relative;
+            z-index: 1002;
         }
 
         .nav-toggle span {
@@ -150,6 +153,7 @@
             background: var(--og-ink);
             transition: .3s ease;
             border-radius: 2px;
+            transform-origin: center;
         }
 
         .nav-toggle.open span:nth-child(1) {
@@ -157,37 +161,85 @@
         }
         .nav-toggle.open span:nth-child(2) {
             opacity: 0;
+            transform: scaleX(0);
         }
         .nav-toggle.open span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
+        /* Hard override — beats any conflicting/legacy .nav-toggle rule that may
+           exist in the shared style.css (ID specificity always wins over class),
+           so only ONE clean 3-line icon can ever render here. */
+        #navToggle,
+        #navToggle::before,
+        #navToggle::after {
+            content: none !important;
+        }
+        #navToggle {
+            background: none !important;
+            background-image: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+        }
+        #navToggle::before,
+        #navToggle::after {
+            display: none !important;
+        }
+        #navToggle span {
+            background: var(--og-ink) !important;
+        }
+
+        /* ===== MOBILE NAV ===== */
         @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex;
+            .nav-toggle,
+            #navToggle {
+                display: flex !important;
             }
 
             .nav-links {
                 position: absolute;
-                top: 100%;
+                top: calc(100% + 12px);
                 left: 0;
                 right: 0;
                 background: var(--og-card);
                 flex-direction: column;
-                padding: 20px 24px;
-                gap: 16px;
-                border-bottom: 1px solid var(--og-line);
+                padding: 24px 24px 28px;
+                gap: 14px;
+                border-radius: 0 0 20px 20px;
+                border: 1px solid var(--og-line);
+                border-top: none;
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-10px) scaleY(0.95);
                 pointer-events: none;
-                transition: opacity .3s ease, transform .3s ease;
-                box-shadow: 0 12px 28px -8px rgba(20, 23, 26, .1);
+                transition: opacity .35s cubic-bezier(.16, .84, .44, 1),
+                    transform .35s cubic-bezier(.16, .84, .44, 1);
+                box-shadow: 0 16px 40px -12px rgba(20, 23, 26, .18);
+                z-index: 999;
+                transform-origin: top center;
             }
 
             .nav-links.open {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scaleY(1);
                 pointer-events: all;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+                padding: 10px 0;
+                width: 100%;
+                border-bottom: 1px solid var(--og-line);
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a.active::after {
+                bottom: 6px;
             }
         }
 
@@ -250,30 +302,34 @@
             font-weight: 400;
         }
 
+        /* ===== STICKY NOTES — LIME BG + INDIGO TEXT ===== */
         .hero-notes .notes-row {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
         .hero-notes .note {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, .06);
-            border: 1px solid rgba(255, 255, 255, .08);
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: var(--og-lime, #C6FF3D);
+            border: 2px solid rgba(198, 255, 61, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, .5);
-            transition: all .3s ease;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1B1356;
+            transition: all .3s cubic-bezier(.16, .84, .44, 1);
+            box-shadow: 0 4px 16px rgba(198, 255, 61, .25);
+            cursor: pointer;
         }
         .hero-notes .note:hover {
-            background: var(--og-lime);
-            color: var(--og-ink);
-            transform: translateY(-4px);
-            border-color: var(--og-lime);
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 8px 32px rgba(198, 255, 61, .45);
+            background: #fff;
+            border-color: #fff;
+            color: #1B1356;
         }
 
         .hero-footer {
@@ -309,21 +365,28 @@
                 grid-template-columns: 1fr;
                 gap: 24px;
                 text-align: center;
+                padding: 0 16px;
             }
             .hero-notes .notes-row {
                 justify-content: center;
+                gap: 8px;
             }
             .hero-notes .note {
-                width: 40px;
-                height: 40px;
-                font-size: 17px;
+                width: 44px;
+                height: 44px;
+                font-size: 19px;
+                border-radius: 12px;
             }
             .blog-hero {
                 padding: 120px 0 60px;
-                min-height: 340px;
+                min-height: 320px;
             }
             .hero-text .sub {
                 margin: 0 auto;
+                font-size: 16px;
+            }
+            .hero-text h1 {
+                font-size: clamp(32px, 8vw, 42px);
             }
         }
 
@@ -358,6 +421,7 @@
         @media (max-width: 760px) {
             #blogPosts.blog-posts {
                 grid-template-columns: 1fr;
+                gap: 24px;
             }
         }
 
@@ -910,13 +974,6 @@
                 <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
                 <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
             </a>
-            <nav class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="blog.html" class="active">Blog</a>
-            </nav>
             <div class="nav-right">
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
                     <span></span>
@@ -924,6 +981,13 @@
                     <span></span>
                 </button>
             </div>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blog.html" class="active">Blog</a>
+            </nav>
         </div>
     </header>
 
@@ -1154,7 +1218,7 @@
             });
 
             // ============================================================
-            // MOBILE NAV — FIXED TOGGLE
+            // MOBILE NAV — ONE TOGGLE, NO OVERLAP
             // ============================================================
             const navToggle = document.getElementById('navToggle');
             const navLinks = document.getElementById('navLinks');
