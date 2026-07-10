@@ -409,7 +409,9 @@
             }
         }
 
-        /* ===== SCROLL ANIMATIONS ===== */
+        /* ============================================================
+           SCROLL ANIMATIONS (directional)
+           ============================================================ */
         [data-animate] {
             opacity: 0;
             transition: opacity 0.9s cubic-bezier(.16,.84,.44,1),
@@ -426,20 +428,161 @@
         }
 
         .service-card[data-animate] { transition-delay: calc(var(--stagger-i, 0) * 100ms); }
+
+        /* ============================================================
+           CARD HOVER — Desktop + scroll-triggered on mobile
+           ============================================================ */
+        .service-card {
+            transition: border-color .3s, box-shadow .3s, transform .3s var(--ease);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            border: 1px solid rgba(0,0,0,0.06);
+            background: #fff;
+        }
+        .service-card:hover,
+        .service-card.in-view-hover {
+            border-color: var(--lime);
+            box-shadow: 0 8px 30px -12px rgba(203,255,79,.25);
+            transform: translateY(-6px);
+        }
+
+        .why-item-2 {
+            transition: border-color .3s, box-shadow .3s, transform .3s var(--ease);
+            border: 1px solid rgba(0,0,0,0.06);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .why-item-2:hover,
+        .why-item-2.in-view-hover {
+            border-color: var(--lime);
+            box-shadow: 0 8px 30px -12px rgba(203,255,79,.2);
+            transform: translateY(-4px);
+        }
+
+        .process-step {
+            transition: border-color .3s, box-shadow .3s, transform .3s var(--ease);
+            border: 1px solid rgba(0,0,0,0.06);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .process-step:hover,
+        .process-step.in-view-hover {
+            border-color: var(--lime);
+            box-shadow: 0 8px 30px -12px rgba(203,255,79,.2);
+            transform: translateY(-4px);
+        }
+
+        .brand-item {
+            transition: transform .3s var(--ease);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .brand-item:hover,
+        .brand-item.in-view-hover {
+            transform: translateY(-4px);
+        }
+
+        /* ============================================================
+           FOOTER — Mobile overrides (Company + Contact side by side)
+           ============================================================ */
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+            .f-brand {
+                grid-column: 1 / -1;
+            }
+            .f-col:nth-child(2) {
+                display: none;
+            }
+            .f-col:nth-child(3) {
+                grid-column: 1 / 2;
+                padding-right: 8px;
+            }
+            .f-col:nth-child(4) {
+                grid-column: 2 / 3;
+                padding-left: 12px;
+                border-left: 1px solid rgba(255,255,255,0.08);
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 6px;
+                font-size: 13px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 16px;
+                height: 16px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .f-col h5 {
+                font-size: 11px;
+            }
+            .f-col ul li {
+                font-size: 13px;
+            }
+            .f-brand p {
+                font-size: 13px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                gap: 24px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 4px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 8px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 4px;
+                font-size: 12px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .footer-grid {
+                gap: 16px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 2px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 6px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 3px;
+                font-size: 11px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ===== HEADER with CLEAN URLs ===== -->
+    <!-- ===== HEADER ===== -->
     <header class="site-header" id="siteHeader">
         <div class="wrap nav-wrap">
-            <a href="/" class="logo" id="brandLogo">
+            <a href="index.html" class="logo" id="brandLogo">
                 <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
                 <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
             </a>
             <nav class="nav-links" id="navLinks">
                 <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
+                <a href="services.html" class="active">Services</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
                 <a href="blog.html">Blog</a>
@@ -456,7 +599,7 @@
         <section class="services-hero" id="hero">
             <div class="hero-glow"></div>
             <div class="hero-glow-left"></div>
-            <div class="services-hero-content">
+            <div class="services-hero-content" data-animate="bottom">
                 <h1>
                     <span class="heading-row">Services That Drive</span>
                     <span class="typing-wrapper">
@@ -466,11 +609,11 @@
                 </h1>
                 <p class="sub">From brand strategy to paid ads and web development — we offer end-to-end digital solutions designed to turn your marketing into measurable revenue.</p>
                 <div class="btn-group">
-                    <a href="/contact" class="btn-primary">Get a Free Consultation</a>
+                    <a href="contact.html" class="btn-primary">Get a Free Consultation</a>
                     <a href="#services-grid" class="btn-outline">Explore Services</a>
                 </div>
             </div>
-            <div class="hero-pills-row">
+            <div class="hero-pills-row" data-animate="top">
                 <span class="hero-pill">Social Media</span>
                 <span class="hero-pill">Meta & Google Ads</span>
                 <span class="hero-pill">SEO</span>
@@ -486,29 +629,29 @@
         <!-- ===== WHY CHOOSE US ===== -->
         <section class="why-section" id="why" data-animate="left">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head" data-animate="top">
                     <span class="eyebrow">Why Choose Us</span>
                     <h2 class="h-lg">Built for <span style="color:var(--violet);">Performance</span></h2>
                     <p>We combine strategy, creativity, and technology to deliver marketing that's measured by revenue — not vanity metrics.</p>
                 </div>
 
-                <div class="why-grid-2 stagger-left" id="whyGrid">
-                    <div class="why-item-2">
+                <div class="why-grid-2 stagger-children" id="whyGrid">
+                    <div class="why-item-2" data-animate="left">
                         <div class="w-icon-2"><svg viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></div>
                         <h4>Data-Driven Strategy</h4>
                         <p>Every decision backed by performance data, not assumptions.</p>
                     </div>
-                    <div class="why-item-2">
+                    <div class="why-item-2" data-animate="right">
                         <div class="w-icon-2"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
                         <h4>In-House Team</h4>
                         <p>Strategy, creative and development under one roof — no delays.</p>
                     </div>
-                    <div class="why-item-2">
+                    <div class="why-item-2" data-animate="bottom">
                         <div class="w-icon-2"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
                         <h4>Transparent Reporting</h4>
                         <p>Live dashboards, not month-end PDFs you have to chase.</p>
                     </div>
-                    <div class="why-item-2">
+                    <div class="why-item-2" data-animate="left">
                         <div class="w-icon-2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
                         <h4>ROI-First Mindset</h4>
                         <p>We grow when your revenue grows — that's the only metric that matters.</p>
@@ -517,19 +660,19 @@
 
                 <!-- COUNTERS -->
                 <div class="why-counters">
-                    <div class="counter-item reveal">
+                    <div class="counter-item" data-animate="bottom">
                         <div class="counter-number"><span class="num" data-count="20">0</span><span class="suffix">+</span></div>
                         <div class="counter-label">Brands Served</div>
                     </div>
-                    <div class="counter-item reveal">
+                    <div class="counter-item" data-animate="bottom">
                         <div class="counter-number"><span class="num" data-count="150">0</span><span class="suffix">+</span></div>
                         <div class="counter-label">Campaigns Launched</div>
                     </div>
-                    <div class="counter-item reveal">
+                    <div class="counter-item" data-animate="bottom">
                         <div class="counter-number"><span class="num" data-count="120">0</span><span class="suffix">+</span></div>
                         <div class="counter-label">Projects Completed</div>
                     </div>
-                    <div class="counter-item reveal">
+                    <div class="counter-item" data-animate="bottom">
                         <div class="counter-number"><span class="num" data-count="2.3">0</span><span class="suffix">x</span></div>
                         <div class="counter-label">Average ROAS</div>
                     </div>
@@ -540,7 +683,7 @@
         <!-- ===== SERVICES GRID ===== -->
         <section class="services-grid-section" id="services-grid" data-animate="right">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head" data-animate="top">
                     <span class="eyebrow">Our Services</span>
                     <h2 class="h-lg">Full-Suite Digital<br>Growth Solutions</h2>
                     <p>Click on any service to learn more about how we can help your business grow.</p>
@@ -552,32 +695,32 @@
         <!-- ===== PROCESS SECTION ===== -->
         <section class="process-section" id="process" data-animate="bottom">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head" data-animate="top">
                     <span class="eyebrow">Our Process Model</span>
                     <h2 class="h-lg">How We Deliver Results</h2>
                     <p>A visual roadmap of our proven methodology — from discovery to optimisation, every step is designed to maximise your ROI.</p>
                 </div>
                 <div class="process-model">
-                    <div class="process-steps-row stagger-left" id="processSteps">
-                        <div class="process-step">
+                    <div class="process-steps-row stagger-children" id="processSteps">
+                        <div class="process-step" data-animate="left">
                             <div class="step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
                             <span class="step-number">STEP 01</span>
                             <h4>Discovery &amp; Audit</h4>
                             <p>We dive deep into your brand, audience, funnel and competitors. No assumptions — just data-driven insights to uncover the biggest opportunities.</p>
                         </div>
-                        <div class="process-step">
+                        <div class="process-step" data-animate="right">
                             <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
                             <span class="step-number">STEP 02</span>
                             <h4>Strategic Planning</h4>
                             <p>We build a channel plan, budget allocation and creative direction tailored to your revenue goals — not generic templates.</p>
                         </div>
-                        <div class="process-step">
+                        <div class="process-step" data-animate="bottom">
                             <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                             <span class="step-number">STEP 03</span>
                             <h4>Execution &amp; Launch</h4>
                             <p>Campaigns go live, content is published, and your website is built or optimised. We move fast without sacrificing quality.</p>
                         </div>
-                        <div class="process-step">
+                        <div class="process-step" data-animate="left">
                             <div class="step-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
                             <span class="step-number">STEP 04</span>
                             <h4>Optimisation &amp; Reporting</h4>
@@ -591,14 +734,12 @@
         <!-- ===== BRANDS SECTION ===== -->
         <section class="brands-section" id="brands" data-animate="left">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head" data-animate="top">
                     <span class="eyebrow" style="justify-content:center;">Trusted By</span>
                     <h2>Brands That <span>Trust Us</span></h2>
                     <p>We partner with leading businesses across Pakistan and Saudi Arabia to build digital presence and drive revenue.</p>
                 </div>
-                <div class="brands-grid reveal" id="brandsGrid">
-                    <!-- Rendered by JavaScript -->
-                </div>
+                <div class="brands-grid stagger-children" id="brandsGrid"></div>
             </div>
         </section>
 
@@ -606,11 +747,11 @@
         <section class="cta-section" data-animate="bottom">
             <div class="cta-glow"></div>
             <div class="cta-glow-2"></div>
-            <div class="cta-content">
+            <div class="cta-content" data-animate="bottom">
                 <span class="eyebrow on-dark" style="justify-content:center;">Ready to Grow?</span>
                 <h2>Let's Build Your <span>Digital Growth</span> Engine</h2>
                 <p>Book a free, no-obligation consultation with our strategy team. We'll audit your current marketing and show you exactly where the opportunities are.</p>
-                <a href="/contact" class="btn-cta">Get Free Consultation</a>
+                <a href="contact.html" class="btn-cta">Get Free Consultation</a>
             </div>
         </section>
 
@@ -638,12 +779,12 @@
         </div>
     </div>
 
-    <!-- ===== FOOTER with CLEAN URLs ===== -->
-    <footer class="site-footer" id="contact">
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer" id="contact" data-animate="bottom">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="f-brand">
-                    <a href="/" class="logo footer-logo">
+                    <a href="index.html" class="logo footer-logo">
                         <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
                         <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
                     </a>
@@ -667,23 +808,23 @@
                 <div class="f-col">
                     <h5>Services</h5>
                     <ul>
-                        <li><a href="/services#services-grid">Branding</a></li>
-                        <li><a href="/services#services-grid">Social Media Marketing</a></li>
-                        <li><a href="/services#services-grid">Meta and Google Ads</a></li>
-                        <li><a href="/services#services-grid">Lead Generation</a></li>
-                        <li><a href="/services#services-grid">SEO</a></li>
-                        <li><a href="/services#services-grid">Web Development</a></li>
+                        <li><a href="services.html#services-grid">Branding</a></li>
+                        <li><a href="services.html#services-grid">Social Media Marketing</a></li>
+                        <li><a href="services.html#services-grid">Meta and Google Ads</a></li>
+                        <li><a href="services.html#services-grid">Lead Generation</a></li>
+                        <li><a href="services.html#services-grid">SEO</a></li>
+                        <li><a href="services.html#services-grid">Web Development</a></li>
                     </ul>
                 </div>
 
                 <div class="f-col">
                     <h5>Company</h5>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/services">Services</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
 
@@ -804,10 +945,12 @@
             const shuffled = [...brandNames].sort(() => 0.5 - Math.random());
             const selected = shuffled.slice(0, 6);
 
-            container.innerHTML = selected.map(name => {
+            const directions = ['left', 'right', 'bottom'];
+
+            container.innerHTML = selected.map((name, i) => {
                 const seed = name.toLowerCase().replace(/\s/g, '');
                 return `
-                        <div class="brand-item">
+                        <div class="brand-item" data-animate="${directions[i % directions.length]}">
                             <div class="brand-logo">
                                 <img src="https://picsum.photos/seed/${seed}/120/60" alt="${name}" class="brand-logo-img" loading="lazy" />
                             </div>
@@ -815,10 +958,13 @@
                         </div>
                     `;
             }).join('');
+
+            // Re-run scroll animations for brand items
+            if (window.__initScrollAnimations) window.__initScrollAnimations();
         })();
 
         // ============================================================
-        // SERVICE DATA
+        // SERVICE DATA (same as before, kept for reference)
         // ============================================================
         const serviceData = {
             branding: {
@@ -1219,7 +1365,7 @@
                                 <div class="dh-icon">${data.icon}</div>
                                 <h1><span class="highlight">${data.name}</span></h1>
                                 <p class="dh-tagline">${data.tagline}</p>
-                                <button class="dh-cta" onclick="window.location.href='/contact'">
+                                <button class="dh-cta" onclick="window.location.href='contact.html'">
                                     Get Free Consultation
                                     <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                                 </button>
@@ -1277,7 +1423,7 @@
                         <span class="ds-eyebrow" style="color:var(--lime);">Get Started Today</span>
                         <h2>Ready to Get Started with <span class="highlight">${data.name}</span>?</h2>
                         <p>Book a free, no-obligation consultation with our strategy team. We'll audit your current marketing and show you exactly where the opportunities are.</p>
-                        <a href="/contact" class="btn-cta-detail" onclick="closeDetail()">Get Free Consultation</a>
+                        <a href="contact.html" class="btn-cta-detail" onclick="closeDetail()">Get Free Consultation</a>
                     </div>
                 `;
 
@@ -1452,30 +1598,49 @@
         })();
 
         // ============================================================
-        // SCROLL ANIMATIONS
+        // SCROLL-TRIGGERED HOVER — for service cards, why items, process steps, brands
         // ============================================================
         (function() {
-            const staggerEls = document.querySelectorAll('.stagger-children, .stagger-left');
-            const staggerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        staggerObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15 });
-            staggerEls.forEach(el => staggerObserver.observe(el));
+            const hoverElements = document.querySelectorAll(
+                '.service-card, .why-item-2, .process-step, .brand-item'
+            );
 
-            const revealEls = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries) => {
+            const hoverObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        revealObserver.unobserve(entry.target);
+                        entry.target.classList.add('in-view-hover');
+                    } else {
+                        entry.target.classList.remove('in-view-hover');
                     }
                 });
-            }, { threshold: 0.12 });
-            revealEls.forEach(el => revealObserver.observe(el));
+            }, {
+                threshold: 0.25,
+                rootMargin: '0px 0px -20px 0px'
+            });
+
+            hoverElements.forEach(el => hoverObserver.observe(el));
+
+            // Also support touch/click for fallback
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (isTouchDevice) {
+                hoverElements.forEach(el => {
+                    el.addEventListener('touchstart', function(e) {
+                        const parent = this.closest('.services-grid, .why-grid-2, .process-steps-row, .brands-grid');
+                        if (parent) {
+                            parent.querySelectorAll('.touch-active').forEach(sibling => {
+                                if (sibling !== this) sibling.classList.remove('touch-active');
+                            });
+                        }
+                        this.classList.add('touch-active');
+                    }, { passive: true });
+                    el.addEventListener('touchend', function(e) {
+                        this.classList.remove('touch-active');
+                    }, { passive: true });
+                    el.addEventListener('touchcancel', function(e) {
+                        this.classList.remove('touch-active');
+                    }, { passive: true });
+                });
+            }
         })();
 
         // ============================================================

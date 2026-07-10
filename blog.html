@@ -146,11 +146,9 @@
         .nav-toggle.open span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
         }
-
         .nav-toggle.open span:nth-child(2) {
             opacity: 0;
         }
-
         .nav-toggle.open span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
@@ -159,7 +157,6 @@
             .nav-toggle {
                 display: flex;
             }
-
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -175,7 +172,6 @@
                 pointer-events: none;
                 transition: opacity .3s ease, transform .3s ease;
             }
-
             .nav-links.open {
                 opacity: 1;
                 transform: translateY(0);
@@ -227,14 +223,12 @@
             line-height: 1.05;
             margin-bottom: 12px;
         }
-
         .hero-text h1 span {
             background: linear-gradient(135deg, #fff 40%, var(--og-lime));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .hero-text .sub {
             font-size: 18px;
             color: rgba(255, 255, 255, .7);
@@ -246,7 +240,6 @@
             display: flex;
             gap: 8px;
         }
-
         .hero-notes .note {
             width: 52px;
             height: 52px;
@@ -262,7 +255,6 @@
             color: rgba(255, 255, 255, .5);
             transition: all .3s ease;
         }
-
         .hero-notes .note:hover {
             background: var(--og-lime);
             color: var(--og-ink);
@@ -274,7 +266,6 @@
             grid-column: 1 / -1;
             margin-top: 10px;
         }
-
         .brand-signature {
             font-family: 'Space Mono', monospace;
             font-size: 12px;
@@ -282,7 +273,6 @@
             text-transform: uppercase;
             color: rgba(255, 255, 255, .3);
         }
-
         .brand-signature span {
             color: var(--og-lime);
         }
@@ -294,7 +284,6 @@
             right: 0;
             line-height: 0;
         }
-
         .wave svg {
             width: 100%;
             height: auto;
@@ -306,17 +295,14 @@
                 grid-template-columns: 1fr;
                 gap: 24px;
             }
-
             .hero-notes .notes-row {
                 justify-content: center;
             }
-
             .hero-notes .note {
                 width: 40px;
                 height: 40px;
                 font-size: 17px;
             }
-
             .blog-hero {
                 padding: 120px 0 60px;
                 min-height: 340px;
@@ -355,25 +341,84 @@
             }
         }
 
+        /* ===== DIRECTIONAL SCROLL ANIMATIONS ===== */
+        [data-animate] {
+            opacity: 0;
+            transition: opacity 0.9s cubic-bezier(.16, .84, .44, 1),
+                transform 0.9s cubic-bezier(.16, .84, .44, 1);
+            will-change: transform, opacity;
+        }
+        [data-animate="left"] {
+            transform: translateX(-70px);
+        }
+        [data-animate="right"] {
+            transform: translateX(70px);
+        }
+        [data-animate="bottom"] {
+            transform: translateY(60px);
+        }
+        [data-animate="top"] {
+            transform: translateY(-60px);
+        }
+        [data-animate].in-view {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Staggered delays for blog posts */
+        .blog-posts [data-animate]:nth-child(1) {
+            transition-delay: 0ms;
+        }
+        .blog-posts [data-animate]:nth-child(2) {
+            transition-delay: 80ms;
+        }
+        .blog-posts [data-animate]:nth-child(3) {
+            transition-delay: 160ms;
+        }
+        .blog-posts [data-animate]:nth-child(4) {
+            transition-delay: 240ms;
+        }
+        .blog-posts [data-animate]:nth-child(5) {
+            transition-delay: 320ms;
+        }
+        .blog-posts [data-animate]:nth-child(6) {
+            transition-delay: 400ms;
+        }
+
+        /* Staggered delays for recent posts in sidebar */
+        #recentPosts [data-animate]:nth-child(1) {
+            transition-delay: 0ms;
+        }
+        #recentPosts [data-animate]:nth-child(2) {
+            transition-delay: 60ms;
+        }
+        #recentPosts [data-animate]:nth-child(3) {
+            transition-delay: 120ms;
+        }
+        #recentPosts [data-animate]:nth-child(4) {
+            transition-delay: 180ms;
+        }
+        #recentPosts [data-animate]:nth-child(5) {
+            transition-delay: 240ms;
+        }
+        #recentPosts [data-animate]:nth-child(6) {
+            transition-delay: 300ms;
+        }
+
+        /* ===== BLOG POST CARDS ===== */
         .blog-post-item {
             position: relative;
             background: var(--og-card);
             border: 1px solid var(--og-line);
             border-radius: 18px;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity .6s cubic-bezier(.2, .7, .2, 1), transform .6s cubic-bezier(.2, .7, .2, 1),
-                box-shadow .35s ease, border-color .35s ease;
-            transition-delay: calc(var(--i, 0) * 70ms);
+            transition: border-color .35s ease, box-shadow .35s ease, transform .35s var(--ease, cubic-bezier(.16, .84, .44, 1));
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .blog-post-item.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .blog-post-item:hover {
+        .blog-post-item:hover,
+        .blog-post-item.in-view-hover {
             border-color: transparent;
             box-shadow: var(--og-shadow);
             transform: translateY(-6px);
@@ -405,7 +450,8 @@
             filter: saturate(.96);
         }
 
-        .blog-post-item:hover .post-image-wrap .post-image {
+        .blog-post-item:hover .post-image-wrap .post-image,
+        .blog-post-item.in-view-hover .post-image-wrap .post-image {
             transform: scale(1.04) rotate(0.3deg);
             filter: saturate(1.05);
         }
@@ -420,7 +466,8 @@
             pointer-events: none;
         }
 
-        .blog-post-item:hover .post-image-wrap::after {
+        .blog-post-item:hover .post-image-wrap::after,
+        .blog-post-item.in-view-hover .post-image-wrap::after {
             opacity: 1;
         }
 
@@ -447,7 +494,8 @@
             stroke: var(--og-ink);
         }
 
-        .blog-post-item:hover .post-cta-arrow {
+        .blog-post-item:hover .post-cta-arrow,
+        .blog-post-item.in-view-hover .post-cta-arrow {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
@@ -473,7 +521,8 @@
             padding-bottom: 2px;
         }
 
-        .blog-post-item:hover .post-title {
+        .blog-post-item:hover .post-title,
+        .blog-post-item.in-view-hover .post-title {
             background-size: 100% 2px;
         }
 
@@ -530,7 +579,8 @@
             transition: opacity .35s ease, transform .35s cubic-bezier(.2, .7, .2, 1);
         }
 
-        .blog-post-item:hover .post-author .avatar::before {
+        .blog-post-item:hover .post-author .avatar::before,
+        .blog-post-item.in-view-hover .post-author .avatar::before {
             opacity: 1;
             transform: scale(1);
         }
@@ -577,19 +627,15 @@
             margin: 0 -8px;
             border-radius: 12px;
             text-decoration: none;
-            opacity: 0;
-            transform: translateX(14px);
-            transition: opacity .5s ease, transform .5s cubic-bezier(.2, .7, .2, 1), background .25s ease;
-            transition-delay: calc(var(--i, 0) * 60ms);
+            transition: background .25s ease, transform .3s var(--ease, cubic-bezier(.16, .84, .44, 1));
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        #recentPosts .recent-item.is-visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        #recentPosts .recent-item:hover {
+        #recentPosts .recent-item:hover,
+        #recentPosts .recent-item.in-view-hover {
             background: var(--og-bg);
+            transform: translateX(4px);
         }
 
         #recentPosts .recent-img {
@@ -601,7 +647,8 @@
             transition: transform .4s cubic-bezier(.2, .7, .2, 1);
         }
 
-        #recentPosts .recent-item:hover .recent-img {
+        #recentPosts .recent-item:hover .recent-img,
+        #recentPosts .recent-item.in-view-hover .recent-img {
             transform: scale(1.08) rotate(-1.5deg);
         }
 
@@ -669,7 +716,9 @@
             transform: translateY(-2px);
         }
 
-        /* ===== FOOTER ===== */
+        /* ============================================================
+           FOOTER — Mobile overrides (Company + Contact side by side)
+           ============================================================ */
         .site-footer {
             background: #0A0824;
             color: rgba(255, 255, 255, .7);
@@ -688,27 +737,98 @@
         @media (max-width: 768px) {
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 30px;
+                gap: 32px;
+            }
+            .f-brand {
+                grid-column: 1 / -1;
+            }
+            .f-col:nth-child(2) {
+                display: none;
+            }
+            .f-col:nth-child(3) {
+                grid-column: 1 / 2;
+                padding-right: 8px;
+            }
+            .f-col:nth-child(4) {
+                grid-column: 2 / 3;
+                padding-left: 12px;
+                border-left: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 6px;
+                font-size: 13px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 16px;
+                height: 16px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .f-col h5 {
+                font-size: 11px;
+            }
+            .f-col ul li {
+                font-size: 13px;
+            }
+            .f-brand p {
+                font-size: 13px;
+                max-width: 100%;
             }
         }
 
         @media (max-width: 480px) {
             .footer-grid {
-                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 4px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 8px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 4px;
+                font-size: 12px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 14px;
+                height: 14px;
             }
         }
 
+        @media (max-width: 380px) {
+            .footer-grid {
+                gap: 16px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 2px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 6px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 3px;
+                font-size: 11px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        /* ===== FOOTER BASE STYLES ===== */
         .f-brand p {
             font-size: 14px;
             max-width: 280px;
             margin-bottom: 20px;
         }
-
         .f-social {
             display: flex;
             gap: 8px;
         }
-
         .f-social a {
             width: 36px;
             height: 36px;
@@ -720,17 +840,14 @@
             transition: background .3s, border-color .3s;
             color: rgba(255, 255, 255, .7);
         }
-
         .f-social a:hover {
             background: rgba(198, 255, 61, .12);
             border-color: var(--og-lime);
         }
-
         .f-social a svg {
             width: 15px;
             height: 15px;
         }
-
         .f-col h5 {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
@@ -739,33 +856,27 @@
             color: rgba(255, 255, 255, .4);
             margin-bottom: 16px;
         }
-
         .f-col ul {
             list-style: none;
             padding: 0;
         }
-
         .f-col ul li {
             margin-bottom: 11px;
             font-size: 14px;
         }
-
         .f-col ul li a {
             color: inherit;
             text-decoration: none;
             transition: color .25s ease;
         }
-
         .f-col ul li a:hover {
             color: var(--og-lime);
         }
-
         .f-contact li {
             display: flex;
             gap: 10px;
             align-items: flex-start;
         }
-
         .f-contact li svg {
             width: 15px;
             height: 15px;
@@ -773,7 +884,6 @@
             flex-shrink: 0;
             margin-top: 2px;
         }
-
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, .08);
             padding: 22px 0;
@@ -784,14 +894,12 @@
             gap: 10px;
             font-size: 12.5px;
         }
-
         .footer-bottom a {
             color: rgba(255, 255, 255, .5);
             text-decoration: none;
             margin-left: 16px;
             transition: color .25s ease;
         }
-
         .footer-bottom a:hover {
             color: var(--og-lime);
         }
@@ -814,24 +922,26 @@
             animation: fabPulse 2.4s infinite;
             text-decoration: none;
         }
-
         .fab-whatsapp:hover {
             transform: scale(1.08);
         }
-
         .fab-whatsapp svg {
             width: 25px;
             height: 25px;
             stroke: #fff;
             fill: none;
         }
-
         @keyframes fabPulse {
-            0%, 100% { box-shadow: 0 12px 28px -10px rgba(37, 211, 102, .5); }
-            50% { box-shadow: 0 12px 28px -6px rgba(37, 211, 102, .75); }
+            0%, 100% {
+                box-shadow: 0 12px 28px -10px rgba(37, 211, 102, .5);
+            }
+            50% {
+                box-shadow: 0 12px 28px -6px rgba(37, 211, 102, .75);
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
+            [data-animate],
             .blog-post-item,
             .recent-item,
             .post-image,
@@ -839,6 +949,10 @@
             .fab-whatsapp {
                 transition: none !important;
                 animation: none !important;
+            }
+            [data-animate] {
+                opacity: 1 !important;
+                transform: none !important;
             }
         }
     </style>
@@ -874,12 +988,12 @@
         <!-- ===== BLOG HERO ===== -->
         <section class="blog-hero">
             <div class="hero-glow"></div>
-            <div class="blog-hero-content">
+            <div class="blog-hero-content" data-animate="bottom">
                 <div class="hero-text">
                     <h1><span>Blogs</span></h1>
                     <p class="sub">Expert perspectives on trends, innovations, and industry dynamics</p>
                 </div>
-                <div class="hero-notes">
+                <div class="hero-notes" data-animate="top">
                     <div class="notes-row" aria-hidden="true">
                         <div class="note"><span>B</span></div>
                         <div class="note"><span>L</span></div>
@@ -888,7 +1002,7 @@
                         <div class="note"><span>S</span></div>
                     </div>
                 </div>
-                <div class="hero-footer">
+                <div class="hero-footer" data-animate="bottom">
                     <span class="brand-signature">— <span>OrbitGrow</span> —</span>
                 </div>
             </div>
@@ -911,13 +1025,13 @@
 
                     <!-- RIGHT: Sidebar -->
                     <aside class="blog-sidebar">
-                        <div class="sidebar-card">
+                        <div class="sidebar-card" data-animate="right">
                             <h3><span class="lime-dot"></span> Recent Posts</h3>
                             <div id="recentPosts">
                                 <!-- Rendered by JavaScript -->
                             </div>
                         </div>
-                        <div class="sidebar-cta">
+                        <div class="sidebar-cta" data-animate="bottom">
                             <h4>Grow with OrbitGrow</h4>
                             <p>From web development to full‑funnel ad management — see how we can help.</p>
                             <a href="services.html" class="btn-cta-side">Explore Services</a>
@@ -931,7 +1045,7 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="site-footer" id="contact">
+    <footer class="site-footer" id="contact" data-animate="bottom">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="f-brand">
@@ -1031,6 +1145,8 @@
 
             const arrowSvg = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>`;
 
+            const directions = ['left', 'right', 'bottom'];
+
             // ===== RENDER BLOG POSTS =====
             const blogContainer = document.getElementById('blogPosts');
             if (blogContainer) {
@@ -1039,8 +1155,9 @@
                 } else {
                     blogContainer.innerHTML = posts.map((post, i) => {
                         const imageUrl = post.image ? post.image : `https://picsum.photos/seed/${post.slug}/600/340`;
+                        const dir = directions[i % directions.length];
                         return `
-                            <article class="blog-post-item" style="--i:${i}">
+                            <article class="blog-post-item" data-animate="${dir}">
                                 <a href="blog-post.html?slug=${post.slug}">
                                     <div class="post-image-wrap">
                                         <img class="post-image" src="${imageUrl}" alt="${post.title}" loading="lazy" />
@@ -1074,8 +1191,9 @@
                 } else {
                     recentContainer.innerHTML = recentPosts.map((post, i) => {
                         const thumbUrl = post.thumbnail ? post.thumbnail : (post.image ? post.image : `https://picsum.photos/seed/${post.slug}/150/150`);
+                        const dir = directions[i % directions.length];
                         return `
-                            <a href="blog-post.html?slug=${post.slug}" class="recent-item" style="--i:${i}">
+                            <a href="blog-post.html?slug=${post.slug}" class="recent-item" data-animate="${dir}">
                                 <img class="recent-img" src="${thumbUrl}" alt="${post.title}" loading="lazy" />
                                 <div class="recent-info">
                                     <span class="recent-date">${post.date}</span>
@@ -1087,29 +1205,77 @@
                 }
             }
 
-            // ===== SCROLL REVEAL =====
-            const revealTargets = document.querySelectorAll('.blog-post-item, #recentPosts .recent-item');
-            if ('IntersectionObserver' in window && revealTargets.length) {
-                const io = new IntersectionObserver((entries) => {
+            // ============================================================
+            // DIRECTIONAL SCROLL ANIMATIONS
+            // ============================================================
+            (function() {
+                const animEls = document.querySelectorAll('[data-animate]');
+                const animObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            io.unobserve(entry.target);
+                            entry.target.classList.add('in-view');
+                            animObserver.unobserve(entry.target);
                         }
                     });
                 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-                revealTargets.forEach(el => io.observe(el));
-            } else {
-                revealTargets.forEach(el => el.classList.add('is-visible'));
-            }
+                animEls.forEach(el => animObserver.observe(el));
+            })();
 
-            // ===== HEADER SCROLL =====
+            // ============================================================
+            // SCROLL-TRIGGERED HOVER — for blog posts and recent items
+            // ============================================================
+            (function() {
+                const hoverElements = document.querySelectorAll('.blog-post-item, #recentPosts .recent-item');
+
+                const hoverObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view-hover');
+                        } else {
+                            entry.target.classList.remove('in-view-hover');
+                        }
+                    });
+                }, {
+                    threshold: 0.20,
+                    rootMargin: '0px 0px -20px 0px'
+                });
+
+                hoverElements.forEach(el => hoverObserver.observe(el));
+
+                // Touch fallback
+                const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                if (isTouchDevice) {
+                    hoverElements.forEach(el => {
+                        el.addEventListener('touchstart', function(e) {
+                            const parent = this.closest('.blog-posts, #recentPosts');
+                            if (parent) {
+                                parent.querySelectorAll('.touch-active').forEach(sibling => {
+                                    if (sibling !== this) sibling.classList.remove('touch-active');
+                                });
+                            }
+                            this.classList.add('touch-active');
+                        }, { passive: true });
+                        el.addEventListener('touchend', function(e) {
+                            this.classList.remove('touch-active');
+                        }, { passive: true });
+                        el.addEventListener('touchcancel', function(e) {
+                            this.classList.remove('touch-active');
+                        }, { passive: true });
+                    });
+                }
+            })();
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
             const header = document.getElementById('siteHeader');
             window.addEventListener('scroll', () => {
                 header.classList.toggle('scrolled', window.scrollY > 30);
             });
 
-            // ===== MOBILE NAV =====
+            // ============================================================
+            // MOBILE NAV
+            // ============================================================
             const navToggle = document.getElementById('navToggle');
             const navLinks = document.getElementById('navLinks');
             if (navToggle && navLinks) {
@@ -1123,7 +1289,9 @@
                 }));
             }
 
-            // ===== YEAR =====
+            // ============================================================
+            // YEAR
+            // ============================================================
             document.getElementById('year').textContent = new Date().getFullYear();
         })();
     </script>

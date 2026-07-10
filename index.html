@@ -271,7 +271,7 @@
         }
 
         /* ============================================================
-           MOBILE RESPONSIVE OVERRIDES
+           MOBILE RESPONSIVE OVERRIDES — ENHANCED HERO
            ============================================================ */
         @media (max-width: 1024px) {
             .home-blog-grid {
@@ -287,18 +287,19 @@
             /* --- Hero --- */
             .hero {
                 min-height: auto;
-                padding: 100px 0 40px;
+                padding: 110px 0 50px;
                 background-image: url('https://picsum.photos/seed/orbitgrow-mobile/800/600');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
                 position: relative;
+                text-align: center;
             }
             .hero::before {
                 content: '';
                 position: absolute;
                 inset: 0;
-                background: rgba(11, 8, 36, 0.65);
+                background: rgba(11, 8, 36, 0.70);
                 z-index: 1;
                 pointer-events: none;
             }
@@ -311,63 +312,101 @@
             .hero-grid {
                 z-index: 3;
                 position: relative;
-            }
-            .hero-wave {
-                z-index: 3;
-                position: relative;
-            }
-            .hero-grid {
                 grid-template-columns: 1fr;
                 gap: 30px;
-                padding: 0 16px;
+                padding: 0 20px;
+                justify-items: center;
+            }
+            .hero-left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
             }
             .hero-right {
                 display: none !important;
             }
+
+            /* — Hero Badge — */
+            .hero .badge {
+                justify-content: center;
+                margin: 0 auto 16px;
+            }
+
+            /* — Hero Title — larger */
             .hero-title {
-                font-size: 32px;
+                font-size: 40px;
+                text-align: center;
+                line-height: 1.15;
             }
             .hero-title .typing-wrapper {
-                font-size: 32px;
+                font-size: 40px;
                 white-space: normal;
                 min-height: 1.3em;
+                justify-content: center;
             }
             .hero-title .cursor-blink {
                 font-size: 0.9em;
             }
+
+            /* — Hero Description — larger */
             .hero-desc {
-                font-size: 14px;
-                max-width: 100%;
+                font-size: 17px;
+                max-width: 540px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                line-height: 1.7;
             }
+
+            /* — Stats Row — centered, larger */
             .hero .stats-row {
-                gap: 0;
-                justify-content: flex-start;
+                gap: 4px;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin: 0 auto;
             }
             .hero .stat-item {
-                padding-right: 14px;
-                margin-right: 14px;
-                min-width: 60px;
+                padding-right: 18px;
+                margin-right: 18px;
+                min-width: 70px;
+                text-align: center;
             }
             .hero .stat-item:last-child {
                 padding-right: 0;
                 margin-right: 0;
             }
             .hero .stat-num {
-                font-size: 22px;
+                font-size: 28px;
             }
             .hero .stat-label {
-                font-size: 10px;
+                font-size: 12px;
+                letter-spacing: 0.3px;
             }
+
+            /* — Buttons Row — centered, larger */
             .hero .btn-row {
                 flex-wrap: wrap;
-                gap: 12px;
+                gap: 16px;
+                justify-content: center;
+                margin-top: 8px;
             }
             .hero .btn-primary-hero {
-                font-size: 13px;
-                padding: 12px 22px;
+                font-size: 16px;
+                padding: 14px 30px;
             }
             .hero .btn-secondary {
-                font-size: 13px;
+                font-size: 16px;
+                padding: 14px 28px;
+            }
+            .hero .play-icon {
+                width: 44px;
+                height: 44px;
+            }
+            .hero .play-icon svg {
+                width: 16px;
+                height: 16px;
             }
 
             /* --- Services --- */
@@ -515,11 +554,52 @@
                 font-size: 13px;
             }
 
-            /* --- Footer --- */
+            /* --- FOOTER — mobile overrides --- */
             .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
             }
+            .f-brand {
+                grid-column: 1 / -1;
+            }
+            /* Hide the Services column (second child) */
+            .f-col:nth-child(2) {
+                display: none;
+            }
+            /* Company (third child) — left */
+            .f-col:nth-child(3) {
+                grid-column: 1 / 2;
+                padding-right: 8px;
+            }
+            /* Contact (fourth child) — right */
+            .f-col:nth-child(4) {
+                grid-column: 2 / 3;
+                padding-left: 8px;
+                border-left: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            /* --- Contact section — tighter spacing, more left-aligned --- */
+            .f-col:nth-child(4) {
+                padding-left: 12px;
+            }
+            .f-col:nth-child(4) .f-contact {
+                padding-left: 0;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 6px;
+                padding-left: 0;
+                align-items: center;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+            .f-col:nth-child(4) .f-contact li a,
+            .f-col:nth-child(4) .f-contact li {
+                font-size: 13px;
+            }
+
             .footer-bottom {
                 flex-direction: column;
                 align-items: flex-start;
@@ -528,8 +608,22 @@
             .f-col ul li {
                 font-size: 13px;
             }
-            .f-contact li {
-                font-size: 13px;
+
+            /* Company column heading and links */
+            .f-col:nth-child(3) h5 {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                margin-bottom: 10px;
+            }
+            .f-col:nth-child(3) ul li {
+                margin-bottom: 4px;
+            }
+
+            /* Contact column heading */
+            .f-col:nth-child(4) h5 {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                margin-bottom: 10px;
             }
         }
 
@@ -538,44 +632,80 @@
                 padding: 0 12px;
             }
             .hero {
-                padding: 80px 0 30px;
+                padding: 100px 0 40px;
                 background-image: url('https://picsum.photos/seed/orbitgrow-mobile/600/400');
             }
+            .hero-grid {
+                padding: 0 14px;
+            }
+
+            /* — Title — even larger on small screens */
             .hero-title {
-                font-size: 26px;
+                font-size: 34px;
             }
             .hero-title .typing-wrapper {
-                font-size: 26px;
+                font-size: 34px;
             }
             .hero-title .cursor-blink {
                 font-size: 0.85em;
             }
+
+            /* — Description — */
+            .hero-desc {
+                font-size: 16px;
+                max-width: 100%;
+            }
+
+            /* — Stats — */
             .hero .stat-num {
-                font-size: 18px;
+                font-size: 24px;
             }
             .hero .stat-item {
-                padding-right: 10px;
-                margin-right: 10px;
-                min-width: 50px;
+                padding-right: 14px;
+                margin-right: 14px;
+                min-width: 58px;
             }
             .hero .stat-label {
-                font-size: 9px;
+                font-size: 11px;
             }
+
+            /* — Buttons — */
             .hero .btn-primary-hero {
-                font-size: 12px;
-                padding: 10px 18px;
+                font-size: 15px;
+                padding: 13px 24px;
             }
             .hero .btn-secondary {
-                font-size: 12px;
+                font-size: 15px;
+                padding: 13px 22px;
             }
             .hero .play-icon {
-                width: 38px;
-                height: 38px;
+                width: 40px;
+                height: 40px;
             }
             .hero .play-icon svg {
-                width: 12px;
-                height: 12px;
+                width: 14px;
+                height: 14px;
             }
+
+            /* --- Footer gap adjustments for smaller screens --- */
+            .footer-grid {
+                gap: 24px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 4px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 8px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 4px;
+                font-size: 12px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 14px;
+                height: 14px;
+            }
+
             .services-section .headline {
                 font-size: 24px;
             }
@@ -684,14 +814,44 @@
         }
 
         @media (max-width: 380px) {
+            .hero {
+                padding: 80px 0 32px;
+            }
             .hero-title {
-                font-size: 22px;
+                font-size: 28px;
             }
             .hero-title .typing-wrapper {
-                font-size: 22px;
+                font-size: 28px;
+            }
+            .hero-desc {
+                font-size: 14px;
             }
             .hero .stat-num {
-                font-size: 15px;
+                font-size: 20px;
+            }
+            .hero .stat-item {
+                padding-right: 10px;
+                margin-right: 10px;
+                min-width: 48px;
+            }
+            .hero .stat-label {
+                font-size: 10px;
+            }
+            .hero .btn-primary-hero {
+                font-size: 13px;
+                padding: 11px 18px;
+            }
+            .hero .btn-secondary {
+                font-size: 13px;
+                padding: 11px 16px;
+            }
+            .hero .play-icon {
+                width: 34px;
+                height: 34px;
+            }
+            .hero .play-icon svg {
+                width: 12px;
+                height: 12px;
             }
             .home-blog-grid {
                 grid-template-columns: 1fr;
@@ -705,6 +865,23 @@
             }
             .industries-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+            .footer-grid {
+                gap: 16px;
+            }
+            .f-col:nth-child(3) {
+                padding-right: 2px;
+            }
+            .f-col:nth-child(4) {
+                padding-left: 6px;
+            }
+            .f-col:nth-child(4) .f-contact li {
+                gap: 3px;
+                font-size: 11px;
+            }
+            .f-col:nth-child(4) .f-contact li svg {
+                width: 12px;
+                height: 12px;
             }
         }
 
@@ -734,35 +911,24 @@
             transform: translate(0, 0);
         }
 
-        [data-animate]:nth-child(1) {
+        /* Staggered delays for children inside hero-left */
+        .hero-left [data-animate]:nth-child(1) {
             transition-delay: 0ms;
         }
-        [data-animate]:nth-child(2) {
+        .hero-left [data-animate]:nth-child(2) {
             transition-delay: 80ms;
         }
-        [data-animate]:nth-child(3) {
+        .hero-left [data-animate]:nth-child(3) {
             transition-delay: 160ms;
         }
-        [data-animate]:nth-child(4) {
+        .hero-left [data-animate]:nth-child(4) {
             transition-delay: 240ms;
         }
-        [data-animate]:nth-child(5) {
+        .hero-left [data-animate]:nth-child(5) {
             transition-delay: 320ms;
         }
-        [data-animate]:nth-child(6) {
+        .hero-left [data-animate]:nth-child(6) {
             transition-delay: 400ms;
-        }
-        [data-animate]:nth-child(7) {
-            transition-delay: 480ms;
-        }
-        [data-animate]:nth-child(8) {
-            transition-delay: 560ms;
-        }
-        [data-animate]:nth-child(9) {
-            transition-delay: 640ms;
-        }
-        [data-animate]:nth-child(10) {
-            transition-delay: 720ms;
         }
 
         /* ============================================================
@@ -824,12 +990,13 @@
             <div class="hero-glow"></div>
 
             <div class="hero-grid">
-                <div class="hero-left" data-animate="bottom">
-                    <div class="badge">
+                <!-- ===== HERO LEFT — each child animates with staggered delay ===== -->
+                <div class="hero-left">
+                    <div class="badge" data-animate="bottom">
                         <div class="badge-dot"></div>
                         <div class="badge-text">Digital Marketing Agency</div>
                     </div>
-                    <h1 class="hero-title">
+                    <h1 class="hero-title" data-animate="bottom">
                         We Grow Your<br>
                         Business <span>Online</span><br>
                         <span class="typing-wrapper">
@@ -837,8 +1004,8 @@
                             <span class="cursor-blink" id="cursorBlink">|</span>
                         </span>
                     </h1>
-                    <p class="hero-desc">From Social Media Marketing to SEO, Google &amp; Meta Ads, Lead Generation, Web Development and Branding — we handle everything so you can focus on what you do best.</p>
-                    <div class="stats-row" id="heroStats">
+                    <p class="hero-desc" data-animate="bottom">From Social Media Marketing to SEO, Google &amp; Meta Ads, Lead Generation, Web Development and Branding — we handle everything so you can focus on what you do best.</p>
+                    <div class="stats-row" id="heroStats" data-animate="bottom">
                         <div class="stat-item">
                             <div class="stat-num"><span class="num-val" data-target="50">0</span><span class="suf">+</span></div>
                             <div class="stat-label">Clients Served</div>
@@ -856,7 +1023,7 @@
                             <div class="stat-label">Experience</div>
                         </div>
                     </div>
-                    <div class="btn-row">
+                    <div class="btn-row" data-animate="bottom">
                         <button class="btn-primary-hero" onclick="window.location.href='contact.html'">Get Free Consultation</button>
                         <button class="btn-secondary" onclick="window.location.href='#services'">
                             <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
@@ -864,6 +1031,7 @@
                         </button>
                     </div>
                 </div>
+
                 <!-- ===== HERO RIGHT — hidden on mobile ===== -->
                 <div class="hero-right" id="heroRight" data-animate="right">
                     <div class="float-card fc-left" data-tilt>
