@@ -179,6 +179,7 @@
         .hero {
             position: relative;
             overflow: hidden;
+            will-change: transform;
         }
 
         .hero-video-wrapper {
@@ -189,6 +190,7 @@
             height: 100%;
             z-index: 0;
             overflow: hidden;
+            will-change: transform;
         }
 
         .hero-video-bg {
@@ -197,7 +199,7 @@
             object-fit: cover;
             display: block;
             pointer-events: none;
-            /* so it doesn't interfere with clicks */;
+            will-change: transform;
         }
 
         .hero-video-overlay {
@@ -211,7 +213,21 @@
             pointer-events: none;
         }
 
-        /* adjust hero-glow z-index to sit above overlay */
+        /* Dynamic glow overlay — controlled by JS */
+        .hero-dynamic-glow {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(203, 255, 79, 0.06), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            will-change: background;
+        }
+        .hero-dynamic-glow.active {
+            opacity: 1;
+        }
+
         .hero .hero-glow {
             z-index: 2;
             position: absolute;
@@ -234,6 +250,27 @@
         }
 
         /* ============================================================
+           HERO CARD 3D TILT — applied via JS
+           ============================================================ */
+        .hero-right {
+            perspective: 1200px;
+        }
+
+        .main-card,
+        .float-card {
+            transition: transform 0.15s cubic-bezier(0.16, 0.84, 0.44, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        .main-card.tilt-active,
+        .float-card.tilt-active {
+            transition: transform 0.08s cubic-bezier(0.16, 0.84, 0.44, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 0.84, 0.44, 1);
+        }
+
+        /* ============================================================
            MOBILE RESPONSIVE OVERRIDES
            ============================================================ */
         @media (max-width: 1024px) {
@@ -251,11 +288,41 @@
             .hero {
                 min-height: auto;
                 padding: 100px 0 40px;
+                background-image: url('https://picsum.photos/seed/orbitgrow-mobile/800/600');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: relative;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: rgba(11, 8, 36, 0.65);
+                z-index: 1;
+                pointer-events: none;
+            }
+            .hero .hero-video-wrapper {
+                display: none !important;
+            }
+            .hero .hero-glow {
+                z-index: 2;
+            }
+            .hero-grid {
+                z-index: 3;
+                position: relative;
+            }
+            .hero-wave {
+                z-index: 3;
+                position: relative;
             }
             .hero-grid {
                 grid-template-columns: 1fr;
                 gap: 30px;
                 padding: 0 16px;
+            }
+            .hero-right {
+                display: none !important;
             }
             .hero-title {
                 font-size: 32px;
@@ -301,58 +368,6 @@
             }
             .hero .btn-secondary {
                 font-size: 13px;
-            }
-
-            /* --- Hero Right (Cards) --- */
-            .hero-right {
-                min-height: auto;
-                padding: 20px 5px;
-                position: relative;
-            }
-            .hero .main-card {
-                max-width: 100%;
-                padding: 16px 18px;
-            }
-            .hero .mc-title {
-                font-size: 18px;
-            }
-            .hero .mc-sub {
-                font-size: 12px;
-            }
-            .hero .pill {
-                font-size: 10px;
-                padding: 4px 10px;
-            }
-
-            /* Float Cards — reposition to fit small screens */
-            .hero .float-card {
-                position: absolute;
-                transform: scale(0.8);
-                transform-origin: top left;
-                padding: 8px 12px;
-                border-radius: 10px;
-            }
-            .hero .fc-left {
-                left: -5px;
-                top: 0px;
-            }
-            .hero .fc-right {
-                right: -5px;
-                bottom: 15px;
-                transform: scale(0.8);
-                transform-origin: bottom right;
-            }
-            .hero .fc-val {
-                font-size: 18px;
-            }
-            .hero .fc-label {
-                font-size: 9px;
-            }
-            .hero .fc-trend-up {
-                font-size: 10px;
-            }
-            .hero .fc-trend-label {
-                font-size: 9px;
             }
 
             /* --- Services --- */
@@ -522,10 +537,9 @@
             .wrap {
                 padding: 0 12px;
             }
-
-            /* Hero */
             .hero {
                 padding: 80px 0 30px;
+                background-image: url('https://picsum.photos/seed/orbitgrow-mobile/600/400');
             }
             .hero-title {
                 font-size: 26px;
@@ -562,43 +576,6 @@
                 width: 12px;
                 height: 12px;
             }
-
-            /* Float Cards — scale down more */
-            .hero .float-card {
-                transform: scale(0.7);
-            }
-            .hero .fc-left {
-                left: -12px;
-                top: -10px;
-            }
-            .hero .fc-right {
-                right: -12px;
-                bottom: 5px;
-            }
-            .hero .fc-val {
-                font-size: 14px;
-            }
-            .hero .fc-label {
-                font-size: 8px;
-            }
-            .hero .main-card {
-                padding: 12px 14px;
-            }
-            .hero .mc-title {
-                font-size: 16px;
-            }
-            .hero .services-pills {
-                gap: 4px;
-            }
-            .hero .pill {
-                font-size: 9px;
-                padding: 3px 8px;
-            }
-            .hero .mc-bar-label {
-                font-size: 10px;
-            }
-
-            /* Services */
             .services-section .headline {
                 font-size: 24px;
             }
@@ -630,8 +607,6 @@
                 width: 22px;
                 height: 22px;
             }
-
-            /* Counters */
             .counters-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
@@ -639,8 +614,6 @@
             .count-num {
                 font-size: 24px;
             }
-
-            /* Industries */
             .industries-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -663,8 +636,6 @@
                 font-size: 9px;
                 padding: 5px 10px;
             }
-
-            /* Blog */
             .home-blog-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -685,8 +656,6 @@
                 width: 10px;
                 height: 10px;
             }
-
-            /* Reviews */
             .ticker-item {
                 min-width: 200px;
                 padding: 12px 14px;
@@ -705,8 +674,6 @@
                 height: 28px;
                 font-size: 10px;
             }
-
-            /* Footer */
             .f-brand p {
                 font-size: 13px;
                 max-width: 100%;
@@ -726,17 +693,6 @@
             .hero .stat-num {
                 font-size: 15px;
             }
-            .hero .float-card {
-                transform: scale(0.6);
-            }
-            .hero .fc-left {
-                left: -18px;
-                top: -20px;
-            }
-            .hero .fc-right {
-                right: -18px;
-                bottom: -10px;
-            }
             .home-blog-grid {
                 grid-template-columns: 1fr;
                 gap: 14px;
@@ -753,38 +709,83 @@
         }
 
         /* ============================================================
-           SCROLL ANIMATIONS -- SECTIONS & CARDS (left / right / bottom / top)
-           Self-contained so the animations work regardless of style.css.
+           SCROLL ANIMATIONS -- SECTIONS & CARDS
            ============================================================ */
         [data-animate] {
             opacity: 0;
-            transition: opacity 0.9s cubic-bezier(.16,.84,.44,1),
-                        transform 0.9s cubic-bezier(.16,.84,.44,1);
+            transition: opacity 0.9s cubic-bezier(.16, .84, .44, 1),
+                transform 0.9s cubic-bezier(.16, .84, .44, 1);
             will-change: transform, opacity;
         }
-        [data-animate="left"]   { transform: translateX(-70px); }
-        [data-animate="right"]  { transform: translateX(70px); }
-        [data-animate="bottom"] { transform: translateY(60px); }
-        [data-animate="top"]    { transform: translateY(-60px); }
+        [data-animate="left"] {
+            transform: translateX(-70px);
+        }
+        [data-animate="right"] {
+            transform: translateX(70px);
+        }
+        [data-animate="bottom"] {
+            transform: translateY(60px);
+        }
+        [data-animate="top"] {
+            transform: translateY(-60px);
+        }
         [data-animate].in-view {
             opacity: 1;
             transform: translate(0, 0);
         }
 
-        /* Wave-style stagger for groups of cards / list items */
-        [data-animate]:nth-child(1)  { transition-delay: 0ms; }
-        [data-animate]:nth-child(2)  { transition-delay: 80ms; }
-        [data-animate]:nth-child(3)  { transition-delay: 160ms; }
-        [data-animate]:nth-child(4)  { transition-delay: 240ms; }
-        [data-animate]:nth-child(5)  { transition-delay: 320ms; }
-        [data-animate]:nth-child(6)  { transition-delay: 400ms; }
-        [data-animate]:nth-child(7)  { transition-delay: 480ms; }
-        [data-animate]:nth-child(8)  { transition-delay: 560ms; }
-        [data-animate]:nth-child(9)  { transition-delay: 640ms; }
-        [data-animate]:nth-child(10) { transition-delay: 720ms; }
+        [data-animate]:nth-child(1) {
+            transition-delay: 0ms;
+        }
+        [data-animate]:nth-child(2) {
+            transition-delay: 80ms;
+        }
+        [data-animate]:nth-child(3) {
+            transition-delay: 160ms;
+        }
+        [data-animate]:nth-child(4) {
+            transition-delay: 240ms;
+        }
+        [data-animate]:nth-child(5) {
+            transition-delay: 320ms;
+        }
+        [data-animate]:nth-child(6) {
+            transition-delay: 400ms;
+        }
+        [data-animate]:nth-child(7) {
+            transition-delay: 480ms;
+        }
+        [data-animate]:nth-child(8) {
+            transition-delay: 560ms;
+        }
+        [data-animate]:nth-child(9) {
+            transition-delay: 640ms;
+        }
+        [data-animate]:nth-child(10) {
+            transition-delay: 720ms;
+        }
+
+        /* ============================================================
+           SCROLL PROGRESS BAR (professional touch)
+           ============================================================ */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--lime), #a8d93a);
+            z-index: 9999;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 20px rgba(203, 255, 79, 0.4);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+
+    <!-- ===== SCROLL PROGRESS BAR ===== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ===== HEADER ===== -->
     <header class="site-header" id="siteHeader">
@@ -807,22 +808,18 @@
     </header>
 
     <main>
-        <!-- ===== HERO with VIDEO BACKGROUND ===== -->
+        <!-- ===== HERO with VIDEO BACKGROUND (desktop) / IMAGE (mobile) ===== -->
         <section class="hero" id="hero">
-            <!-- Video Background -->
-            <div class="hero-video-wrapper">
-                <video class="hero-video-bg" autoplay muted loop playsinline poster="https://picsum.photos/seed/hero-bg/1920/1080">
-                    <!--
-                    ═══════════════════════════════════════════════════════════
-                    REPLACE the src URL below with your own video file or CDN link.
-                    Supported formats: MP4, WebM, Ogg.
-                    ═══════════════════════════════════════════════════════════
-                    -->
+            <!-- Video Background — hidden on mobile via CSS -->
+            <div class="hero-video-wrapper" id="heroVideoWrapper">
+                <video class="hero-video-bg" id="heroVideo" autoplay muted loop playsinline poster="https://picsum.photos/seed/hero-bg/1920/1080">
                     <source src="hero section animated vadio.mp4" type="video/mp4">
-                    <!-- fallback: if the browser doesn't support the video, show nothing -->
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
+
+            <!-- Dynamic glow that follows mouse (desktop only) -->
+            <div class="hero-dynamic-glow" id="heroDynamicGlow"></div>
 
             <div class="hero-glow"></div>
 
@@ -867,13 +864,14 @@
                         </button>
                     </div>
                 </div>
-                <div class="hero-right" data-animate="right">
-                    <div class="float-card fc-left">
+                <!-- ===== HERO RIGHT — hidden on mobile ===== -->
+                <div class="hero-right" id="heroRight" data-animate="right">
+                    <div class="float-card fc-left" data-tilt>
                         <div class="fc-label">Monthly Leads</div>
                         <div class="fc-val">1,<span>248</span></div>
                         <div class="fc-trend"><span class="fc-trend-up">+32%</span><span class="fc-trend-label">this month</span></div>
                     </div>
-                    <div class="main-card">
+                    <div class="main-card" data-tilt>
                         <div class="mc-top">
                             <div class="mc-avatar"><img src="images/OrbitGrow logo.png" alt=""></div>
                             <div class="mc-status"><div class="status-dot"></div>Active Campaign</div>
@@ -887,7 +885,7 @@
                         <div class="mc-bar-wrap"><div class="mc-bar-label"><span>Campaign Performance</span><span>84%</span></div><div class="mc-bar"><div class="mc-bar-fill" style="width:84%"></div></div></div>
                         <div class="mc-bar-wrap"><div class="mc-bar-label"><span>Lead Conversion</span><span>67%</span></div><div class="mc-bar"><div class="mc-bar-fill" style="width:67%"></div></div></div>
                     </div>
-                    <div class="float-card fc-right">
+                    <div class="float-card fc-right" data-tilt>
                         <div class="fc-label">Projects Done</div>
                         <div class="fc-val"><span>120</span>+</div>
                         <div class="fc-sub">Across all services</div>
@@ -1107,7 +1105,7 @@
             </div>
         </section>
 
-        <!-- ===== BLOG (HOME) — 6 image‑only cards with right‑aligned "See Details" ===== -->
+        <!-- ===== BLOG (HOME) ===== -->
         <section class="blog" id="blog" data-animate="left">
             <div class="wrap">
                 <div class="section-head reveal" data-animate="top">
@@ -1141,88 +1139,78 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <!-- ===== FOOTER ===== -->
-<footer class="site-footer" id="contact" data-animate="bottom">
-    <div class="wrap">
-        <div class="footer-grid">
-            <!-- Brand Column -->
-            <div class="f-brand">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
-                    <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
-                </a>
-                <p>A performance marketing &amp; web development studio helping Pakistani brands turn ad spend into real revenue.</p>
-                <div class="f-social">
-                    <a href="https://www.facebook.com/share/19E6NcZP18/" target="_blank" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    <footer class="site-footer" id="contact" data-animate="bottom">
+        <div class="wrap">
+            <div class="footer-grid">
+                <div class="f-brand">
+                    <a href="index.html" class="logo footer-logo">
+                        <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
+                        <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
                     </a>
-                    <a href="https://www.instagram.com/orbitgrow.agency" target="_blank" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/orbit-grow" target="_blank" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                    </a>
-                    <a href="https://wa.me/923192699626" target="_blank" aria-label="WhatsApp">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                    </a>
+                    <p>A performance marketing &amp; web development studio helping Pakistani brands turn ad spend into real revenue.</p>
+                    <div class="f-social">
+                        <a href="https://www.facebook.com/share/19E6NcZP18/" target="_blank" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/orbitgrow.agency" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/orbit-grow" target="_blank" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="https://wa.me/923192699626" target="_blank" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="f-col">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="services.html#services-grid">Branding</a></li>
+                        <li><a href="services.html#services-grid">Social Media Marketing</a></li>
+                        <li><a href="services.html#services-grid">Meta and Google Ads</a></li>
+                        <li><a href="services.html#services-grid">Lead Generation</a></li>
+                        <li><a href="services.html#services-grid">SEO</a></li>
+                        <li><a href="services.html#services-grid">Web Development</a></li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h5>Contact</h5>
+                    <ul class="f-contact">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Gulberg III, Lahore, Pakistan
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:+923192699626" style="color:inherit;text-decoration:none;">0319 2699626</a>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+                            <a href="mailto:hello@orbitgrow.pk" style="color:inherit;text-decoration:none;">hello@orbitgrow.pk</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Services Column -->
-            <div class="f-col">
-                <h5>Services</h5>
-                <ul>
-                    <li><a href="services.html#services-grid">Branding</a></li>
-                    <li><a href="services.html#services-grid">Social Media Marketing</a></li>
-                    <li><a href="services.html#services-grid">Meta and Google Ads</a></li>
-                    <li><a href="services.html#services-grid">Lead Generation</a></li>
-                    <li><a href="services.html#services-grid">SEO</a></li>
-                    <li><a href="services.html#services-grid">Web Development</a></li>
-                </ul>
-            </div>
-
-            <!-- Company Column — UPDATED with all pages -->
-            <div class="f-col">
-                <h5>Company</h5>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact Column — UPDATED phone number -->
-            <div class="f-col">
-                <h5>Contact</h5>
-                <ul class="f-contact">
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        Gulberg III, Lahore, Pakistan
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
-                        <a href="tel:+923192699626" style="color:inherit;text-decoration:none;">0319 2699626</a>
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
-                        <a href="mailto:hello@orbitgrow.pk" style="color:inherit;text-decoration:none;">hello@orbitgrow.pk</a>
-                    </li>
-                </ul>
+            <div class="footer-bottom">
+                <span>&copy; <span id="year"></span> All rights reserved.</span>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
-
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-            <span>&copy; <span id="year"></span> All rights reserved.</span>
-            <div>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <!-- ===== FAB ===== -->
     <a href="#" class="fab-whatsapp" aria-label="Chat on WhatsApp">
@@ -1234,11 +1222,176 @@
     <script src="script.js"></script>
     <script>
         // ============================================================
-        // DIRECTIONAL SCROLL ANIMATIONS (left / right / bottom / top)
-        // Applies to any element with a data-animate="left|right|bottom|top"
-        // attribute -- used on the main sections and on repeating cards
-        // / list items. Re-callable so dynamically injected content
-        // (e.g. the home blog cards) gets picked up too.
+        // PROFESSIONAL HERO ENHANCEMENTS — JS
+        // ============================================================
+        (function() {
+            'use strict';
+
+            const hero = document.getElementById('hero');
+            const heroVideoWrapper = document.getElementById('heroVideoWrapper');
+            const heroVideo = document.getElementById('heroVideo');
+            const dynamicGlow = document.getElementById('heroDynamicGlow');
+            const heroRight = document.getElementById('heroRight');
+            const isMobile = window.innerWidth <= 768;
+
+            // ---- SCROLL PROGRESS BAR ----
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                window.addEventListener('scroll', function() {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    progressBar.style.width = progress + '%';
+                }, { passive: true });
+            }
+
+            // ---- MOUSE PARALLAX for video background (desktop only) ----
+            if (!isMobile && heroVideoWrapper) {
+                let parallaxX = 0,
+                    parallaxY = 0;
+                let targetX = 0,
+                    targetY = 0;
+                let rafId = null;
+
+                function updateParallax() {
+                    // smooth interpolation
+                    parallaxX += (targetX - parallaxX) * 0.06;
+                    parallaxY += (targetY - parallaxY) * 0.06;
+
+                    const maxMove = 30;
+                    const moveX = parallaxX * maxMove;
+                    const moveY = parallaxY * maxMove;
+
+                    heroVideoWrapper.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+
+                    // Dynamic glow follows mouse
+                    if (dynamicGlow) {
+                        const cx = 50 + parallaxX * 30;
+                        const cy = 50 + parallaxY * 30;
+                        dynamicGlow.style.background =
+                            `radial-gradient(circle at ${cx}% ${cy}%, rgba(203,255,79,0.08), transparent 60%)`;
+                        dynamicGlow.classList.add('active');
+                    }
+
+                    rafId = requestAnimationFrame(updateParallax);
+                }
+
+                document.addEventListener('mousemove', function(e) {
+                    const rect = hero.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width; // 0..1
+                    const y = (e.clientY - rect.top) / rect.height;
+                    targetX = (x - 0.5) * 2; // -1..1
+                    targetY = (y - 0.5) * 2;
+                }, { passive: true });
+
+                // start the loop
+                updateParallax();
+
+                // Clean up on resize to mobile
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth <= 768 && rafId) {
+                        cancelAnimationFrame(rafId);
+                        rafId = null;
+                        if (heroVideoWrapper) {
+                            heroVideoWrapper.style.transform = '';
+                        }
+                        if (dynamicGlow) {
+                            dynamicGlow.classList.remove('active');
+                            dynamicGlow.style.background = '';
+                        }
+                    }
+                });
+            }
+
+            // ---- 3D TILT EFFECT on cards (desktop only) ----
+            if (!isMobile && heroRight) {
+                const tiltables = heroRight.querySelectorAll('[data-tilt]');
+
+                tiltables.forEach(function(el) {
+                    el.addEventListener('mousemove', function(e) {
+                        const rect = el.getBoundingClientRect();
+                        const x = (e.clientX - rect.left) / rect.width; // 0..1
+                        const y = (e.clientY - rect.top) / rect.height;
+
+                        const tiltX = (y - 0.5) * 12; // -6deg .. 6deg
+                        const tiltY = (x - 0.5) * -12;
+
+                        el.style.transform =
+                            `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px) scale(1.02)`;
+                        el.style.boxShadow = '0 25px 60px -16px rgba(0,0,0,0.5)';
+                        el.classList.add('tilt-active');
+                    });
+
+                    el.addEventListener('mouseleave', function() {
+                        el.style.transform = '';
+                        el.style.boxShadow = '';
+                        el.classList.remove('tilt-active');
+                    });
+                });
+            }
+
+            // ---- ENHANCED COUNTER ANIMATION (smooth, with easing) ----
+            function animateCounters() {
+                const counters = document.querySelectorAll('.num-val');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            const target = parseFloat(el.dataset.target);
+                            if (isNaN(target)) return;
+                            const duration = 2000;
+                            const startTime = performance.now();
+
+                            function update(currentTime) {
+                                const elapsed = currentTime - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                // easeOutQuart
+                                const eased = 1 - Math.pow(1 - progress, 4);
+                                const currentVal = eased * target;
+                                if (target % 1 === 0) {
+                                    el.textContent = Math.round(currentVal);
+                                } else {
+                                    el.textContent = currentVal.toFixed(1);
+                                }
+                                if (progress < 1) {
+                                    requestAnimationFrame(update);
+                                } else {
+                                    if (target % 1 === 0) {
+                                        el.textContent = Math.round(target);
+                                    } else {
+                                        el.textContent = target.toFixed(1);
+                                    }
+                                }
+                            }
+                            requestAnimationFrame(update);
+                            observer.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.4 });
+
+                counters.forEach(c => observer.observe(c));
+            }
+
+            // ---- INIT ----
+            animateCounters();
+
+            // ---- RE-INIT on dynamic content (blog cards) ----
+            const origInit = window.__initScrollAnimations;
+            if (origInit) {
+                window.__initScrollAnimations = function() {
+                    origInit();
+                    // re-run counter observer for any new counters
+                    animateCounters();
+                };
+            }
+
+            // ---- YEAR ----
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+        })();
+
+        // ============================================================
+        // DIRECTIONAL SCROLL ANIMATIONS
         // ============================================================
         (function() {
             const animObserver = new IntersectionObserver((entries) => {
@@ -1262,7 +1415,7 @@
         })();
 
         // ============================================================
-        // TYPEWRITER — cycles: Faster. / Smarter. / Scalable. (ALL LIME)
+        // TYPEWRITER
         // ============================================================
         (function() {
             const words = [
@@ -1324,37 +1477,37 @@
         })();
 
         // ============================================================
-// HOME PAGE BLOG — latest 6 posts, image‑only, right overlay
-// ============================================================
-(function() {
-    const grid = document.getElementById('homeBlogGrid');
-    if (!grid) return;
-    if (typeof BLOG_POSTS === 'undefined') return;
+        // HOME BLOG
+        // ============================================================
+        (function() {
+            const grid = document.getElementById('homeBlogGrid');
+            if (!grid) return;
+            if (typeof BLOG_POSTS === 'undefined') return;
 
-    const posts = BLOG_POSTS.slice(0, 6);
-    const directions = ['left', 'right', 'bottom'];
+            const posts = BLOG_POSTS.slice(0, 6);
+            const directions = ['left', 'right', 'bottom'];
 
-    grid.innerHTML = posts.map((post, i) => {
-        // 🔥 CUSTOM IMAGE SUPPORT: Agar post.image hai toh woh, nahi toh picsum fallback
-        const imgSrc = post.image ? post.image : `https://picsum.photos/seed/${post.slug}/600/380`;
-        return `
-                    <div class="home-blog-card" data-animate="${directions[i % directions.length]}">
-                        <img src="${imgSrc}" alt="${post.title}" class="home-blog-image" loading="lazy" />
-                        <div class="blog-overlay">
-                            <a href="blog-post.html?slug=${post.slug}" class="blog-detail-link">
-                                See Details
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                `;
-    }).join('');
+            grid.innerHTML = posts.map((post, i) => {
+                const imgSrc = post.image ? post.image :
+                    `https://picsum.photos/seed/${post.slug}/600/380`;
+                return `
+                            <div class="home-blog-card" data-animate="${directions[i % directions.length]}">
+                                <img src="${imgSrc}" alt="${post.title}" class="home-blog-image" loading="lazy" />
+                                <div class="blog-overlay">
+                                    <a href="blog-post.html?slug=${post.slug}" class="blog-detail-link">
+                                        See Details
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
 
-    if (window.__initScrollAnimations) window.__initScrollAnimations();
-})();
+            if (window.__initScrollAnimations) window.__initScrollAnimations();
+        })();
 
         // ============================================================
-        // SERVICES JS — interactive list + card (HOME)
+        // SERVICES
         // ============================================================
         (function() {
             const icons = {
@@ -1451,11 +1604,6 @@
                 renderCard('branding');
             }
         })();
-
-        // ============================================================
-        // YEAR
-        // ============================================================
-        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
 </body>
