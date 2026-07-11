@@ -191,6 +191,14 @@
         #navToggle span {
             background: var(--og-ink) !important;
         }
+        /* Neutralize style.css's ::before/::after hamburger lines that were
+           rendering on top of these spans and causing a doubled/overlapping
+           toggle icon. */
+        #navToggle span::before,
+        #navToggle span::after {
+            content: none !important;
+            display: none !important;
+        }
 
         /* ===== MOBILE NAV ===== */
         @media (max-width: 768px) {
