@@ -3,7 +3,33 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog — OrbitGrow</title>
+    <title>Blog — Digital Marketing, SEO &amp; Growth Insights | OrbitGrow</title>
+    <meta name="description" content="Read expert insights on digital marketing, SEO, social media, web development and more — from the team at OrbitGrow. Practical tips for Pakistani brands." />
+    <link rel="canonical" href="https://orbitgrow.vercel.app/blog.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="OrbitGrow Blog — Marketing &amp; Growth Insights" />
+    <meta property="og:description" content="Real-world results, tactical breakdowns, and lessons learned from campaigns we've run for Pakistani brands." />
+    <meta property="og:image" content="https://orbitgrow.vercel.app/images/OrbitGrow%20logo.png" />
+    <meta property="og:url" content="https://orbitgrow.vercel.app/blog.html" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- JSON-LD Blog -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "OrbitGrow Blog",
+        "description": "Expert perspectives on digital marketing, SEO, social media, and web development.",
+        "url": "https://orbitgrow.vercel.app/blog.html",
+        "publisher": {
+            "@type": "Organization",
+            "name": "OrbitGrow"
+        }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -167,9 +193,7 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* Hard override — beats any conflicting/legacy .nav-toggle rule that may
-           exist in the shared style.css (ID specificity always wins over class),
-           so only ONE clean 3-line icon can ever render here. */
+        /* Hard override */
         #navToggle,
         #navToggle::before,
         #navToggle::after {
@@ -191,9 +215,6 @@
         #navToggle span {
             background: var(--og-ink) !important;
         }
-        /* Neutralize style.css's ::before/::after hamburger lines that were
-           rendering on top of these spans and causing a doubled/overlapping
-           toggle icon. */
         #navToggle span::before,
         #navToggle span::after {
             content: none !important;
@@ -1006,7 +1027,8 @@
             <div class="hero-glow"></div>
             <div class="blog-hero-content">
                 <div class="hero-text">
-                    <h1><span>Blogs</span></h1>
+                    <!-- ✅ SEO CHANGE: "Blogs" replaced with "Expert Insights & Growth Guides" -->
+                    <h1><span>Expert Insights</span> &amp; Growth Guides</h1>
                     <p class="sub">Expert perspectives on trends, innovations, and industry dynamics</p>
                 </div>
                 <div class="hero-notes">
