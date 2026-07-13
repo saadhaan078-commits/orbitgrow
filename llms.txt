@@ -1,0 +1,29 @@
+# OrbitGrow — Digital Marketing Agency
+
+OrbitGrow is a performance-driven digital marketing agency based in Lahore, Pakistan, founded in 2024.
+
+## Services
+- Branding: Logo design, brand strategy, guidelines
+- Social Media Marketing: Instagram, Facebook, TikTok, LinkedIn
+- Meta & Google Ads: Paid advertising, retargeting, conversion tracking
+- Lead Generation: Landing pages, email funnels, CRM integration
+- SEO: On-page, technical, link building
+- Web Development: React, Next.js, WordPress, E-commerce
+
+## Contact
+- Phone: +92 319 2699626
+- Email: hello@orbitgrow.pk
+- Location: Gulberg III, Lahore, Pakistan
+
+## Links
+- Home: https://orbitgrow.vercel.app/
+- Services: https://orbitgrow.vercel.app/services.html
+- About: https://orbitgrow.vercel.app/about.html
+- Blog: https://orbitgrow.vercel.app/blog.html
+- Contact: https://orbitgrow.vercel.app/contact.html
+
+## Social
+- Facebook: https://www.facebook.com/share/19E6NcZP18/
+- Instagram: https://www.instagram.com/orbitgrow.agency
+- LinkedIn: https://www.linkedin.com/company/orbit-grow
+- YouTube: https://www.youtube.com/@OrbitGrow
