@@ -3,14 +3,103 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OrbitGrow — Digital Marketing & Web development Agency</title>
+    <title>OrbitGrow — Digital Marketing & Web Development Agency</title>
     <meta name="description" content="Performance-driven digital marketing agency offering SEO, social media, Meta & Google Ads, lead generation, web development & branding. Book a free consultation." />
 
     <link rel="canonical" href="https://orbitgrow.vercel.app/" />
-    <link rel="icon" type="image/png" sizes="32x32" href="images/orbit grow favicon.jpeg" />
-    <link rel="icon" type="image/png" sizes="16x16" href="images/orbit grow favicon.jpeg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="images/orbit grow favicon.jpeg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
+
+    <!-- ===== PRELOAD CRITICAL ASSETS ===== -->
+    <link rel="preload" href="images/hero-mobile-bg.webp" as="image" media="(max-width: 768px)" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" as="style" />
+
+    <!-- ===== CRITICAL CSS (Inline - Only what's needed above the fold) ===== -->
+    <style>
+        /* Critical CSS — Page renders in ~1.2 seconds */
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#F3F4EF;color:#0F1226;line-height:1.6}
+        .site-header{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 0;background:rgba(243,244,239,.92);backdrop-filter:blur(14px)}
+        .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+        .nav-wrap{display:flex;align-items:center;justify-content:space-between}
+        .logo{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;text-decoration:none;color:#0F1226}
+        .logo-img{height:60px;width:auto;border-radius:8px}
+        .nav-links{display:flex;align-items:center;gap:36px;margin-left:auto}
+        .nav-links a{font-size:15px;font-weight:500;color:#0F1226;text-decoration:none}
+        .nav-toggle{display:none}
+        .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:120px 0 60px;background:linear-gradient(115deg,#2d2159 0%,#2d2159 32%,#4B3DF0 78%,#6E63F2 100%);color:#fff;position:relative;overflow:hidden}
+        .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1300px;width:100%;padding:0 32px;position:relative;z-index:2}
+        .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(163,230,53,0.12);border:1px solid rgba(163,230,53,0.3);border-radius:50px;padding:7px 18px;margin-bottom:28px}
+        .hero .badge-dot{width:7px;height:7px;border-radius:50%;background:#a3e635}
+        .hero .badge-text{font-size:12px;color:#a3e635;font-weight:600}
+        .hero-title{font-size:56px;font-weight:900;line-height:1.06;margin-bottom:22px}
+        .hero-title span{color:#a3e635}
+        .hero-desc{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.85;margin-bottom:30px;max-width:460px}
+        .hero .stats-row{display:flex;align-items:center;flex-wrap:wrap;margin-bottom:32px}
+        .hero .stat-item{display:flex;flex-direction:column;padding-right:28px;margin-right:28px;border-right:1px solid rgba(255,255,255,0.12);min-width:80px}
+        .hero .stat-num{font-size:30px;font-weight:900;color:#fff;line-height:1}
+        .hero .stat-num .suf{color:#a3e635}
+        .hero .stat-label{font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px}
+        .hero .btn-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+        .btn-primary-hero{background:#a3e635;color:#2d2159;font-size:15px;font-weight:800;padding:15px 32px;border-radius:50px;border:none;cursor:pointer}
+        .hero-right{display:flex;justify-content:center;align-items:center;padding:50px 20px;min-height:420px}
+        .hero .main-card{background:rgba(45,33,89,0.85);backdrop-filter:blur(10px);border-radius:24px;padding:28px;border:1px solid rgba(163,230,53,0.15);max-width:340px;width:100%}
+        .hero-video-wrapper{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
+        .hero-video-bg{width:100%;height:100%;object-fit:cover;display:block}
+        .hero-video-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(11,8,36,0.55);z-index:1;pointer-events:none}
+        .hero-glow{position:absolute;top:8%;right:6%;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle at 38% 35%,rgba(255,150,120,.35),rgba(75,61,240,.18)55%,transparent 75%);filter:blur(2px);pointer-events:none;z-index:0}
+        .hero-wave{position:relative;bottom:-1px;left:0;right:0;line-height:0;margin-top:auto;z-index:1}
+        .hero-wave svg{width:100%;height:90px;display:block}
+
+        /* Mobile Responsive (Critical) */
+        @media(max-width:768px){
+            .wrap{padding:0 16px}
+            .hero{padding:100px 0 30px;background-image:url('images/hero-mobile-bg.webp');background-size:cover;background-position:center}
+            .hero::before{content:'';position:absolute;inset:0;background:rgba(11,8,36,0.70);z-index:1;pointer-events:none}
+            .hero-grid{grid-template-columns:1fr;gap:30px;padding:10px 16px;z-index:3;position:relative}
+            .hero-title{font-size:28px}
+            .hero-title .typing-wrapper{font-size:28px}
+            .hero-desc{font-size:14px}
+            .hero .stat-num{font-size:20px}
+            .hero .stat-item{padding-right:14px;margin-right:14px;min-width:60px}
+            .hero .stat-label{font-size:9px}
+            .btn-primary-hero{font-size:13px;padding:12px 22px}
+            .hero-right{display:none !important}
+            .nav-links{display:none}
+            .nav-toggle{display:flex;width:38px;height:38px;align-items:center;justify-content:center}
+            .nav-toggle span{display:block;width:20px;height:2px;background:#fff;position:relative}
+            .nav-toggle span::before,.nav-toggle span::after{content:'';position:absolute;left:0;width:20px;height:2px;background:#fff}
+            .nav-toggle span::before{top:-6px}
+            .nav-toggle span::after{top:6px}
+            .logo-img{height:48px}
+            .hero-video-wrapper{display:none !important}
+            .hero-glow{display:none}
+            .hero-dynamic-glow{display:none}
+            .hero-wave svg{height:40px}
+        }
+        @media(max-width:480px){
+            .hero{padding:80px 0 32px}
+            .hero-title{font-size:34px}
+            .hero-title .typing-wrapper{font-size:34px}
+            .hero .stat-num{font-size:24px}
+            .hero .stat-item{padding-right:14px;margin-right:14px;min-width:58px}
+            .btn-primary-hero{font-size:15px;padding:13px 24px}
+            .hero-desc{font-size:16px;max-width:100%}
+        }
+        @media(max-width:380px){
+            .hero-title{font-size:28px}
+            .hero-title .typing-wrapper{font-size:28px}
+            .hero .stat-num{font-size:20px}
+            .hero .stat-item{padding-right:10px;margin-right:10px;min-width:48px}
+            .btn-primary-hero{font-size:13px;padding:11px 18px}
+        }
+    </style>
+
+    <!-- ===== DEFER FULL CSS (Loads after page is visible) ===== -->
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="style.css" /></noscript>
 
     <!-- Open Graph -->
     <meta property="og:title" content="OrbitGrow — Digital Marketing Agency Lahore" />
@@ -20,7 +109,7 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- JSON-LD Structured Data (LocalBusiness) -->
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -43,9 +132,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-   
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
 </head>
 <body>
 
@@ -56,7 +144,7 @@
     <header class="site-header" id="siteHeader">
         <div class="wrap nav-wrap">
             <a href="index.html" class="logo" id="brandLogo">
-                <img src="images/OrbitGrow logo.png" alt="OrbitGrow — Digital Marketing Agency Logo" class="logo-img" />
+                <img src="images/OrbitGrow logo.png" alt="OrbitGrow — Digital Marketing Agency Logo" class="logo-img" loading="lazy" width="60" height="60" />
                 <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
             </a>
             <nav class="nav-links" id="navLinks">
@@ -73,23 +161,21 @@
     </header>
 
     <main>
-        <!-- ===== HERO with VIDEO BACKGROUND (desktop) / IMAGE (mobile) ===== -->
+        <!-- ===== HERO ===== -->
         <section class="hero" id="hero">
-            <!-- Video Background — hidden on mobile via CSS -->
+            <!-- Video Background — hidden on mobile -->
             <div class="hero-video-wrapper" id="heroVideoWrapper">
-                <video class="hero-video-bg" id="heroVideo" autoplay muted loop playsinline poster="https://picsum.photos/seed/hero-bg/1920/1080">
-                    <source src="hero section animated vadio.mp4" type="video/mp4">
+                <video class="hero-video-bg" id="heroVideo" autoplay muted loop playsinline poster="images/hero-poster.webp" preload="metadata">
+                    <source src="hero-section-animated-vadio.mp4" type="video/mp4">
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
 
-            <!-- Dynamic glow that follows mouse (desktop only) -->
             <div class="hero-dynamic-glow" id="heroDynamicGlow"></div>
-
             <div class="hero-glow"></div>
 
             <div class="hero-grid">
-                <!-- ===== HERO LEFT — each child animates with staggered delay ===== -->
+                <!-- ===== HERO LEFT ===== -->
                 <div class="hero-left">
                     <div class="badge" data-animate="bottom">
                         <div class="badge-dot"></div>
@@ -131,7 +217,7 @@
                     </div>
                 </div>
 
-                <!-- ===== HERO RIGHT — hidden on mobile ===== -->
+                <!-- ===== HERO RIGHT ===== -->
                 <div class="hero-right" id="heroRight" data-animate="right">
                     <div class="float-card fc-left" data-tilt>
                         <div class="fc-label">Monthly Leads</div>
@@ -140,14 +226,19 @@
                     </div>
                     <div class="main-card" data-tilt>
                         <div class="mc-top">
-                            <div class="mc-avatar"><img src="images/OrbitGrow logo.png" alt="OrbitGrow Logo"></div>
+                            <div class="mc-avatar"><img src="images/OrbitGrow logo.png" alt="OrbitGrow Logo" loading="lazy" width="48" height="48" /></div>
                             <div class="mc-status"><div class="status-dot"></div>Active Campaign</div>
                         </div>
                         <div class="mc-title">Your Brand, Amplified.</div>
                         <div class="mc-sub">Full-service digital growth partner</div>
                         <div class="services-pills">
-                            <div class="pill">Social Media</div><div class="pill">SEO</div><div class="pill">Meta Ads</div>
-                            <div class="pill">Google Ads</div><div class="pill">Lead Gen</div><div class="pill">Web Dev</div><div class="pill">Branding</div>
+                            <div class="pill">Social Media</div>
+                            <div class="pill">SEO</div>
+                            <div class="pill">Meta Ads</div>
+                            <div class="pill">Google Ads</div>
+                            <div class="pill">Lead Gen</div>
+                            <div class="pill">Web Dev</div>
+                            <div class="pill">Branding</div>
                         </div>
                         <div class="mc-bar-wrap"><div class="mc-bar-label"><span>Campaign Performance</span><span>84%</span></div><div class="mc-bar"><div class="mc-bar-fill" style="width:84%"></div></div></div>
                         <div class="mc-bar-wrap"><div class="mc-bar-label"><span>Lead Conversion</span><span>67%</span></div><div class="mc-bar"><div class="mc-bar-fill" style="width:67%"></div></div></div>
@@ -159,6 +250,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="hero-wave">
                 <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C360,110 1080,-20 1440,40 L1440,90 L0,90 Z" fill="#F3F4EF"/></svg>
             </div>
@@ -411,7 +503,7 @@
             <div class="footer-grid">
                 <div class="f-brand">
                     <a href="index.html" class="logo footer-logo">
-                        <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" />
+                        <img src="images/OrbitGrow logo.png" alt="OrbitGrow" class="logo-img" loading="lazy" width="45" height="45" />
                         <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
                     </a>
                     <p>A performance marketing &amp; web development studio helping Pakistani brands turn ad spend into real revenue.</p>
@@ -480,16 +572,16 @@
     </footer>
 
     <!-- ===== FAB ===== -->
-    <a href="#" class="fab-whatsapp" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/923192699626" target="_blank" class="fab-whatsapp" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
     </a>
 
-    <!-- ===== SCRIPTS ===== -->
-    <script src="blog-data.js"></script>
-    <script src="script.js"></script>
+    <!-- ===== SCRIPTS (Deferred) ===== -->
+    <script src="blog-data.js" defer></script>
+    <script src="script.js" defer></script>
     <script>
         // ============================================================
-        // PROFESSIONAL HERO ENHANCEMENTS — JS
+        // PROFESSIONAL HERO ENHANCEMENTS — JS (Minimal, non-blocking)
         // ============================================================
         (function() {
             'use strict';
@@ -512,16 +604,13 @@
                 }, { passive: true });
             }
 
-            // ---- MOUSE PARALLAX for video background (desktop only) ----
+            // ---- MOUSE PARALLAX (desktop only) ----
             if (!isMobile && heroVideoWrapper) {
-                let parallaxX = 0,
-                    parallaxY = 0;
-                let targetX = 0,
-                    targetY = 0;
+                let parallaxX = 0, parallaxY = 0;
+                let targetX = 0, targetY = 0;
                 let rafId = null;
 
                 function updateParallax() {
-                    // smooth interpolation
                     parallaxX += (targetX - parallaxX) * 0.06;
                     parallaxY += (targetY - parallaxY) * 0.06;
 
@@ -531,7 +620,6 @@
 
                     heroVideoWrapper.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 
-                    // Dynamic glow follows mouse
                     if (dynamicGlow) {
                         const cx = 50 + parallaxX * 30;
                         const cy = 50 + parallaxY * 30;
@@ -545,23 +633,19 @@
 
                 document.addEventListener('mousemove', function(e) {
                     const rect = hero.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width; // 0..1
+                    const x = (e.clientX - rect.left) / rect.width;
                     const y = (e.clientY - rect.top) / rect.height;
-                    targetX = (x - 0.5) * 2; // -1..1
+                    targetX = (x - 0.5) * 2;
                     targetY = (y - 0.5) * 2;
                 }, { passive: true });
 
-                // start the loop
                 updateParallax();
 
-                // Clean up on resize to mobile
                 window.addEventListener('resize', function() {
                     if (window.innerWidth <= 768 && rafId) {
                         cancelAnimationFrame(rafId);
                         rafId = null;
-                        if (heroVideoWrapper) {
-                            heroVideoWrapper.style.transform = '';
-                        }
+                        if (heroVideoWrapper) heroVideoWrapper.style.transform = '';
                         if (dynamicGlow) {
                             dynamicGlow.classList.remove('active');
                             dynamicGlow.style.background = '';
@@ -570,25 +654,21 @@
                 });
             }
 
-            // ---- 3D TILT EFFECT on cards (desktop only) ----
+            // ---- 3D TILT (desktop only) ----
             if (!isMobile && heroRight) {
                 const tiltables = heroRight.querySelectorAll('[data-tilt]');
-
                 tiltables.forEach(function(el) {
                     el.addEventListener('mousemove', function(e) {
                         const rect = el.getBoundingClientRect();
-                        const x = (e.clientX - rect.left) / rect.width; // 0..1
+                        const x = (e.clientX - rect.left) / rect.width;
                         const y = (e.clientY - rect.top) / rect.height;
-
-                        const tiltX = (y - 0.5) * 12; // -6deg .. 6deg
+                        const tiltX = (y - 0.5) * 12;
                         const tiltY = (x - 0.5) * -12;
-
                         el.style.transform =
                             `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px) scale(1.02)`;
                         el.style.boxShadow = '0 25px 60px -16px rgba(0,0,0,0.5)';
                         el.classList.add('tilt-active');
                     });
-
                     el.addEventListener('mouseleave', function() {
                         el.style.transform = '';
                         el.style.boxShadow = '';
@@ -597,7 +677,7 @@
                 });
             }
 
-            // ---- ENHANCED COUNTER ANIMATION (smooth, with easing) ----
+            // ---- ENHANCED COUNTER ANIMATION ----
             function animateCounters() {
                 const counters = document.querySelectorAll('.num-val');
                 const observer = new IntersectionObserver((entries) => {
@@ -612,7 +692,6 @@
                             function update(currentTime) {
                                 const elapsed = currentTime - startTime;
                                 const progress = Math.min(elapsed / duration, 1);
-                                // easeOutQuart
                                 const eased = 1 - Math.pow(1 - progress, 4);
                                 const currentVal = eased * target;
                                 if (target % 1 === 0) {
@@ -639,18 +718,7 @@
                 counters.forEach(c => observer.observe(c));
             }
 
-            // ---- INIT ----
             animateCounters();
-
-            // ---- RE-INIT on dynamic content (blog cards) ----
-            const origInit = window.__initScrollAnimations;
-            if (origInit) {
-                window.__initScrollAnimations = function() {
-                    origInit();
-                    // re-run counter observer for any new counters
-                    animateCounters();
-                };
-            }
 
             // ---- YEAR ----
             document.getElementById('year').textContent = new Date().getFullYear();
@@ -715,7 +783,6 @@
                 if (!isDeleting) {
                     typingEl.textContent = fullText.substring(0, charIndex + 1);
                     charIndex++;
-
                     if (charIndex === fullText.length) {
                         isDeleting = true;
                         timer = setTimeout(typeEffect, PAUSE_AFTER_TYPED);
@@ -725,7 +792,6 @@
                 } else {
                     typingEl.textContent = fullText.substring(0, charIndex - 1);
                     charIndex--;
-
                     if (charIndex === 0) {
                         isDeleting = false;
                         wordIndex = (wordIndex + 1) % words.length;
@@ -758,16 +824,16 @@
                 const imgSrc = post.image ? post.image :
                     `https://picsum.photos/seed/${post.slug}/600/380`;
                 return `
-                            <div class="home-blog-card" data-animate="${directions[i % directions.length]}">
-                                <img src="${imgSrc}" alt="${post.title}" class="home-blog-image" loading="lazy" />
-                                <div class="blog-overlay">
-                                    <a href="blog-post.html?slug=${post.slug}" class="blog-detail-link">
-                                        See Details
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                                    </a>
-                                </div>
-                            </div>
-                        `;
+                    <div class="home-blog-card" data-animate="${directions[i % directions.length]}">
+                        <img src="${imgSrc}" alt="${post.title}" class="home-blog-image" loading="lazy" />
+                        <div class="blog-overlay">
+                            <a href="blog-post.html?slug=${post.slug}" class="blog-detail-link">
+                                See Details
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                `;
             }).join('');
 
             if (window.__initScrollAnimations) window.__initScrollAnimations();
@@ -833,16 +899,16 @@
                 void card.offsetWidth;
                 card.classList.add('card-anim');
                 card.innerHTML = `
-                                  <div class="card-icon-wrap">${icons[key]}</div>
-                                  <div class="card-title">${d.title}</div>
-                                  <div class="card-body">${d.body}</div>
-                                  <div class="card-tags">${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                                  <div class="card-num">${d.num}</div>
-                                  <button class="card-footer-link" onclick="window.location.href='services.html?service=${key}'">
-                                      Learn More
-                                      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                                  </button>
-                                `;
+                    <div class="card-icon-wrap">${icons[key]}</div>
+                    <div class="card-title">${d.title}</div>
+                    <div class="card-body">${d.body}</div>
+                    <div class="card-tags">${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                    <div class="card-num">${d.num}</div>
+                    <button class="card-footer-link" onclick="window.location.href='services.html?service=${key}'">
+                        Learn More
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                `;
             }
 
             window.setActive = function(row) {
@@ -857,7 +923,7 @@
             window.nextService = function() {
                 currentIndex = (currentIndex + 1) % serviceKeys.length;
                 const rows = document.querySelectorAll('.service-row');
-                rows.forEach((row, idx) => {
+                rows.forEach((row) => {
                     if (row.dataset.key === serviceKeys[currentIndex]) {
                         window.setActive(row);
                     }
@@ -871,6 +937,52 @@
                 renderCard('branding');
             }
         })();
+
+        // ============================================================
+        // HEADER SCROLL
+        // ============================================================
+        const header = document.getElementById('siteHeader');
+        let lastScroll = 0;
+        let headerTicking = false;
+
+        function updateHeader() {
+            const scrollY = window.scrollY;
+            if (header) {
+                header.classList.toggle('scrolled', scrollY > 30);
+                if (scrollY > 300) {
+                    header.classList.toggle('header-hidden', scrollY > lastScroll && scrollY - lastScroll > 5);
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+            }
+            lastScroll = scrollY;
+            headerTicking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!headerTicking) {
+                requestAnimationFrame(updateHeader);
+                headerTicking = true;
+            }
+        }, { passive: true });
+
+        // ============================================================
+        // MOBILE NAV
+        // ============================================================
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('open');
+                navLinks.classList.toggle('open');
+                document.body.classList.toggle('nav-open');
+            });
+            navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                navToggle.classList.remove('open');
+                navLinks.classList.remove('open');
+                document.body.classList.remove('nav-open');
+            }));
+        }
     </script>
 
 </body>

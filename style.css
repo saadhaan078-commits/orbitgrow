@@ -4362,50 +4362,6 @@ h2.h-lg {
 
 /* Phone */
 @media (max-width: 768px) {
-    /* ----- MOBILE HERO: Gradient + Image (80%) - HEIGHT FIXED ----- */
-
-/* 1. Video chhupa do */
-.hero-video-wrapper {
-    display: none !important;
-}
-
-/* 2. Hero ko pehli wali gradient do */
-.hero {
-    background: linear-gradient(115deg, #2d2159 0%, #2d2159 32%, #4B3DF0 78%, #6E63F2 100%) !important;
-    position: relative;
-    /* Height pehle jaisi rakhne ke liye koi extra padding nahi dalni */
-}
-
-/* 3. Image ko gradient ke upar 80% opacity ke saath layer karo */
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: url('images/orbit\ grow\ hero\ bg.png') center/cover no-repeat !important;
-    opacity: 0.8;
-    pointer-events: none;
-}
-
-/* 4. Text aur content image ke upar aaye */
-.hero-grid {
-    position: relative;
-    z-index: 2;
-}
-
-/* 5. ⚠️ IMPORTANT: Wave ko wapas ABSOLUTE karo (height push nahi karega) */
-.hero-wave {
-    position: absolute !important;
-    bottom: -1px !important;
-    z-index: 2;
-}
-
-/* 6. Extra glows (chamak) hata do */
-.hero-glow,
-.hero-orb-1,
-.hero-orb-2 {
-    display: none !important;
-}
     .wrap { padding: 0 16px; }
     .site-header { padding: 16px 0; }
     .nav-links {
