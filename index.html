@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="images/OrbitGrow logo.png" fetchpriority="high">
     <title>OrbitGrow — Digital Marketing & Web development Agency</title>
     <meta name="description" content="Performance-driven digital marketing agency offering SEO, social media, Meta & Google Ads, lead generation, web development & branding. Book a free consultation." />
 
@@ -41,9 +44,8 @@
     }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="style.css" />
     
 </head>
@@ -77,8 +79,7 @@
         <section class="hero" id="hero">
             <!-- Video Background — hidden on mobile via CSS -->
             <div class="hero-video-wrapper" id="heroVideoWrapper">
-                <video class="hero-video-bg" id="heroVideo" autoplay muted loop playsinline poster="https://picsum.photos/seed/hero-bg/1920/1080">
-                    <source src="hero section animated vadio.mp4" type="video/mp4">
+                <video class="hero-video-bg" id="heroVideo" muted loop playsinline preload="none">
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
@@ -493,6 +494,23 @@
         // ============================================================
         (function() {
             'use strict';
+
+            // Hero video is CSS-hidden on mobile (<=768px) — don't waste
+            // mobile bandwidth downloading it. Only attach source/poster
+            // and play on desktop-sized viewports.
+            (function() {
+                const heroVideo = document.getElementById('heroVideo');
+                if (!heroVideo) return;
+                if (window.matchMedia('(min-width: 769px)').matches) {
+                    heroVideo.setAttribute('poster', 'images/orbit grow hero bg.png');
+                    const src = document.createElement('source');
+                    src.src = 'hero section animated vadio.mp4';
+                    src.type = 'video/mp4';
+                    heroVideo.appendChild(src);
+                    heroVideo.load();
+                    heroVideo.play().catch(function() {});
+                }
+            })();
 
             const hero = document.getElementById('hero');
             const heroVideoWrapper = document.getElementById('heroVideoWrapper');
