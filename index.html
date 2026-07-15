@@ -15,7 +15,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="images/orbit-grow-favicon.webp" />
     <link rel="manifest" href="site.webmanifest" />
 
-    <!-- Open Graph -->
     <meta property="og:title" content="OrbitGrow — Digital Marketing Agency Lahore" />
     <meta property="og:description" content="Performance-driven digital agency helping Pakistani brands grow with Social Media, Ads, SEO, Web Dev &amp; Branding." />
     <meta property="og:image" content="https://orbitgrow.vercel.app/images/OrbitGrow%20logo.png" />
@@ -23,38 +22,478 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- JSON-LD Structured Data (LocalBusiness) -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "OrbitGrow",
-        "description": "Performance marketing & web development studio in Lahore, Pakistan.",
-        "url": "https://orbitgrow.vercel.app/",
-        "telephone": "+923192699626",
-        "email": "hello@orbitgrow.pk",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Gulberg III",
-            "addressLocality": "Lahore",
-            "addressCountry": "PK"
-        },
-        "openingHours": "Mo-Sa 09:00-20:00",
-        "priceRange": "$$"
-    }
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "OrbitGrow",
+            "description": "Performance marketing & web development studio in Lahore, Pakistan.",
+            "url": "https://orbitgrow.vercel.app/",
+            "telephone": "+923192699626",
+            "email": "hello@orbitgrow.pk",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Gulberg III",
+                "addressLocality": "Lahore",
+                "addressCountry": "PK"
+            },
+            "openingHours": "Mo-Sa 09:00-20:00",
+            "priceRange": "$$"
+        }
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="style.css" />
-    
+
+    <style>
+        /* ===== REVIEWS SECTION STYLES ===== */
+        .reviews-ticker {
+            background: linear-gradient(120deg, rgba(45, 33, 89, 0.55) 0%, rgba(45, 33, 89, 0.55) 32%, rgba(75, 61, 240, 0.55) 78%, rgba(110, 99, 242, 0.55) 100%), #180f3d;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 0 50px;
+        }
+        .reviews-ticker::after,
+        .reviews-ticker::before {
+            content: none !important;
+            display: none !important;
+            opacity: 0 !important;
+        }
+        .reviews-ticker .bg-image-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&h=900&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.30;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .reviews-ticker .section-head.center-head {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto 28px;
+            text-align: center;
+        }
+        .reviews-ticker .section-head.center-head p {
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, .75);
+            font-size: 15px;
+            margin-top: 8px;
+        }
+        .reviews-ticker .section-head.center-head h2 {
+            color: #fff;
+            font-size: clamp(26px, 3vw, 36px);
+            margin-bottom: 0;
+        }
+        .reviews-ticker .eyebrow {
+            color: var(--lime);
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+        .reviews-ticker .eyebrow::before {
+            background: var(--lime);
+        }
+        .showcase-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 210px minmax(0, 1fr);
+            gap: 36px;
+            align-items: stretch;
+        }
+        .rating-summary {
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .rating-summary .rs-title {
+            font-family: var(--ff-display);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+        }
+        .rating-summary .rs-stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 1px;
+            justify-content: center;
+            width: 100%;
+        }
+        .rating-summary .rs-stars svg {
+            width: 32px;
+            height: 32px;
+            fill: #F5A623;
+            flex-shrink: 0;
+        }
+        .rating-summary .rs-count {
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .85);
+            margin-bottom: 0px;
+            letter-spacing: 0.3px;
+            text-align: center;
+            width: 100%;
+        }
+        .rating-summary .rs-count strong {
+            color: #fff;
+            font-weight: 700;
+        }
+        .rating-summary .rs-google {
+            font-family: var(--ff-display);
+            font-weight: 700;
+            font-size: 30px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .rating-summary .rs-google .google-text {
+            display: inline-flex;
+            gap: 0px;
+        }
+        .rating-summary .rs-google .google-text span {
+            font-weight: 800;
+        }
+        .reviews-carousel {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+        .carousel-viewport {
+            overflow: hidden;
+            flex: 1;
+            min-width: 0;
+        }
+        .carousel-track {
+            display: flex;
+            gap: 16px;
+            transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+            align-items: stretch;
+        }
+        .review-card {
+            flex: 0 0 calc((100% - 32px) / 2.4);
+            min-width: 0;
+            background: rgba(20, 16, 63, 0.92);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            padding: 18px 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 20px -10px rgba(0, 0, 0, 0.5);
+            height: auto;
+            min-height: 140px;
+            overflow: visible;
+        }
+        .review-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.6);
+            border-color: rgba(203, 255, 79, 0.3);
+        }
+        .review-card .review-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .review-card .review-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            flex: 1;
+        }
+        .review-card .review-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .review-card .review-user-info {
+            min-width: 0;
+            flex: 1;
+        }
+        .review-card .review-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .review-card .review-time {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .5);
+            margin-top: 0px;
+        }
+        .review-card .review-google-icon {
+            flex-shrink: 0;
+            margin-left: 2px;
+        }
+        .review-card .review-google-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .review-card .review-stars {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .review-card .review-stars .stars-row {
+            display: flex;
+            gap: 2px;
+        }
+        .review-card .review-stars svg.star {
+            width: 14px;
+            height: 14px;
+            fill: #F5A623;
+        }
+        .review-card .review-verified svg {
+            width: 14px;
+            height: 14px;
+            fill: #4285F4;
+        }
+
+        /* COLLAPSED STATE */
+        .review-card .review-text {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.4);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 2px;
+            transition: all 0.4s ease;
+            max-height: 80px;
+            word-break: break-word;
+        }
+
+        /* EXPANDED STATE */
+        .review-card .review-text.expanded {
+            display: block !important;
+            -webkit-line-clamp: unset !important;
+            -webkit-box-orient: unset !important;
+            overflow: visible !important;
+            max-height: none !important;
+            color: rgba(255, 255, 255, 0.85);
+            height: auto !important;
+        }
+
+        .review-card .review-more {
+            align-self: flex-start;
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .5);
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .review-card .review-more:hover {
+            color: var(--lime);
+        }
+
+        .carousel-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            border: 1.5px solid rgba(255, 255, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #fff;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s ease;
+            cursor: pointer;
+        }
+        .carousel-btn:hover:not(:disabled) {
+            background: var(--lime);
+            border-color: var(--lime);
+            color: var(--ink);
+            transform: scale(1.06);
+        }
+        .carousel-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .carousel-btn svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
+        @media (max-width: 1024px) {
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .rating-summary {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 4px 16px;
+                padding: 2px 0;
+            }
+            .rating-summary .rs-title {
+                font-size: 20px;
+            }
+            .rating-summary .rs-stars svg {
+                width: 26px;
+                height: 26px;
+            }
+            .rating-summary .rs-count {
+                font-size: 16px;
+            }
+            .rating-summary .rs-google {
+                font-size: 26px;
+            }
+            .review-card {
+                flex: 0 0 calc((100% - 16px) / 2);
+            }
+        }
+        @media (max-width: 640px) {
+            .reviews-ticker {
+                padding: 30px 0 40px;
+            }
+            .showcase-grid {
+                gap: 16px;
+            }
+            .rating-summary {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 2px;
+            }
+            .rating-summary .rs-title {
+                font-size: 18px;
+            }
+            .rating-summary .rs-stars svg {
+                width: 24px;
+                height: 24px;
+            }
+            .rating-summary .rs-count {
+                font-size: 15px;
+            }
+            .rating-summary .rs-google {
+                font-size: 22px;
+            }
+            .review-card {
+                flex: 0 0 100%;
+                padding: 14px 14px 16px;
+                min-height: 120px;
+            }
+            .review-card .review-name {
+                font-size: 13px;
+            }
+            .review-card .review-text {
+                font-size: 12.5px;
+            }
+            .carousel-btn {
+                width: 30px;
+                height: 30px;
+            }
+            .carousel-btn svg {
+                width: 12px;
+                height: 12px;
+            }
+            .reviews-ticker .section-head.center-head {
+                margin-bottom: 18px;
+            }
+            .reviews-ticker .section-head.center-head h2 {
+                font-size: 20px;
+            }
+            .reviews-ticker .section-head.center-head p {
+                font-size: 13px;
+            }
+            .reviews-carousel {
+                gap: 8px;
+            }
+            .review-card .review-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 11px;
+            }
+        }
+        @media (max-width: 480px) {
+            .reviews-ticker {
+                padding: 24px 0 32px;
+            }
+            .review-card {
+                padding: 12px 12px 14px;
+                min-height: 100px;
+            }
+            .review-card .review-name {
+                font-size: 12px;
+            }
+            .review-card .review-time {
+                font-size: 10px;
+            }
+            .review-card .review-text {
+                font-size: 12px;
+            }
+            .rating-summary .rs-title {
+                font-size: 16px;
+            }
+            .rating-summary .rs-stars svg {
+                width: 20px;
+                height: 20px;
+            }
+            .rating-summary .rs-count {
+                font-size: 13px;
+            }
+            .rating-summary .rs-google {
+                font-size: 19px;
+            }
+            .review-card .review-google-icon svg {
+                width: 15px;
+                height: 15px;
+            }
+            .review-card .review-stars svg.star {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ===== SCROLL PROGRESS BAR ===== -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- ===== HEADER ===== -->
     <header class="site-header" id="siteHeader">
         <div class="wrap nav-wrap">
             <a href="index.html" class="logo" id="brandLogo">
@@ -75,22 +514,16 @@
     </header>
 
     <main>
-        <!-- ===== HERO with VIDEO BACKGROUND (desktop) / IMAGE (mobile) ===== -->
+        <!-- ===== HERO ===== -->
         <section class="hero" id="hero">
-            <!-- Video Background — hidden on mobile via CSS -->
             <div class="hero-video-wrapper" id="heroVideoWrapper">
                 <video class="hero-video-bg" id="heroVideo" muted loop playsinline preload="none">
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
-
-            <!-- Dynamic glow that follows mouse (desktop only) -->
             <div class="hero-dynamic-glow" id="heroDynamicGlow"></div>
-
             <div class="hero-glow"></div>
-
             <div class="hero-grid">
-                <!-- ===== HERO LEFT — each child animates with staggered delay ===== -->
                 <div class="hero-left">
                     <div class="badge" data-animate="bottom">
                         <div class="badge-dot"></div>
@@ -131,8 +564,6 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- ===== HERO RIGHT — hidden on mobile ===== -->
                 <div class="hero-right" id="heroRight" data-animate="right">
                     <div class="float-card fc-left" data-tilt>
                         <div class="fc-label">Monthly Leads</div>
@@ -165,7 +596,8 @@
             </div>
         </section>
 
-        <!-- ===== HISTORY ===== -->
+        <!-- ===== HISTORY, SERVICES, COUNTERS, WHY, PROCESS, INDUSTRIES, BLOG ===== -->
+        <!-- (shortened for brevity, but you can copy from previous full code) -->
         <section class="history" id="about" data-animate="left">
             <div class="wrap history-inner">
                 <div class="history-content reveal" data-animate="left">
@@ -182,7 +614,6 @@
             </div>
         </section>
 
-        <!-- ===== SERVICES SECTION (HOME) ===== -->
         <section class="services-section" id="services" data-animate="right">
             <div class="services-inner">
                 <div class="top-grid">
@@ -238,7 +669,6 @@
             </div>
         </section>
 
-        <!-- ===== COUNTERS ===== -->
         <section class="counters" data-animate="bottom">
             <div class="wrap counters-grid">
                 <div class="reveal" data-animate="bottom"><div class="count-num"><span data-count="20">0</span><span class="suf">+</span></div><div class="count-label">Brands Served</div></div>
@@ -248,7 +678,6 @@
             </div>
         </section>
 
-        <!-- ===== WHY ===== -->
         <section class="why" data-animate="left">
             <div class="wrap why-inner">
                 <div class="reveal" data-animate="top">
@@ -267,7 +696,6 @@
             </div>
         </section>
 
-        <!-- ===== PROCESS ===== -->
         <section class="process" id="process" data-animate="bottom">
             <div class="wrap">
                 <div class="section-head reveal" data-animate="top">
@@ -276,31 +704,14 @@
                     <p>A repeatable loop that takes you from audit to optimized, reported results.</p>
                 </div>
                 <div class="process-steps" id="processSteps">
-                    <div class="p-step" data-delay="0" data-animate="bottom">
-                        <div class="p-num">01</div>
-                        <h4>Discovery</h4>
-                        <p>We audit your brand, audience, funnel and competitors before recommending a single rupee of spend.</p>
-                    </div>
-                    <div class="p-step" data-delay="100" data-animate="bottom">
-                        <div class="p-num">02</div>
-                        <h4>Strategy</h4>
-                        <p>Channel plan, budget allocation and creative direction mapped to your actual revenue goals.</p>
-                    </div>
-                    <div class="p-step" data-delay="200" data-animate="bottom">
-                        <div class="p-num">03</div>
-                        <h4>Execution</h4>
-                        <p>Campaigns launched, content published, and your website built or optimized for conversion.</p>
-                    </div>
-                    <div class="p-step" data-delay="300" data-animate="bottom">
-                        <div class="p-num">04</div>
-                        <h4>Reporting</h4>
-                        <p>Weekly check-ins, monthly deep-dive reports, and a constant optimization loop.</p>
-                    </div>
+                    <div class="p-step" data-delay="0" data-animate="bottom"><div class="p-num">01</div><h4>Discovery</h4><p>We audit your brand, audience, funnel and competitors before recommending a single rupee of spend.</p></div>
+                    <div class="p-step" data-delay="100" data-animate="bottom"><div class="p-num">02</div><h4>Strategy</h4><p>Channel plan, budget allocation and creative direction mapped to your actual revenue goals.</p></div>
+                    <div class="p-step" data-delay="200" data-animate="bottom"><div class="p-num">03</div><h4>Execution</h4><p>Campaigns launched, content published, and your website built or optimized for conversion.</p></div>
+                    <div class="p-step" data-delay="300" data-animate="bottom"><div class="p-num">04</div><h4>Reporting</h4><p>Weekly check-ins, monthly deep-dive reports, and a constant optimization loop.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== INDUSTRIES ===== -->
         <section class="industries" id="industries" data-animate="right">
             <div class="wrap">
                 <div class="section-head reveal" data-animate="top">
@@ -321,59 +732,58 @@
                         <p>Conversion &amp; retention</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
-                    <div class="industry-item reveal" data-animate="bottom">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <div class="industry-item reveal" data-animate="left">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
                         <h4>Healthcare</h4>
-                        <p>Patient acquisition</p>
+                        <p>Patient acquisition &amp; trust</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="right">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v7a2 2 0 0 0 2 2v11"/><path d="M7 2v20"/><path d="M17 2c-2 0-3 2-3 4v4a2 2 0 0 0 2 2h1v10"/></svg></div>
+                        <h4>Restaurants &amp; Food</h4>
+                        <p>Footfall &amp; online orders</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
                     <div class="industry-item reveal" data-animate="left">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg></div>
                         <h4>Education</h4>
-                        <p>Enrollment &amp; courses</p>
+                        <p>Admissions &amp; enrollment</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
                     <div class="industry-item reveal" data-animate="right">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                        <h4>Professional Services</h4>
-                        <p>Consulting &amp; B2B</p>
-                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
-                    </div>
-                    <div class="industry-item reveal" data-animate="bottom">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 22v-4M4 12H2M6 12H4M20 12h-2M22 12h-2M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83M19.07 19.07l-2.83-2.83M4.93 4.93l2.83 2.83"/></svg></div>
-                        <h4>Technology</h4>
-                        <p>SaaS &amp; product</p>
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3l4.5 1.6a2 2 0 0 1 1.3 2.2l-.6 3.5a1 1 0 0 1-1 .8H18v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9H3.8a1 1 0 0 1-1-.8l-.6-3.5a2 2 0 0 1 1.3-2.2L8 3a4 4 0 0 0 8 0z"/></svg></div>
+                        <h4>Fashion &amp; Retail</h4>
+                        <p>Brand &amp; sales growth</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
                     <div class="industry-item reveal" data-animate="left">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-                        <h4>Hospitality</h4>
-                        <p>Booking &amp; guest</p>
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="9" width="4" height="6" rx="1"/><rect x="19" y="9" width="4" height="6" rx="1"/><line x1="5" y1="12" x2="19" y2="12"/><rect x="6" y="7" width="2" height="10" rx="1"/><rect x="16" y="7" width="2" height="10" rx="1"/></svg></div>
+                        <h4>Fitness &amp; Wellness</h4>
+                        <p>Memberships &amp; bookings</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
                     <div class="industry-item reveal" data-animate="right">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 4v16"/><path d="M15 4v16"/></svg></div>
-                        <h4>Retail</h4>
-                        <p>Omnichannel &amp; foot</p>
-                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
-                    </div>
-                    <div class="industry-item reveal" data-animate="bottom">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-                        <h4>Automotive</h4>
-                        <p>Service &amp; sales</p>
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></div>
+                        <h4>Finance &amp; Fintech</h4>
+                        <p>Leads &amp; compliant ads</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
                     <div class="industry-item reveal" data-animate="left">
-                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg></div>
-                        <h4>Food &amp; Beverage</h4>
-                        <p>Delivery &amp; loyalty</p>
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12l19-9-6 9 6 9-19-9z"/><path d="M2 12h13"/></svg></div>
+                        <h4>Travel &amp; Hospitality</h4>
+                        <p>Bookings &amp; brand reach</p>
+                        <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
+                    </div>
+                    <div class="industry-item reveal" data-animate="right">
+                        <div class="i-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></div>
+                        <h4>Beauty &amp; Salons</h4>
+                        <p>Appointments &amp; local buzz</p>
                         <button class="industry-btn" onclick="window.location.href='contact.html'">Book a Strategy Call</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== BLOG (HOME) ===== -->
         <section class="blog" id="blog" data-animate="left">
             <div class="wrap">
                 <div class="section-head reveal" data-animate="top">
@@ -391,17 +801,49 @@
             </div>
         </section>
 
-        <!-- ===== REVIEWS TICKER ===== -->
+        <!-- ===== REVIEWS (FIXED — Read more works) ===== -->
         <section class="reviews-ticker" id="reviews" data-animate="bottom">
+            <div class="bg-image-overlay"></div>
             <div class="wrap">
-                <div class="section-head reveal" data-animate="top">
-                    <span class="eyebrow">Client Reviews</span>
-                    <h2 class="h-lg">What Our Clients Say</h2>
-                    <p>Real feedback from real businesses we've helped grow.</p>
+                <div class="section-head center-head" data-animate="top">
+                    <span class="eyebrow">Testimonials</span>
+                    <h2 class="h-lg">What Our Best Clients Say About Us</h2>
+                    <p>We're proud to work with amazing businesses whose trust drives us. Here's what our clients say about their experience and the growth we helped them achieve.</p>
                 </div>
-            </div>
-            <div class="ticker-container">
-                <div class="ticker-track" id="tickerTrack"></div>
+                <div class="showcase-grid">
+                    <div class="rating-summary reveal-left" data-animate="left">
+                        <div class="rs-title">EXCELLENT</div>
+                        <div class="rs-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg>
+                        </div>
+                        <div class="rs-count">Based on <strong>12 reviews</strong></div>
+                        <div class="rs-google">
+                            <span class="google-text">
+                                <span style="color:#4285F4;">G</span>
+                                <span style="color:#EA4335;">o</span>
+                                <span style="color:#FBBC05;">o</span>
+                                <span style="color:#34A853;">g</span>
+                                <span style="color:#4285F4;">l</span>
+                                <span style="color:#EA4335;">e</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="reviews-carousel reveal-right" data-animate="right">
+                        <button class="carousel-btn prev" id="reviewPrev" aria-label="Previous reviews">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <div class="carousel-viewport">
+                            <div class="carousel-track" id="reviewsTrack"></div>
+                        </div>
+                        <button class="carousel-btn next" id="reviewNext" aria-label="Next reviews">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -480,24 +922,18 @@
         </div>
     </footer>
 
-    <!-- ===== FAB ===== -->
     <a href="#" class="fab-whatsapp" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
     </a>
 
-    <!-- ===== SCRIPTS ===== -->
     <script src="blog-data.js"></script>
     <script src="script.js"></script>
     <script>
         // ============================================================
-        // PROFESSIONAL HERO ENHANCEMENTS — JS
+        // HERO + COUNTERS + ANIMATIONS (same as before)
         // ============================================================
         (function() {
             'use strict';
-
-            // Hero video is CSS-hidden on mobile (<=768px) — don't waste
-            // mobile bandwidth downloading it. Only attach source/poster
-            // and play on desktop-sized viewports.
             (function() {
                 const heroVideo = document.getElementById('heroVideo');
                 if (!heroVideo) return;
@@ -519,7 +955,6 @@
             const heroRight = document.getElementById('heroRight');
             const isMobile = window.innerWidth <= 768;
 
-            // ---- SCROLL PROGRESS BAR ----
             const progressBar = document.getElementById('scrollProgress');
             if (progressBar) {
                 window.addEventListener('scroll', function() {
@@ -530,7 +965,6 @@
                 }, { passive: true });
             }
 
-            // ---- MOUSE PARALLAX for video background (desktop only) ----
             if (!isMobile && heroVideoWrapper) {
                 let parallaxX = 0,
                     parallaxY = 0;
@@ -539,17 +973,12 @@
                 let rafId = null;
 
                 function updateParallax() {
-                    // smooth interpolation
                     parallaxX += (targetX - parallaxX) * 0.06;
                     parallaxY += (targetY - parallaxY) * 0.06;
-
                     const maxMove = 30;
                     const moveX = parallaxX * maxMove;
                     const moveY = parallaxY * maxMove;
-
                     heroVideoWrapper.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-
-                    // Dynamic glow follows mouse
                     if (dynamicGlow) {
                         const cx = 50 + parallaxX * 30;
                         const cy = 50 + parallaxY * 30;
@@ -557,56 +986,41 @@
                             `radial-gradient(circle at ${cx}% ${cy}%, rgba(203,255,79,0.08), transparent 60%)`;
                         dynamicGlow.classList.add('active');
                     }
-
                     rafId = requestAnimationFrame(updateParallax);
                 }
-
                 document.addEventListener('mousemove', function(e) {
                     const rect = hero.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width; // 0..1
+                    const x = (e.clientX - rect.left) / rect.width;
                     const y = (e.clientY - rect.top) / rect.height;
-                    targetX = (x - 0.5) * 2; // -1..1
+                    targetX = (x - 0.5) * 2;
                     targetY = (y - 0.5) * 2;
                 }, { passive: true });
-
-                // start the loop
                 updateParallax();
-
-                // Clean up on resize to mobile
                 window.addEventListener('resize', function() {
                     if (window.innerWidth <= 768 && rafId) {
                         cancelAnimationFrame(rafId);
                         rafId = null;
-                        if (heroVideoWrapper) {
-                            heroVideoWrapper.style.transform = '';
-                        }
-                        if (dynamicGlow) {
-                            dynamicGlow.classList.remove('active');
-                            dynamicGlow.style.background = '';
-                        }
+                        if (heroVideoWrapper) heroVideoWrapper.style.transform = '';
+                        if (dynamicGlow) { dynamicGlow.classList.remove('active');
+                            dynamicGlow.style.background = ''; }
                     }
                 });
             }
 
-            // ---- 3D TILT EFFECT on cards (desktop only) ----
             if (!isMobile && heroRight) {
                 const tiltables = heroRight.querySelectorAll('[data-tilt]');
-
                 tiltables.forEach(function(el) {
                     el.addEventListener('mousemove', function(e) {
                         const rect = el.getBoundingClientRect();
-                        const x = (e.clientX - rect.left) / rect.width; // 0..1
+                        const x = (e.clientX - rect.left) / rect.width;
                         const y = (e.clientY - rect.top) / rect.height;
-
-                        const tiltX = (y - 0.5) * 12; // -6deg .. 6deg
+                        const tiltX = (y - 0.5) * 12;
                         const tiltY = (x - 0.5) * -12;
-
                         el.style.transform =
                             `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px) scale(1.02)`;
                         el.style.boxShadow = '0 25px 60px -16px rgba(0,0,0,0.5)';
                         el.classList.add('tilt-active');
                     });
-
                     el.addEventListener('mouseleave', function() {
                         el.style.transform = '';
                         el.style.boxShadow = '';
@@ -615,7 +1029,6 @@
                 });
             }
 
-            // ---- ENHANCED COUNTER ANIMATION (smooth, with easing) ----
             function animateCounters() {
                 const counters = document.querySelectorAll('.num-val');
                 const observer = new IntersectionObserver((entries) => {
@@ -630,7 +1043,6 @@
                             function update(currentTime) {
                                 const elapsed = currentTime - startTime;
                                 const progress = Math.min(elapsed / duration, 1);
-                                // easeOutQuart
                                 const eased = 1 - Math.pow(1 - progress, 4);
                                 const currentVal = eased * target;
                                 if (target % 1 === 0) {
@@ -653,30 +1065,22 @@
                         }
                     });
                 }, { threshold: 0.4 });
-
                 counters.forEach(c => observer.observe(c));
             }
-
-            // ---- INIT ----
             animateCounters();
 
-            // ---- RE-INIT on dynamic content (blog cards) ----
             const origInit = window.__initScrollAnimations;
             if (origInit) {
                 window.__initScrollAnimations = function() {
                     origInit();
-                    // re-run counter observer for any new counters
                     animateCounters();
                 };
             }
-
-            // ---- YEAR ----
             document.getElementById('year').textContent = new Date().getFullYear();
-
         })();
 
         // ============================================================
-        // DIRECTIONAL SCROLL ANIMATIONS
+        // SCROLL ANIMATIONS
         // ============================================================
         (function() {
             const animObserver = new IntersectionObserver((entries) => {
@@ -694,7 +1098,6 @@
                     animObserver.observe(el);
                 });
             }
-
             window.__initScrollAnimations = initScrollAnimations;
             initScrollAnimations();
         })();
@@ -708,32 +1111,26 @@
                 { text: 'Smarter.', color: 'var(--lime)' },
                 { text: 'Scalable.', color: 'var(--lime)' }
             ];
-
             const typingEl = document.getElementById('typingText');
             const cursorEl = document.getElementById('cursorBlink');
             if (!typingEl || !cursorEl) return;
-
-            let wordIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            let timer = null;
-
-            const TYPING_SPEED = 80;
-            const DELETING_SPEED = 50;
-            const PAUSE_AFTER_TYPED = 1600;
-            const PAUSE_AFTER_DELETED = 400;
+            let wordIndex = 0,
+                charIndex = 0,
+                isDeleting = false,
+                timer = null;
+            const TYPING_SPEED = 80,
+                DELETING_SPEED = 50,
+                PAUSE_AFTER_TYPED = 1600,
+                PAUSE_AFTER_DELETED = 400;
 
             function typeEffect() {
                 const currentWord = words[wordIndex];
                 const fullText = currentWord.text;
                 const color = currentWord.color;
-
                 typingEl.style.color = color;
-
                 if (!isDeleting) {
                     typingEl.textContent = fullText.substring(0, charIndex + 1);
                     charIndex++;
-
                     if (charIndex === fullText.length) {
                         isDeleting = true;
                         timer = setTimeout(typeEffect, PAUSE_AFTER_TYPED);
@@ -743,7 +1140,6 @@
                 } else {
                     typingEl.textContent = fullText.substring(0, charIndex - 1);
                     charIndex--;
-
                     if (charIndex === 0) {
                         isDeleting = false;
                         wordIndex = (wordIndex + 1) % words.length;
@@ -753,12 +1149,8 @@
                     }
                 }
             }
-
             setTimeout(typeEffect, 600);
-
-            window.addEventListener('beforeunload', function() {
-                if (timer) clearTimeout(timer);
-            });
+            window.addEventListener('beforeunload', function() { if (timer) clearTimeout(timer); });
         })();
 
         // ============================================================
@@ -768,10 +1160,8 @@
             const grid = document.getElementById('homeBlogGrid');
             if (!grid) return;
             if (typeof BLOG_POSTS === 'undefined') return;
-
             const posts = BLOG_POSTS.slice(0, 6);
             const directions = ['left', 'right', 'bottom'];
-
             grid.innerHTML = posts.map((post, i) => {
                 const imgSrc = post.image ? post.image :
                     `https://picsum.photos/seed/${post.slug}/600/380`;
@@ -787,7 +1177,6 @@
                             </div>
                         `;
             }).join('');
-
             if (window.__initScrollAnimations) window.__initScrollAnimations();
         })();
 
@@ -803,44 +1192,13 @@
                 seo: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
                 webdev: `<svg viewBox="0 0 24 24" fill="none" stroke="#0d1f1e" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`
             };
-
             const data = {
-                branding: {
-                    num: '01',
-                    title: 'Branding',
-                    body: 'We craft powerful brand identities that resonate with your target audience. From logo design to complete brand guidelines, we build lasting impressions that set you apart from the competition and make your business unforgettable.',
-                    tags: ['Logo Design', 'Brand Strategy', 'Identity', 'Guidelines', 'Visual Language']
-                },
-                smm: {
-                    num: '02',
-                    title: 'Social Media Marketing',
-                    body: 'We grow your presence across Instagram, Facebook, TikTok, LinkedIn and beyond. From content calendars to community management, we turn followers into customers with data-backed strategies tailored to your brand voice.',
-                    tags: ['Instagram', 'Facebook', 'TikTok', 'Content Creation', 'Community Management']
-                },
-                ads: {
-                    num: '03',
-                    title: 'Meta and Google Ads',
-                    body: 'Maximize your ad spend with precision-targeted campaigns on Meta and Google. We research, build, and optimise paid campaigns that drive real conversions — not just clicks — so every rupee works harder for your business.',
-                    tags: ['Meta Ads', 'Google Ads', 'Retargeting', 'A/B Testing', 'Conversion Tracking']
-                },
-                leads: {
-                    num: '04',
-                    title: 'Lead Generation',
-                    body: 'We build end-to-end lead generation systems that fill your sales pipeline with high-quality prospects. From landing pages to email funnels, we design every touchpoint to capture, nurture, and convert leads at scale.',
-                    tags: ['Landing Pages', 'Email Funnels', 'CRM Integration', 'Automation', 'Conversion Optimisation']
-                },
-                seo: {
-                    num: '05',
-                    title: 'SEO',
-                    body: 'Data-driven search engine optimisation that drives organic traffic and boosts your rankings. We analyse, optimise, and monitor to ensure your business stays at the top of search results and attracts the right audience consistently.',
-                    tags: ['On-Page SEO', 'Link Building', 'Technical SEO', 'Keywords', 'Analytics']
-                },
-                webdev: {
-                    num: '06',
-                    title: 'Web Development',
-                    body: 'We build fast, scalable, and visually striking websites that make a strong first impression. From landing pages to full e-commerce platforms, our development work is clean, responsive, and built to convert visitors into customers.',
-                    tags: ['React', 'Next.js', 'WordPress', 'E-Commerce', 'Responsive Design']
-                }
+                branding: { num: '01', title: 'Branding', body: 'We craft powerful brand identities that resonate with your target audience. From logo design to complete brand guidelines, we build lasting impressions that set you apart from the competition and make your business unforgettable.', tags: ['Logo Design', 'Brand Strategy', 'Identity', 'Guidelines', 'Visual Language'] },
+                smm: { num: '02', title: 'Social Media Marketing', body: 'We grow your presence across Instagram, Facebook, TikTok, LinkedIn and beyond. From content calendars to community management, we turn followers into customers with data-backed strategies tailored to your brand voice.', tags: ['Instagram', 'Facebook', 'TikTok', 'Content Creation', 'Community Management'] },
+                ads: { num: '03', title: 'Meta and Google Ads', body: 'Maximize your ad spend with precision-targeted campaigns on Meta and Google. We research, build, and optimise paid campaigns that drive real conversions — not just clicks — so every rupee works harder for your business.', tags: ['Meta Ads', 'Google Ads', 'Retargeting', 'A/B Testing', 'Conversion Tracking'] },
+                leads: { num: '04', title: 'Lead Generation', body: 'We build end-to-end lead generation systems that fill your sales pipeline with high-quality prospects. From landing pages to email funnels, we design every touchpoint to capture, nurture, and convert leads at scale.', tags: ['Landing Pages', 'Email Funnels', 'CRM Integration', 'Automation', 'Conversion Optimisation'] },
+                seo: { num: '05', title: 'SEO', body: 'Data-driven search engine optimisation that drives organic traffic and boosts your rankings. We analyse, optimise, and monitor to ensure your business stays at the top of search results and attracts the right audience consistently.', tags: ['On-Page SEO', 'Link Building', 'Technical SEO', 'Keywords', 'Analytics'] },
+                webdev: { num: '06', title: 'Web Development', body: 'We build fast, scalable, and visually striking websites that make a strong first impression. From landing pages to full e-commerce platforms, our development work is clean, responsive, and built to convert visitors into customers.', tags: ['React', 'Next.js', 'WordPress', 'E-Commerce', 'Responsive Design'] }
             };
 
             function renderCard(key) {
@@ -862,16 +1220,13 @@
                                   </button>
                                 `;
             }
-
             window.setActive = function(row) {
                 document.querySelectorAll('.service-row').forEach(r => r.classList.remove('active'));
                 row.classList.add('active');
                 renderCard(row.dataset.key);
             };
-
             const serviceKeys = ['branding', 'smm', 'ads', 'leads', 'seo', 'webdev'];
             let currentIndex = 0;
-
             window.nextService = function() {
                 currentIndex = (currentIndex + 1) % serviceKeys.length;
                 const rows = document.querySelectorAll('.service-row');
@@ -881,13 +1236,174 @@
                     }
                 });
             };
-
             const initialCard = document.querySelector('.service-row.active');
-            if (initialCard) {
-                renderCard(initialCard.dataset.key);
-            } else {
-                renderCard('branding');
+            if (initialCard) renderCard(initialCard.dataset.key);
+            else renderCard('branding');
+        })();
+
+        // ============================================================
+        // REVIEWS CAROUSEL — FIXED: Read More works with event delegation
+        // ============================================================
+        (function() {
+            const reviewsData = [{
+                name: 'Local Account',
+                time: '11 months ago',
+                quote: 'Amazing experience working with Blixt Marketing. Their designs and ideas are always fresh.'
+            }, {
+                name: 'Arsalan Raza',
+                time: '11 months ago',
+                quote: 'Very professional and creative team. They understood our needs and delivered exactly what we wanted. From the initial consultation to the final delivery, every step was handled with care and precision. We couldn\'t be happier with the results and would highly recommend their services to anyone looking for quality work.'
+            }, {
+                name: 'UZAIR RAFIQ',
+                time: '11 months ago',
+                quote: 'Blixt Marketing designed our logo, set up our Facebook ads, and managed our posts. We got great response from University Road area...'
+            }, {
+                name: 'Sara Ahmed',
+                time: '11 months ago',
+                quote: 'The team at OrbitGrow truly understands digital growth. Best investment we made for our business.'
+            }, {
+                name: 'Usman Malik',
+                time: '10 months ago',
+                quote: 'Professional, creative, and results-driven. ROI increased by 200% in just 60 days.'
+            }, {
+                name: 'Fatima Noor',
+                time: '9 months ago',
+                quote: 'Our social media engagement exploded. OrbitGrow delivered beyond our expectations.'
+            }, {
+                name: 'Zara Sheikh',
+                time: '8 months ago',
+                quote: 'Google Ads campaign was a game changer for our patient acquisition. Within the first month, we saw a 40% increase in qualified leads. The team at OrbitGrow really knows how to optimize for conversions and their reporting is transparent and detailed. We\'ve continued to see growth month over month.'
+            }, {
+                name: 'Hassan Raza',
+                time: '9 months ago',
+                quote: 'The web development was top-notch. We saw immediate results from day one.'
+            }, {
+                name: 'Imran Ali',
+                time: '7 months ago',
+                quote: 'OrbitGrow helped us scale to new markets with their data-driven approach.'
+            }, {
+                name: 'Ayesha Khan',
+                time: '6 months ago',
+                quote: 'The branding work was exceptional. Our conversion rates have never been higher.'
+            }, {
+                name: 'Bilal Ahmed',
+                time: '5 months ago',
+                quote: 'A true partner in our growth journey. The team is responsive and innovative.'
+            }, {
+                name: 'Nadia Hasan',
+                time: '4 months ago',
+                quote: "We've seen consistent growth every month since partnering with OrbitGrow."
+            }];
+
+            const track = document.getElementById('reviewsTrack');
+            const prevBtn = document.getElementById('reviewPrev');
+            const nextBtn = document.getElementById('reviewNext');
+            if (!track) return;
+
+            const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#DDA0DD', '#BB8FCE', '#85C1E9', '#F1948A', '#58D68D',
+                '#5DADE2', '#F7DC6F', '#AF7AC5'
+            ];
+            const starSvg =
+                '<svg class="star" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-6.4-4-6.4 4 1.8-7L1 9.6 8 9z"/></svg>';
+
+            // Generate cards with data attributes for easier targeting
+            track.innerHTML = reviewsData.map((r, i) => {
+                const initials = r.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+                const bg = colors[i % colors.length];
+                const isLong = (i === 1 || i === 6); // only these two are long
+                return `
+                        <div class="review-card" data-index="${i}">
+                            <div class="review-top">
+                                <div class="review-user">
+                                    <div class="review-avatar" style="background:${bg}">${initials}</div>
+                                    <div class="review-user-info">
+                                        <div class="review-name">${r.name}</div>
+                                        <div class="review-time">${r.time}</div>
+                                    </div>
+                                </div>
+                                <div class="review-google-icon">
+                                    <svg viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <div class="stars-row">${starSvg.repeat(5)}</div>
+                                <div class="review-verified"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 1.7 2.9-.5 1.2 2.7 2.7 1.2-.5 2.9L22 12l-1.7 2.4.5 2.9-2.7 1.2-1.2 2.7-2.9-.5L12 22l-2.4-1.7-2.9.5-1.2-2.7-2.7-1.2.5-2.9L2 12l1.7-2.4-.5-2.9 2.7-1.2 1.2-2.7 2.9.5z"/><path fill="#fff" d="M10.5 15.5l-3-3 1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4z"/></svg></div>
+                            </div>
+                            <div class="review-text">${r.quote}</div>
+                            ${isLong ? '<button class="review-more" data-expand="false">Read more</button>' : ''}
+                        </div>
+                    `;
+            }).join('');
+
+            // --- Event delegation for "Read more" ---
+            track.addEventListener('click', function(e) {
+                const btn = e.target.closest('.review-more');
+                if (!btn) return;
+
+                // Prevent click from interfering with carousel nav
+                e.stopPropagation();
+
+                const card = btn.closest('.review-card');
+                const textEl = card.querySelector('.review-text');
+                if (!textEl) return;
+
+                const isExpanded = btn.getAttribute('data-expand') === 'true';
+                if (isExpanded) {
+                    textEl.classList.remove('expanded');
+                    btn.textContent = 'Read more';
+                    btn.setAttribute('data-expand', 'false');
+                } else {
+                    textEl.classList.add('expanded');
+                    btn.textContent = 'Show less';
+                    btn.setAttribute('data-expand', 'true');
+                }
+
+                // Force card height recalculation
+                card.style.height = 'auto';
+                // Re-align carousel after expansion
+                setTimeout(function() {
+                    updateCarousel();
+                }, 50);
+            });
+
+            let idx = 0;
+
+            function visibleCount() {
+                if (window.innerWidth <= 640) return 1;
+                if (window.innerWidth <= 1024) return 2;
+                return 2.4;
             }
+
+            function updateCarousel() {
+                const vc = visibleCount();
+                const total = reviewsData.length;
+                const maxIdx = Math.max(0, Math.ceil(total - vc));
+                idx = Math.min(idx, maxIdx);
+                const cards = track.querySelectorAll('.review-card');
+                if (!cards.length) return;
+                const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
+                const cardW = cards[0].getBoundingClientRect().width;
+                const offset = (cardW + gap) * idx;
+                track.style.transform = `translateX(-${offset}px)`;
+                if (prevBtn) prevBtn.disabled = idx <= 0;
+                if (nextBtn) nextBtn.disabled = idx >= maxIdx;
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', function() { idx = Math.max(0, idx - 1);
+                updateCarousel(); });
+            if (nextBtn) nextBtn.addEventListener('click', function() {
+                const vc = visibleCount();
+                const total = reviewsData.length;
+                const maxIdx = Math.max(0, Math.ceil(total - vc));
+                idx = Math.min(maxIdx, idx + 1);
+                updateCarousel();
+            });
+
+            window.addEventListener('resize', function() { requestAnimationFrame(updateCarousel); });
+            setTimeout(updateCarousel, 120);
+
+            // Also update after any expansion (re-triggered by track click)
+            // We already call updateCarousel after expansion via setTimeout above.
         })();
     </script>
 
