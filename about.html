@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="images/OrbitGrow logo.png" fetchpriority="high">
+    <link rel="preload" as="image" href="images/orbitgrow-logo.webp" fetchpriority="high" />
     <title>About Us — OrbitGrow | Digital Marketing Agency Lahore</title>
     <meta name="description" content="Learn about OrbitGrow — a Lahore digital marketing agency built on data, transparency, and a revenue-first mindset. We help Pakistani brands grow online since 2024." />
     <link rel="canonical" href="https://orbitgrow.vercel.app/about.html" />
@@ -309,95 +309,7 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script src="script.js"></script>
-    <script>
-        // ============================================================
-        // DIRECTIONAL SCROLL ANIMATIONS (left / right / bottom / top)
-        // Applies to any element with a data-animate attribute.
-        // ============================================================
-        (function() {
-            const animObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        animObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-            document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
-        })();
-
-        // ============================================================
-        // MOBILE TOUCH HOVER — simulates :hover on touch devices
-        // Works for mission cards, value items, and highlight list items
-        // ============================================================
-        (function() {
-            // Select all card-like elements that should have hover effects
-            const hoverElements = document.querySelectorAll(
-                '.mission-card, .value-item, .story-text .highlight-list li'
-            );
-
-            // Check if the device supports touch
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-            if (isTouchDevice) {
-                hoverElements.forEach(el => {
-                    // Add touch-hover class on touch start
-                    el.addEventListener('touchstart', function(e) {
-                        // Remove class from all siblings (optional, for cleaner UX)
-                        const parent = this.closest('.mission-grid, .values-grid, .highlight-list');
-                        if (parent) {
-                            parent.querySelectorAll('.touch-hover').forEach(sibling => {
-                                if (sibling !== this) sibling.classList.remove('touch-hover');
-                            });
-                        }
-                        this.classList.add('touch-hover');
-                    }, { passive: true });
-
-                    // Remove touch-hover class on touch end or cancel
-                    el.addEventListener('touchend', function(e) {
-                        this.classList.remove('touch-hover');
-                    }, { passive: true });
-
-                    el.addEventListener('touchcancel', function(e) {
-                        this.classList.remove('touch-hover');
-                    }, { passive: true });
-
-                    // Also handle mouse leave for desktop (fallback)
-                    el.addEventListener('mouseleave', function(e) {
-                        this.classList.remove('touch-hover');
-                    });
-                });
-            } else {
-                // For desktop, we rely on :hover in CSS, but we also add a small
-                // enhancement: on mouseenter, add a class that can be used for transitions
-                hoverElements.forEach(el => {
-                    el.addEventListener('mouseenter', function() {
-                        this.classList.add('touch-hover');
-                    });
-                    el.addEventListener('mouseleave', function() {
-                        this.classList.remove('touch-hover');
-                    });
-                });
-            }
-
-            // Also handle the "See Our Story" smooth scroll
-            document.querySelector('a[href="#story"]')?.addEventListener('click', function(e) {
-                const target = document.querySelector('#story');
-                if (target) {
-                    e.preventDefault();
-                    const offset = 80;
-                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
-            });
-        })();
-
-        // ============================================================
-        // YEAR
-        // ============================================================
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    <script>!function(){const e=new IntersectionObserver(t=>{t.forEach(t=>{t.isIntersecting&&(t.target.classList.add("in-view"),e.unobserve(t.target))})},{threshold:.12,rootMargin:"0px 0px -40px 0px"});document.querySelectorAll("[data-animate]").forEach(t=>e.observe(t))}(),function(){const e=document.querySelectorAll(".mission-card, .value-item, .story-text .highlight-list li");"ontouchstart"in window||navigator.maxTouchPoints>0?e.forEach(e=>{e.addEventListener("touchstart",function(e){const t=this.closest(".mission-grid, .values-grid, .highlight-list");t&&t.querySelectorAll(".touch-hover").forEach(e=>{e!==this&&e.classList.remove("touch-hover")}),this.classList.add("touch-hover")},{passive:!0}),e.addEventListener("touchend",function(e){this.classList.remove("touch-hover")},{passive:!0}),e.addEventListener("touchcancel",function(e){this.classList.remove("touch-hover")},{passive:!0}),e.addEventListener("mouseleave",function(e){this.classList.remove("touch-hover")})}):e.forEach(e=>{e.addEventListener("mouseenter",function(){this.classList.add("touch-hover")}),e.addEventListener("mouseleave",function(){this.classList.remove("touch-hover")})}),document.querySelector('a[href="#story"]')?.addEventListener("click",function(e){const t=document.querySelector("#story");if(t){e.preventDefault();const o=80,s=t.getBoundingClientRect().top+window.pageYOffset-o;window.scrollTo({top:s,behavior:"smooth"})}})}(),document.getElementById("year").textContent=(new Date).getFullYear();</script>
 
 </body>
 </html>
