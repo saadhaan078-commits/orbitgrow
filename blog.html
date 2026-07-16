@@ -3,974 +3,252 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://picsum.photos">
-    <link rel="dns-prefetch" href="https://picsum.photos">
-    <title>Blog — Digital Marketing, SEO &amp; Growth Insights | OrbitGrow</title>
-    <meta name="description" content="Read expert insights on digital marketing, SEO, social media, web development and more — from the team at OrbitGrow. Practical tips for Pakistani brands." />
-    <link rel="canonical" href="https://orbitgrow.vercel.app/blog.html" />
-    <link rel="icon" type="image/png" sizes="32x32" href="images/orbit-grow-favicon.webp" />
-    <link rel="icon" type="image/png" sizes="16x16" href="images/orbit-grow-favicon.webp" />
-    <link rel="apple-touch-icon" sizes="180x180" href="images/orbit-grow-favicon.webp" />
-    <link rel="manifest" href="site.webmanifest" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="OrbitGrow Blog — Marketing &amp; Growth Insights" />
-    <meta property="og:description" content="Real-world results, tactical breakdowns, and lessons learned from campaigns we've run for Pakistani brands." />
-    <meta property="og:image" content="https://orbitgrow.vercel.app/images/OrbitGrow%20logo.png" />
-    <meta property="og:url" content="https://orbitgrow.vercel.app/blog.html" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- JSON-LD Blog -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "OrbitGrow Blog",
-        "description": "Expert perspectives on digital marketing, SEO, social media, and web development.",
-        "url": "https://orbitgrow.vercel.app/blog.html",
-        "publisher": {
-            "@type": "Organization",
-            "name": "OrbitGrow"
-        }
-    }
-    </script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
-    
-    <!-- Main style.css — contains all global styles -->
+    <title>Blog — OrbitGrow</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     
     <style>
-        /* ============================================================
-           BLOG PAGE OVERRIDES — FIX FOR HEADINGS NOT SHOWING
-           ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F3F4EF; color: #14171A; }
+        .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        /* Force blog post titles to be visible */
-        .blog-post-item .post-title,
-        .blog-post-item h3.post-title {
-            color: #14171A !important;
-            display: block !important;
+        /* ===== HEADER ===== */
+        .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(243, 244, 239, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: all 0.3s ease; }
+        .site-header.scrolled { border-bottom-color: rgba(20, 23, 26, 0.10); box-shadow: 0 1px 12px rgba(20, 23, 26, .06); }
+        .nav-wrap { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #14171A; text-decoration: none; flex-shrink: 0; z-index: 1001; }
+        .logo-img { height: 40px; width: auto; display: block; border-radius: 8px; }
+        .logo-text .dot { color: #C6FF3D; }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #5B6167; text-decoration: none; transition: color .25s ease; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: #14171A; }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: #C6FF3D; border-radius: 2px; }
+        .nav-right { display: flex; align-items: center; z-index: 1001; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 8px; cursor: pointer; position: relative; z-index: 1002; }
+        .nav-toggle span { display: block; width: 24px; height: 2px; background: #14171A; transition: .3s ease; border-radius: 2px; transform-origin: center; }
+        .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        
+        @media (max-width: 768px) {
+            .nav-toggle { display: flex !important; }
+            .nav-links { position: absolute; top: calc(100% + 12px); left: 0; right: 0; background: #FFFFFF; flex-direction: column; padding: 24px 24px 28px; gap: 14px; border-radius: 0 0 20px 20px; border: 1px solid rgba(20, 23, 26, 0.10); border-top: none; opacity: 0; transform: translateY(-10px) scaleY(0.95); pointer-events: none; transition: all .35s cubic-bezier(.16, .84, .44, 1); box-shadow: 0 16px 40px -12px rgba(20, 23, 26, .18); z-index: 999; transform-origin: top center; }
+            .nav-links.open { opacity: 1; transform: translateY(0) scaleY(1); pointer-events: all; }
+            .nav-links a { font-size: 16px; padding: 10px 0; width: 100%; border-bottom: 1px solid rgba(20, 23, 26, 0.10); }
+            .nav-links a:last-child { border-bottom: none; }
+        }
+        
+        /* ===== BLOG HERO ===== */
+        .blog-hero { position: relative; padding: 140px 0 80px; background: linear-gradient(160deg, #0D0A2E 0%, #14103F 30%, #1B1356 70%, #241A6B 100%); color: #fff; overflow: hidden; min-height: 420px; display: flex; align-items: center; }
+        .blog-hero .hero-glow { position: absolute; top: -30%; right: -10%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(198, 255, 61, .12) 0%, transparent 70%); pointer-events: none; }
+        .blog-hero-content { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hero-text { flex: 1 1 45%; min-width: 280px; }
+        .hero-text h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 6vw, 72px); font-weight: 800; letter-spacing: -2px; line-height: 1.05; margin-bottom: 12px; }
+        .hero-text h1 span { background: linear-gradient(135deg, #fff 40%, #C6FF3D); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-text .sub { font-size: 18px; color: rgba(255, 255, 255, .7); max-width: 480px; font-weight: 400; }
+        .hero-notes { flex: 0 1 45%; min-width: 200px; display: flex; justify-content: flex-end; }
+        .hero-notes .notes-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .hero-notes .note { width: 54px; height: 54px; border-radius: 14px; background: #C6FF3D; border: 2px solid rgba(198, 255, 61, 0.6); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 800; color: #1B1356; transition: all .3s cubic-bezier(.16, .84, .44, 1); box-shadow: 0 4px 16px rgba(198, 255, 61, .25); cursor: pointer; }
+        .hero-notes .note:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 8px 32px rgba(198, 255, 61, .45); background: #fff; border-color: #fff; color: #1B1356; }
+        .hero-footer { flex: 0 0 100%; text-align: center; margin-top: 20px; }
+        .brand-signature { font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255, 255, 255, .3); }
+        .brand-signature span { color: #C6FF3D; }
+        .wave { position: absolute; bottom: -2px; left: 0; right: 0; line-height: 0; }
+        .wave svg { width: 100%; height: auto; display: block; }
+        
+        /* ===== BLOG MAIN ===== */
+        .blog-main { padding: 60px 0 80px; background: #F3F4EF; }
+        .blog-layout { display: grid; grid-template-columns: 1fr 320px; gap: 50px; align-items: start; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        @media (max-width: 980px) { .blog-layout { grid-template-columns: 1fr; gap: 40px; } }
+        
+        .blog-posts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 34px 28px; }
+        @media (max-width: 760px) { .blog-posts { grid-template-columns: 1fr; gap: 24px; } }
+        
+        /* ============================================================
+           BLOG POST ITEM - COMPLETE FIX
+           ============================================================ */
+        .blog-post-item { 
+            background: #FFFFFF !important; 
+            border: 1px solid rgba(20, 23, 26, 0.10) !important; 
+            border-radius: 18px !important; 
+            overflow: hidden !important; 
+            transition: all .35s cubic-bezier(.16, .84, .44, 1) !important; 
+        }
+        .blog-post-item:hover { 
+            border-color: transparent !important; 
+            box-shadow: 0 1px 2px rgba(20, 23, 26, .04), 0 20px 40px -20px rgba(20, 23, 26, .25) !important; 
+            transform: translateY(-6px) !important; 
+        }
+        .blog-post-item > a { text-decoration: none !important; color: inherit !important; display: block !important; }
+        
+        .post-image-wrap { 
+            position: relative !important; 
+            overflow: hidden !important; 
+            aspect-ratio: 16/9 !important; 
+            background: rgba(20, 23, 26, 0.06) !important; 
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: center !important; 
+        }
+        .post-image-wrap .post-image { 
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: cover !important; 
+            display: block !important; 
+            transition: transform .7s cubic-bezier(.2, .7, .2, 1) !important; 
+        }
+        .blog-post-item:hover .post-image-wrap .post-image { transform: scale(1.04) !important; }
+        
+        /* ===== POST CONTENT - White Background ===== */
+        .post-content { 
+            background: #FFFFFF !important; 
+            padding: 22px 22px 24px !important; 
+            display: block !important; 
+        }
+        
+        /* ===== FIX: BLOG TITLE - BLACK TEXT ===== */
+        .post-title { 
+            color: #000000 !important;  /* ← BLACK text */
+            display: block !important; 
+            font-size: 1.28rem !important; 
+            font-weight: 700 !important; 
+            font-family: 'Space Grotesk', sans-serif !important; 
+            line-height: 1.32 !important; 
+            margin: 0 0 14px 0 !important; 
+            padding: 0 !important;
+            background: transparent !important;
             opacity: 1 !important;
             visibility: visible !important;
-            font-size: 1.28rem !important;
-            font-weight: 700 !important;
-            font-family: 'Space Grotesk', sans-serif !important;
-            line-height: 1.32 !important;
-            margin: 0 0 14px 0 !important;
-            letter-spacing: -0.01em !important;
             text-decoration: none !important;
-            background: none !important;
-        }
-
-        /* Ensure post content area is visible */
-        .blog-post-item .post-content {
-            background: #FFFFFF !important;
-            padding: 22px 22px 24px !important;
-            display: block !important;
-        }
-
-        /* Fix meta row visibility */
-        .blog-post-item .post-meta-row {
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
-            flex-wrap: wrap !important;
-            font-size: 13px !important;
-            color: #5B6167 !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-
-        .blog-post-item .post-author {
-            display: flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            color: #14171A !important;
-            font-weight: 600 !important;
-        }
-
-        .blog-post-item .post-date {
-            color: #5B6167 !important;
-            font-family: 'Space Mono', monospace !important;
-            font-size: 12px !important;
-        }
-
-        .blog-post-item .post-date::before {
-            content: "·" !important;
-            margin-right: 10px !important;
-            color: rgba(20, 23, 26, 0.10) !important;
-        }
-
-        /* Avatar visibility */
-        .blog-post-item .post-author .avatar {
-            width: 26px !important;
-            height: 26px !important;
-            border-radius: 50% !important;
-            background: #16233F !important;
-            color: #fff !important;
-            font-size: 10px !important;
-            font-weight: 700 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            overflow: hidden !important;
-            flex-shrink: 0 !important;
-        }
-
-        .blog-post-item .post-author .avatar img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            border-radius: 50% !important;
-        }
-
-        /* Force card background */
-        .blog-post-item {
-            background: #FFFFFF !important;
-            border: 1px solid rgba(20, 23, 26, 0.10) !important;
-            border-radius: 18px !important;
-            overflow: hidden !important;
-            transition: border-color .35s ease, box-shadow .35s ease, transform .35s cubic-bezier(.16, .84, .44, 1) !important;
-        }
-
-        .blog-post-item:hover {
-            border-color: transparent !important;
-            box-shadow: 0 1px 2px rgba(20, 23, 26, .04), 0 20px 40px -20px rgba(20, 23, 26, .25) !important;
-            transform: translateY(-6px) !important;
-        }
-
-        .blog-post-item > a {
-            text-decoration: none !important;
-            color: inherit !important;
-            display: block !important;
-        }
-
-        /* Image wrap */
-        .post-image-wrap {
-            position: relative !important;
-            overflow: hidden !important;
-            aspect-ratio: 16/9 !important;
-            background: rgba(20, 23, 26, 0.06) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-
-        .post-image-wrap .post-image {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            display: block !important;
-            transition: transform .7s cubic-bezier(.2, .7, .2, 1) !important;
-        }
-
-        .blog-post-item:hover .post-image-wrap .post-image {
-            transform: scale(1.04) !important;
-        }
-
-        /* Arrow on hover */
-        .post-cta-arrow {
-            position: absolute !important;
-            right: 16px !important;
-            bottom: 16px !important;
-            width: 38px !important;
-            height: 38px !important;
-            border-radius: 50% !important;
-            background: #F3F4EF !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            opacity: 0 !important;
-            transform: translateY(10px) scale(.8) !important;
-            transition: opacity .35s ease, transform .35s cubic-bezier(.2, .7, .2, 1) !important;
-            z-index: 2 !important;
-        }
-
-        .blog-post-item:hover .post-cta-arrow {
-            opacity: 1 !important;
-            transform: translateY(0) scale(1) !important;
-        }
-
-        .post-cta-arrow svg {
-            width: 16px !important;
-            height: 16px !important;
-            stroke: #14171A !important;
-        }
-
-        /* ============================================================
-           BLOG GRID LAYOUT
-           ============================================================ */
-        .blog-posts {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 34px 28px !important;
-        }
-
-        @media (max-width: 760px) {
-            .blog-posts {
-                grid-template-columns: 1fr !important;
-                gap: 24px !important;
-            }
-        }
-
-        /* ============================================================
-           HERO SECTION — keep as is
-           ============================================================ */
-        .blog-hero {
-            position: relative;
-            padding: 140px 0 80px;
-            background: linear-gradient(160deg, #0D0A2E 0%, #14103F 30%, #1B1356 70%, #241A6B 100%);
-            color: #fff;
-            overflow: hidden;
-            min-height: 420px;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-glow {
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(198, 255, 61, .12) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .blog-hero-content {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 40px;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .hero-text h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(42px, 6vw, 72px);
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.05;
-            margin-bottom: 12px;
-        }
-        .hero-text h1 span {
-            background: linear-gradient(135deg, #fff 40%, #C6FF3D);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-text .sub {
-            font-size: 18px;
-            color: rgba(255, 255, 255, .7);
-            max-width: 480px;
-            font-weight: 400;
-        }
-
-        .hero-notes .notes-row {
-            display: flex;
-            gap: 10px;
-        }
-        .hero-notes .note {
-            width: 54px;
-            height: 54px;
-            border-radius: 14px;
-            background: #C6FF3D;
-            border: 2px solid rgba(198, 255, 61, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            color: #1B1356;
-            transition: all .3s cubic-bezier(.16, .84, .44, 1);
-            box-shadow: 0 4px 16px rgba(198, 255, 61, .25);
-            cursor: pointer;
-        }
-        .hero-notes .note:hover {
-            transform: translateY(-6px) scale(1.05);
-            box-shadow: 0 8px 32px rgba(198, 255, 61, .45);
-            background: #fff;
-            border-color: #fff;
-            color: #1B1356;
-        }
-
-        .hero-footer {
-            grid-column: 1 / -1;
-            margin-top: 10px;
-        }
-        .brand-signature {
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            letter-spacing: .15em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, .3);
-        }
-        .brand-signature span {
-            color: #C6FF3D;
-        }
-
-        .wave {
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            line-height: 0;
-        }
-        .wave svg {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        @media (max-width: 680px) {
-            .blog-hero-content {
-                grid-template-columns: 1fr;
-                gap: 24px;
-                text-align: center;
-                padding: 0 16px;
-            }
-            .hero-notes .notes-row {
-                justify-content: center;
-                gap: 8px;
-            }
-            .hero-notes .note {
-                width: 44px;
-                height: 44px;
-                font-size: 19px;
-                border-radius: 12px;
-            }
-            .blog-hero {
-                padding: 120px 0 60px;
-                min-height: 320px;
-            }
-            .hero-text .sub {
-                margin: 0 auto;
-                font-size: 16px;
-            }
-            .hero-text h1 {
-                font-size: clamp(32px, 8vw, 42px);
-            }
-        }
-
-        /* ============================================================
-           BLOG MAIN
-           ============================================================ */
-        .blog-main {
-            padding: 60px 0 80px;
-            background: #F3F4EF;
-        }
-
-        .blog-layout {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 50px;
-            align-items: start;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        @media (max-width: 980px) {
-            .blog-layout {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-        }
-
-        /* ============================================================
-           SIDEBAR
-           ============================================================ */
-        .blog-sidebar {
-            position: sticky;
-            top: 100px;
-            align-self: start;
-        }
-
-        @media (max-width: 980px) {
-            .blog-sidebar {
-                position: static;
-            }
-        }
-
-        .sidebar-card {
-            background: #FFFFFF;
-            border: 1px solid rgba(20, 23, 26, 0.10);
-            border-radius: 18px;
-            padding: 28px 24px;
-            margin-bottom: 24px;
-        }
-
-        .sidebar-card h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0 0 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #14171A;
-        }
-
-        .sidebar-card .lime-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #C6FF3D;
-            flex-shrink: 0;
-        }
-
-        #recentPosts .recent-item {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-            padding: 10px 8px;
-            margin: 0 -8px;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: background .25s ease, transform .3s cubic-bezier(.16, .84, .44, 1);
-            cursor: pointer;
-        }
-
-        #recentPosts .recent-item:hover {
-            background: #F3F4EF;
-            transform: translateX(4px);
-        }
-
-        #recentPosts .recent-img {
-            width: 56px;
-            height: 56px;
-            border-radius: 10px;
-            object-fit: cover;
-            flex-shrink: 0;
-            transition: transform .4s cubic-bezier(.2, .7, .2, 1);
-        }
-
-        #recentPosts .recent-item:hover .recent-img {
-            transform: scale(1.08) rotate(-1.5deg);
-        }
-
-        .recent-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
-        }
-
-        .recent-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13.5px;
-            font-weight: 600;
-            color: #14171A;
-            line-height: 1.3;
-        }
-
-        .recent-date {
-            font-family: 'Space Mono', monospace;
-            font-size: 10.5px;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-            color: #5B6167;
-        }
-
-        .sidebar-cta {
-            background: #F3F4EF;
-            border-radius: 18px;
-            padding: 28px 24px;
-            text-align: center;
-            border: 1px solid rgba(20, 23, 26, 0.10);
-        }
-
-        .sidebar-cta h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0 0 8px;
-            color: #14171A;
-        }
-
-        .sidebar-cta p {
-            font-size: 14px;
-            color: #5B6167;
-            margin: 0 0 18px;
-            line-height: 1.6;
-        }
-
-        .btn-cta-side {
-            display: inline-block;
-            background: #14171A;
-            color: #fff;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 12px 30px;
-            border-radius: 100px;
-            text-decoration: none;
-            transition: background .3s ease, transform .25s ease;
-        }
-
-        .btn-cta-side:hover {
-            background: #233312;
-            transform: translateY(-2px);
-        }
-
-        /* ============================================================
-           HEADER — keep consistent with main site
-           ============================================================ */
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 16px 0;
-            background: rgba(243, 244, 239, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid transparent;
-            transition: border-color .3s ease, box-shadow .3s ease;
-        }
-
-        .site-header.scrolled {
-            border-bottom-color: rgba(20, 23, 26, 0.10);
-            box-shadow: 0 1px 12px rgba(20, 23, 26, .06);
-        }
-
-        .nav-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 22px;
-            color: #14171A;
-            text-decoration: none;
-            flex-shrink: 0;
-            z-index: 1001;
-        }
-
-        .logo-img {
-            height: 40px;
-            width: auto;
-            display: block;
-            border-radius: 8px;
-        }
-
-        .logo-text .dot {
-            color: #C6FF3D;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            color: #5B6167;
-            text-decoration: none;
-            transition: color .25s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #14171A;
-        }
-
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #C6FF3D;
-            border-radius: 2px;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            z-index: 1001;
-        }
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-            position: relative;
-            z-index: 1002;
-        }
-
-        .nav-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: #14171A;
-            transition: .3s ease;
-            border-radius: 2px;
-            transform-origin: center;
-        }
-
-        /* Prevent the global style.css hamburger pseudo-elements
-           (::before/::after) from doubling up with this page's
-           own 3-span icon design. */
-        .nav-toggle span::before,
-        .nav-toggle span::after {
-            content: none !important;
-            display: none !important;
-        }
-
-        .nav-toggle.open span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .nav-toggle.open span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .nav-toggle.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex !important;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: calc(100% + 12px);
-                left: 0;
-                right: 0;
-                background: #FFFFFF;
-                flex-direction: column;
-                padding: 24px 24px 28px;
-                gap: 14px;
-                border-radius: 0 0 20px 20px;
-                border: 1px solid rgba(20, 23, 26, 0.10);
-                border-top: none;
-                opacity: 0;
-                transform: translateY(-10px) scaleY(0.95);
-                pointer-events: none;
-                transition: opacity .35s cubic-bezier(.16, .84, .44, 1),
-                    transform .35s cubic-bezier(.16, .84, .44, 1);
-                box-shadow: 0 16px 40px -12px rgba(20, 23, 26, .18);
-                z-index: 999;
-                transform-origin: top center;
-            }
-
-            .nav-links.open {
-                opacity: 1;
-                transform: translateY(0) scaleY(1);
-                pointer-events: all;
-            }
-
-            .nav-links a {
-                font-size: 16px;
-                padding: 10px 0;
-                width: 100%;
-                border-bottom: 1px solid rgba(20, 23, 26, 0.10);
-            }
-
-            .nav-links a:last-child {
-                border-bottom: none;
-            }
-
-            .nav-links a.active::after {
-                bottom: 6px;
-            }
-        }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .site-footer {
-            background: #0A0824;
-            color: rgba(255, 255, 255, .7);
-            padding: 60px 0 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-            gap: 40px;
-            padding-bottom: 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 50px;
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 32px;
-            }
-            .f-brand {
-                grid-column: 1 / -1;
-            }
-            .f-col:nth-child(2) {
-                display: none;
-            }
-            .f-col:nth-child(3) {
-                grid-column: 1 / 2;
-                padding-right: 8px;
-            }
-            .f-col:nth-child(4) {
-                grid-column: 2 / 3;
-                padding-left: 12px;
-                border-left: 1px solid rgba(255, 255, 255, 0.08);
-            }
-            .f-col:nth-child(4) .f-contact li {
-                gap: 6px;
-                font-size: 13px;
-            }
-            .f-col:nth-child(4) .f-contact li svg {
-                width: 16px;
-                height: 16px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            .f-col h5 {
-                font-size: 11px;
-            }
-            .f-col ul li {
-                font-size: 13px;
-            }
-            .f-brand p {
-                font-size: 13px;
-                max-width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .footer-grid {
-                gap: 24px;
-            }
-            .f-col:nth-child(3) {
-                padding-right: 4px;
-            }
-            .f-col:nth-child(4) {
-                padding-left: 8px;
-            }
-            .f-col:nth-child(4) .f-contact li {
-                gap: 4px;
-                font-size: 12px;
-            }
-            .f-col:nth-child(4) .f-contact li svg {
-                width: 14px;
-                height: 14px;
-            }
-        }
-
-        .f-brand p {
-            font-size: 14px;
-            max-width: 280px;
-            margin-bottom: 20px;
-        }
-        .f-social {
-            display: flex;
-            gap: 8px;
-        }
-        .f-social a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, .15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background .3s, border-color .3s;
-            color: rgba(255, 255, 255, .7);
-        }
-        .f-social a:hover {
-            background: rgba(198, 255, 61, .12);
-            border-color: #C6FF3D;
-        }
-        .f-social a svg {
-            width: 15px;
-            height: 15px;
-        }
-        .f-col h5 {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, .4);
-            margin-bottom: 16px;
-        }
-        .f-col ul {
-            list-style: none;
-            padding: 0;
-        }
-        .f-col ul li {
-            margin-bottom: 11px;
-            font-size: 14px;
-        }
-        .f-col ul li a {
-            color: inherit;
-            text-decoration: none;
-            transition: color .25s ease;
-        }
-        .f-col ul li a:hover {
-            color: #C6FF3D;
-        }
-        .f-contact li {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-        }
-        .f-contact li svg {
-            width: 15px;
-            height: 15px;
-            stroke: #C6FF3D;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, .08);
-            padding: 22px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 12.5px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 22px 20px;
-        }
-        .footer-bottom a {
-            color: rgba(255, 255, 255, .5);
-            text-decoration: none;
-            margin-left: 16px;
-            transition: color .25s ease;
-        }
-        .footer-bottom a:hover {
-            color: #C6FF3D;
-        }
-
-        /* FAB */
-        .fab-whatsapp {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 200;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #25D366;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 12px 28px -10px rgba(37, 211, 102, .5);
-            transition: transform .3s ease;
-            animation: fabPulse 2.4s infinite;
-            text-decoration: none;
-        }
-        .fab-whatsapp:hover {
-            transform: scale(1.08);
-        }
-        .fab-whatsapp svg {
-            width: 25px;
-            height: 25px;
-            stroke: #fff;
-            fill: none;
-        }
-        @keyframes fabPulse {
-            0%, 100% { box-shadow: 0 12px 28px -10px rgba(37, 211, 102, .5); }
-            50% { box-shadow: 0 12px 28px -6px rgba(37, 211, 102, .75); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; animation: none !important; }
-        }
+            text-underline-offset: 4px !important;
+            text-decoration-thickness: 2px !important;
+            text-decoration-color: #C6FF3D !important;
+        }
+        .blog-post-item:hover .post-title {
+            text-decoration: underline !important;
+        }
+        
+        /* ===== META ROW ===== */
+        .post-meta-row { 
+            display: flex !important; 
+            align-items: center !important; 
+            gap: 10px !important; 
+            flex-wrap: wrap !important; 
+            font-size: 13px !important; 
+            color: #5B6167 !important; 
+        }
+        .post-author { 
+            display: flex !important; 
+            align-items: center !important; 
+            gap: 8px !important; 
+            color: #14171A !important; 
+            font-weight: 600 !important; 
+        }
+        .post-date { 
+            color: #5B6167 !important; 
+            font-family: 'Space Mono', monospace !important; 
+            font-size: 12px !important; 
+        }
+        .post-date::before { 
+            content: "·" !important; 
+            margin-right: 10px !important; 
+            color: rgba(20, 23, 26, 0.10) !important; 
+        }
+        
+        .avatar { 
+            width: 26px !important; 
+            height: 26px !important; 
+            border-radius: 50% !important; 
+            background: #16233F !important; 
+            color: #fff !important; 
+            font-size: 10px !important; 
+            font-weight: 700 !important; 
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: center !important; 
+            overflow: hidden !important; 
+            flex-shrink: 0 !important; 
+        }
+        .avatar img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 50% !important; }
+        
+        .post-cta-arrow { 
+            position: absolute !important; 
+            right: 16px !important; 
+            bottom: 16px !important; 
+            width: 38px !important; 
+            height: 38px !important; 
+            border-radius: 50% !important; 
+            background: #F3F4EF !important; 
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: center !important; 
+            opacity: 0 !important; 
+            transform: translateY(10px) scale(.8) !important; 
+            transition: all .35s cubic-bezier(.2, .7, .2, 1) !important; 
+            z-index: 2 !important; 
+        }
+        .blog-post-item:hover .post-cta-arrow { opacity: 1 !important; transform: translateY(0) scale(1) !important; }
+        .post-cta-arrow svg { width: 16px !important; height: 16px !important; stroke: #14171A !important; }
+        
+        /* ===== SIDEBAR ===== */
+        .blog-sidebar { position: sticky; top: 100px; align-self: start; }
+        @media (max-width: 980px) { .blog-sidebar { position: static; } }
+        
+        .sidebar-card { background: #FFFFFF; border: 1px solid rgba(20, 23, 26, 0.10); border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; }
+        .sidebar-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; margin: 0 0 18px; display: flex; align-items: center; gap: 10px; color: #14171A; }
+        .sidebar-card .lime-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #C6FF3D; flex-shrink: 0; }
+        
+        .recent-item { display: flex; gap: 14px; align-items: center; padding: 10px 8px; margin: 0 -8px; border-radius: 12px; text-decoration: none; transition: all .25s ease; cursor: pointer; }
+        .recent-item:hover { background: #F3F4EF; transform: translateX(4px); }
+        .recent-img { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex-shrink: 0; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+        .recent-item:hover .recent-img { transform: scale(1.08) rotate(-1.5deg); }
+        .recent-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+        .recent-title { font-family: 'Space Grotesk', sans-serif; font-size: 13.5px; font-weight: 600; color: #14171A; line-height: 1.3; }
+        .recent-date { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: #5B6167; }
+        
+        .sidebar-cta { background: #F3F4EF; border-radius: 18px; padding: 28px 24px; text-align: center; border: 1px solid rgba(20, 23, 26, 0.10); }
+        .sidebar-cta h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; margin: 0 0 8px; color: #14171A; }
+        .sidebar-cta p { font-size: 14px; color: #5B6167; margin: 0 0 18px; line-height: 1.6; }
+        .btn-cta-side { display: inline-block; background: #14171A; color: #fff; font-weight: 600; font-size: 14px; padding: 12px 30px; border-radius: 100px; text-decoration: none; transition: all .3s ease; }
+        .btn-cta-side:hover { background: #233312; transform: translateY(-2px); }
+        
+        /* ===== FOOTER ===== */
+        .site-footer { background: #0A0824; color: rgba(255, 255, 255, .7); padding: 60px 0 0; position: relative; z-index: 2; }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 50px; max-width: 1200px; margin: 0 auto; padding: 0 20px 50px; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } .f-brand { grid-column: 1 / -1; } .f-col:nth-child(2) { display: none; } .f-col:nth-child(3) { grid-column: 1 / 2; padding-right: 8px; } .f-col:nth-child(4) { grid-column: 2 / 3; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, 0.08); } .f-col:nth-child(4) .f-contact li { gap: 6px; font-size: 13px; } .f-col:nth-child(4) .f-contact li svg { width: 16px; height: 16px; } .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; } .f-col h5 { font-size: 11px; } .f-col ul li { font-size: 13px; } .f-brand p { font-size: 13px; max-width: 100%; } }
+        .f-brand p { font-size: 14px; max-width: 280px; margin-bottom: 20px; }
+        .f-social { display: flex; gap: 8px; }
+        .f-social a { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .15); display: flex; align-items: center; justify-content: center; transition: all .3s; color: rgba(255, 255, 255, .7); }
+        .f-social a:hover { background: rgba(198, 255, 61, .12); border-color: #C6FF3D; }
+        .f-social a svg { width: 15px; height: 15px; }
+        .f-col h5 { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, .4); margin-bottom: 16px; }
+        .f-col ul { list-style: none; padding: 0; }
+        .f-col ul li { margin-bottom: 11px; font-size: 14px; }
+        .f-col ul li a { color: inherit; text-decoration: none; transition: color .25s ease; }
+        .f-col ul li a:hover { color: #C6FF3D; }
+        .f-contact li { display: flex; gap: 10px; align-items: flex-start; }
+        .f-contact li svg { width: 15px; height: 15px; stroke: #C6FF3D; flex-shrink: 0; margin-top: 2px; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, .08); padding: 22px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 12.5px; max-width: 1200px; margin: 0 auto; padding: 22px 20px; }
+        .footer-bottom a { color: rgba(255, 255, 255, .5); text-decoration: none; margin-left: 16px; transition: color .25s ease; }
+        .footer-bottom a:hover { color: #C6FF3D; }
+        
+        .fab-whatsapp { position: fixed; bottom: 24px; right: 24px; z-index: 200; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 28px -10px rgba(37, 211, 102, .5); transition: transform .3s ease; animation: fabPulse 2.4s infinite; text-decoration: none; }
+        .fab-whatsapp:hover { transform: scale(1.08); }
+        .fab-whatsapp svg { width: 25px; height: 25px; stroke: #fff; fill: none; }
+        @keyframes fabPulse { 0%, 100% { box-shadow: 0 12px 28px -10px rgba(37, 211, 102, .5); } 50% { box-shadow: 0 12px 28px -6px rgba(37, 211, 102, .75); } }
+        
+        @media (max-width: 680px) { .blog-hero { padding: 120px 0 60px; min-height: 320px; } .blog-hero-content { flex-direction: column; text-align: center; padding: 0 16px; } .hero-text h1 { font-size: clamp(32px, 8vw, 42px); } .hero-text .sub { margin: 0 auto; font-size: 16px; } .hero-notes { justify-content: center; } .hero-notes .notes-row { gap: 8px; } .hero-notes .note { width: 44px; height: 44px; font-size: 19px; border-radius: 12px; } .blog-main { padding: 40px 0 60px; } }
     </style>
 </head>
 <body>
-<noscript>
-<div class="seo-fallback-content" style="max-width:900px;margin:0 auto;padding:40px 20px;">
-<h2>Latest Blog Posts</h2>
-<article>
-<h3><a href="blog-post.html?slug=digital-marketing-strategy-guide-2026">The Ultimate Guide to Digital Marketing Strategy in 2026</a></h3>
-<p><em>By Saad Khan &middot; April 3, 2026 &middot; 8 min read</em></p>
-<p>If you run a business today, you already know that having a website or a social media page is not enough anymore. Customers are smarter, platforms are more crowded, and attention is harder to earn than ever before. That is exactly why a clear, well‑thought‑out digital marketing strategy has become the backbone of every successful brand in 2026.</p>
-</article>
-<article>
-<h3><a href="blog-post.html?slug=social-media-marketing-trends-2026">Social Media Marketing Trends You Can't Ignore in 2026</a></h3>
-<p><em>By Saad Khan &middot; April 20, 2026 &middot; 7 min read</em></p>
-<p>Social media never stays still. What worked last year might already feel outdated today, and what feels new right now could be everywhere by tomorrow. As someone who watches these platforms closely, I want to break down the social media marketing trends that are actually shaping results in 2026 — not just the ones that sound trendy in headlines.</p>
-</article>
-<article>
-<h3><a href="blog-post.html?slug=on-page-seo-checklist-2026">On‑Page SEO Checklist: How to Rank Higher on Google in 2026</a></h3>
-<p><em>By Saad Khan &middot; May 12, 2026 &middot; 8 min read</em></p>
-<p>Every website owner wants to rank on the first page of Google, but very few actually understand what it takes to get there. Off‑page factors like backlinks matter, yes, but on‑page SEO is the foundation everything else is built on. If your on‑page SEO is weak, even the best backlinks won't save your rankings.</p>
-</article>
-<article>
-<h3><a href="blog-post.html?slug=local-seo-guide-2026">Local SEO Guide: How to Dominate Google Maps and Local Search in 2026</a></h3>
-<p><em>By Saad Khan &middot; June 2, 2026 &middot; 7 min read</em></p>
-<p>If you run a local business — a restaurant, a clinic, a salon, a repair shop, or any service that depends on nearby customers — local SEO is probably the single most important marketing skill you can learn in 2026. Most customers now search "near me" before making a decision, and if your business doesn't show up, you're simply invisible to them.</p>
-</article>
-<article>
-<h3><a href="blog-post.html?slug=modern-web-development-trends-2026">Modern Web Development Trends Every Developer Should Know in 2026</a></h3>
-<p><em>By Saad Khan &middot; June 20, 2026 &middot; 8 min read</em></p>
-<p>Web development moves fast. Frameworks that were popular a few years ago are being replaced, new tools are simplifying workflows that used to take days, and user expectations for speed and experience keep climbing. Whether you're a beginner learning to code or an experienced developer trying to stay current, here are the trends actually shaping how websites and web apps are built in 2026.</p>
-</article>
-<article>
-<h3><a href="blog-post.html?slug=build-fast-seo-friendly-website">How to Build a Fast, SEO‑Friendly Website From Scratch</a></h3>
-<p><em>By Saad Khan &middot; July 1, 2026 &middot; 7 min read</em></p>
-<p>A beautiful website is worthless if it loads slowly or if search engines can't understand it properly. I've seen so many businesses spend thousands of dollars on stunning designs, only to lose visitors because the site takes eight seconds to load or doesn't show up anywhere on Google. In this guide, I'll walk you through how to build a website from the ground up that is both genuinely fast and properly optimized for search engines.</p>
-</article>
-</div>
-</noscript>
-
 
     <!-- ===== HEADER ===== -->
     <header class="site-header" id="siteHeader">
         <div class="wrap nav-wrap">
-            <a href="index.html" class="logo" id="brandLogo">
+            <a href="index.html" class="logo">
                 <img src="images/orbitgrow-logo.webp" alt="OrbitGrow" class="logo-img" />
                 <span class="logo-text">OrbitGrow<span class="dot">.</span></span>
             </a>
-            <div class="nav-right">
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
             <nav class="nav-links" id="navLinks">
                 <a href="index.html">Home</a>
                 <a href="services.html">Services</a>
@@ -978,6 +256,13 @@
                 <a href="contact.html">Contact</a>
                 <a href="blog.html" class="active">Blog</a>
             </nav>
+            <div class="nav-right">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -1017,16 +302,177 @@
                 <div class="blog-layout">
 
                     <!-- LEFT: Blog Grid -->
-                    <div class="blog-posts" id="blogPosts">
-                        <!-- Rendered by JavaScript -->
+                    <div class="blog-posts">
+                        
+                        <!-- Blog Post 1 -->
+                        <article class="blog-post-item">
+                            <a href="digital-marketing-strategy-guide-2026.html">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="images/ultimate-guide-digital-marketing-strategy-2026.webp" alt="The Ultimate Guide to Digital Marketing Strategy in 2026" loading="lazy" />
+                                    <span class="post-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title" style="color:#000000 !important;display:block !important;opacity:1 !important;visibility:visible !important;font-size:1.28rem !important;font-weight:700 !important;font-family:'Space Grotesk',sans-serif !important;line-height:1.32 !important;margin:0 0 14px 0 !important;background:transparent !important;">The Ultimate Guide to Digital Marketing Strategy in 2026</h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar"><img src="images/saad-khan-profile.webp" alt="Saad Khan" /></span>
+                                            Saad Khan
+                                        </span>
+                                        <span class="post-date">April 3, 2026</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+
+                        <!-- Blog Post 2 -->
+                        <article class="blog-post-item">
+                            <a href="social-media-marketing-trends-2026.html">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="images/social-media-marketing-trends-2026.webp" alt="Social Media Marketing Trends You Can't Ignore in 2026" loading="lazy" />
+                                    <span class="post-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title" style="color:#000000 !important;display:block !important;opacity:1 !important;visibility:visible !important;font-size:1.28rem !important;font-weight:700 !important;font-family:'Space Grotesk',sans-serif !important;line-height:1.32 !important;margin:0 0 14px 0 !important;background:transparent !important;">Social Media Marketing Trends You Can't Ignore in 2026</h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar"><img src="images/saad-khan-profile.webp" alt="Saad Khan" /></span>
+                                            Saad Khan
+                                        </span>
+                                        <span class="post-date">April 20, 2026</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+
+                        <!-- Blog Post 3 -->
+                        <article class="blog-post-item">
+                            <a href="on-page-seo-checklist-2026.html">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="images/on-page-seo-checklist-2026.webp" alt="On‑Page SEO Checklist: How to Rank Higher on Google in 2026" loading="lazy" />
+                                    <span class="post-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title" style="color:#000000 !important;display:block !important;opacity:1 !important;visibility:visible !important;font-size:1.28rem !important;font-weight:700 !important;font-family:'Space Grotesk',sans-serif !important;line-height:1.32 !important;margin:0 0 14px 0 !important;background:transparent !important;">On‑Page SEO Checklist: How to Rank Higher on Google in 2026</h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar"><img src="images/saad-khan-profile.webp" alt="Saad Khan" /></span>
+                                            Saad Khan
+                                        </span>
+                                        <span class="post-date">May 12, 2026</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+
+                        <!-- Blog Post 4 -->
+                        <article class="blog-post-item">
+                            <a href="local-seo-guide-2026.html">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="images/local-seo-guide-google-maps-2026.webp" alt="Local SEO Guide: How to Dominate Google Maps and Local Search in 2026" loading="lazy" />
+                                    <span class="post-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title" style="color:#000000 !important;display:block !important;opacity:1 !important;visibility:visible !important;font-size:1.28rem !important;font-weight:700 !important;font-family:'Space Grotesk',sans-serif !important;line-height:1.32 !important;margin:0 0 14px 0 !important;background:transparent !important;">Local SEO Guide: How to Dominate Google Maps and Local Search in 2026</h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar"><img src="images/saad-khan-profile.webp" alt="Saad Khan" /></span>
+                                            Saad Khan
+                                        </span>
+                                        <span class="post-date">June 2, 2026</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+
+                        <!-- Blog Post 5 -->
+                        <article class="blog-post-item">
+                            <a href="modern-web-development-trends-2026.html">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="images/modern-web-development-trends-2026.webp" alt="Modern Web Development Trends Every Developer Should Know in 2026" loading="lazy" />
+                                    <span class="post-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title" style="color:#000000 !important;display:block !important;opacity:1 !important;visibility:visible !important;font-size:1.28rem !important;font-weight:700 !important;font-family:'Space Grotesk',sans-serif !important;line-height:1.32 !important;margin:0 0 14px 0 !important;background:transparent !important;">Modern Web Development Trends Every Developer Should Know in 2026</h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar"><img src="images/saad-khan-profile.webp" alt="Saad Khan" /></span>
+                                            Saad Khan
+                                        </span>
+                                        <span class="post-date">June 20, 2026</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+
+                        <!-- Blog Post 6 -->
+                        <article class="blog-post-item">
+                            <a href="build-fast-seo-friendly-website.html">
+                                <div class="post-image-wrap">
+                                    <img class="post-image" src="images/how-to-build-a-fast-seo-friendly-website.webp" alt="How to Build a Fast, SEO‑Friendly Website From Scratch" loading="lazy" />
+                                    <span class="post-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title" style="color:#000000 !important;display:block !important;opacity:1 !important;visibility:visible !important;font-size:1.28rem !important;font-weight:700 !important;font-family:'Space Grotesk',sans-serif !important;line-height:1.32 !important;margin:0 0 14px 0 !important;background:transparent !important;">How to Build a Fast, SEO‑Friendly Website From Scratch</h3>
+                                    <div class="post-meta-row">
+                                        <span class="post-author">
+                                            <span class="avatar"><img src="images/saad-khan-profile.webp" alt="Saad Khan" /></span>
+                                            Saad Khan
+                                        </span>
+                                        <span class="post-date">July 1, 2026</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+
                     </div>
 
                     <!-- RIGHT: Sidebar -->
                     <aside class="blog-sidebar">
                         <div class="sidebar-card">
                             <h3><span class="lime-dot"></span> Recent Posts</h3>
-                            <div id="recentPosts">
-                                <!-- Rendered by JavaScript -->
+                            <div>
+                                <a href="digital-marketing-strategy-guide-2026.html" class="recent-item">
+                                    <img class="recent-img" src="images/ultimate-guide-digital-marketing-strategy-2026.webp" alt="The Ultimate Guide to Digital Marketing Strategy in 2026" loading="lazy" />
+                                    <div class="recent-info">
+                                        <span class="recent-date">April 3, 2026</span>
+                                        <span class="recent-title">The Ultimate Guide to Digital Marketing Strategy in 2026</span>
+                                    </div>
+                                </a>
+                                <a href="social-media-marketing-trends-2026.html" class="recent-item">
+                                    <img class="recent-img" src="images/social-media-marketing-trends-2026.webp" alt="Social Media Marketing Trends You Can't Ignore in 2026" loading="lazy" />
+                                    <div class="recent-info">
+                                        <span class="recent-date">April 20, 2026</span>
+                                        <span class="recent-title">Social Media Marketing Trends You Can't Ignore in 2026</span>
+                                    </div>
+                                </a>
+                                <a href="on-page-seo-checklist-2026.html" class="recent-item">
+                                    <img class="recent-img" src="images/on-page-seo-checklist-2026.webp" alt="On‑Page SEO Checklist: How to Rank Higher on Google in 2026" loading="lazy" />
+                                    <div class="recent-info">
+                                        <span class="recent-date">May 12, 2026</span>
+                                        <span class="recent-title">On‑Page SEO Checklist: How to Rank Higher on Google in 2026</span>
+                                    </div>
+                                </a>
+                                <a href="local-seo-guide-2026.html" class="recent-item">
+                                    <img class="recent-img" src="images/local-seo-guide-google-maps-2026.webp" alt="Local SEO Guide: How to Dominate Google Maps and Local Search in 2026" loading="lazy" />
+                                    <div class="recent-info">
+                                        <span class="recent-date">June 2, 2026</span>
+                                        <span class="recent-title">Local SEO Guide: How to Dominate Google Maps and Local Search in 2026</span>
+                                    </div>
+                                </a>
+                                <a href="modern-web-development-trends-2026.html" class="recent-item">
+                                    <img class="recent-img" src="images/modern-web-development-trends-2026.webp" alt="Modern Web Development Trends Every Developer Should Know in 2026" loading="lazy" />
+                                    <div class="recent-info">
+                                        <span class="recent-date">June 20, 2026</span>
+                                        <span class="recent-title">Modern Web Development Trends Every Developer Should Know in 2026</span>
+                                    </div>
+                                </a>
+                                <a href="build-fast-seo-friendly-website.html" class="recent-item">
+                                    <img class="recent-img" src="images/how-to-build-a-fast-seo-friendly-website.webp" alt="How to Build a Fast, SEO‑Friendly Website From Scratch" loading="lazy" />
+                                    <div class="recent-info">
+                                        <span class="recent-date">July 1, 2026</span>
+                                        <span class="recent-title">How to Build a Fast, SEO‑Friendly Website From Scratch</span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                         <div class="sidebar-cta">
@@ -1043,11 +489,11 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="site-footer" id="contact">
+    <footer class="site-footer">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="f-brand">
-                    <a href="index.html" class="logo footer-logo" style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;flex-shrink:0;color:currentColor;text-decoration:none;color:#fff;margin-bottom:14px;">
+                    <a href="index.html" class="logo footer-logo" style="display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;flex-shrink:0;text-decoration:none;color:#fff;margin-bottom:14px;">
                         <img src="images/orbitgrow-logo.webp" alt="OrbitGrow" class="logo-img" style="height:45px;width:auto;display:block;border-radius:8px;" />
                         <span class="logo-text" style="font-size:20px;color:#fff;display:inline-block;white-space:nowrap;">OrbitGrow<span class="dot" style="color:#C6FF3D;">.</span></span>
                     </a>
@@ -1125,121 +571,41 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
     </a>
 
-    <!-- ===== SCRIPTS ===== -->
-    <script src="blog-data.js"></script>
     <script>
-        (function() {
-            // Check if BLOG_POSTS is defined
-            if (typeof BLOG_POSTS === 'undefined') {
-                console.error('BLOG_POSTS is not defined. Make sure blog-data.js is loaded.');
-                const blogContainer = document.getElementById('blogPosts');
-                if (blogContainer) {
-                    blogContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#5B6167;">No blog posts found. Please check the data file.</p>';
-                }
-                return;
-            }
+        // Header Scroll
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 30);
+        });
 
-            const posts = BLOG_POSTS.slice();
+        // Mobile Nav
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
 
-            const arrowSvg = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>`;
-
-            // ===== RENDER BLOG POSTS =====
-            const blogContainer = document.getElementById('blogPosts');
-            if (blogContainer) {
-                if (posts.length === 0) {
-                    blogContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#5B6167;">No blog posts available.</p>';
-                } else {
-                    blogContainer.innerHTML = posts.map((post) => {
-                        const imageUrl = post.image ? post.image : `https://picsum.photos/seed/${post.slug}/600/340`;
-                        return `
-                            <article class="blog-post-item">
-                                <a href="blog-post.html?slug=${post.slug}">
-                                    <div class="post-image-wrap">
-                                        <img class="post-image" src="${imageUrl}" alt="${post.title}" loading="lazy" />
-                                        <span class="post-cta-arrow">${arrowSvg}</span>
-                                    </div>
-                                    <div class="post-content">
-                                        <h3 class="post-title">${post.title}</h3>
-                                        <div class="post-meta-row">
-                                            <span class="post-author">
-                                                <span class="avatar">
-                                                    ${post.authorImage ? `<img src="${post.authorImage}" alt="${post.author}" />` : (post.authorInitials || 'OG')}
-                                                </span>
-                                                ${post.author}
-                                            </span>
-                                            <span class="post-date">${post.date}</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        `;
-                    }).join('');
-                }
-            }
-
-            // ===== RENDER RECENT POSTS =====
-            const recentContainer = document.getElementById('recentPosts');
-            if (recentContainer) {
-                const recentPosts = posts.slice(0, 6);
-                if (recentPosts.length === 0) {
-                    recentContainer.innerHTML = '<p style="color:#5B6167;font-size:14px;">No recent posts.</p>';
-                } else {
-                    recentContainer.innerHTML = recentPosts.map((post) => {
-                        const thumbUrl = post.thumbnail ? post.thumbnail : (post.image ? post.image : `https://picsum.photos/seed/${post.slug}/150/150`);
-                        return `
-                            <a href="blog-post.html?slug=${post.slug}" class="recent-item">
-                                <img class="recent-img" src="${thumbUrl}" alt="${post.title}" loading="lazy" />
-                                <div class="recent-info">
-                                    <span class="recent-date">${post.date}</span>
-                                    <span class="recent-title">${post.title}</span>
-                                </div>
-                            </a>
-                        `;
-                    }).join('');
-                }
-            }
-
-            // ============================================================
-            // HEADER SCROLL
-            // ============================================================
-            const header = document.getElementById('siteHeader');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 30);
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('open');
+                navLinks.classList.toggle('open');
             });
 
-            // ============================================================
-            // MOBILE NAV
-            // ============================================================
-            const navToggle = document.getElementById('navToggle');
-            const navLinks = document.getElementById('navLinks');
-
-            if (navToggle && navLinks) {
-                navToggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    this.classList.toggle('open');
-                    navLinks.classList.toggle('open');
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navToggle.classList.remove('open');
+                    navLinks.classList.remove('open');
                 });
+            });
 
-                navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        navToggle.classList.remove('open');
-                        navLinks.classList.remove('open');
-                    });
-                });
+            document.addEventListener('click', function(e) {
+                if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                    navToggle.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }
+            });
+        }
 
-                document.addEventListener('click', function(e) {
-                    if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
-                        navToggle.classList.remove('open');
-                        navLinks.classList.remove('open');
-                    }
-                });
-            }
-
-            // ============================================================
-            // YEAR
-            // ============================================================
-            document.getElementById('year').textContent = new Date().getFullYear();
-        })();
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
 </body>

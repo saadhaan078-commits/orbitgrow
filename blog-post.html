@@ -170,6 +170,19 @@
     </style>
 </head>
 <body>
+    <script>
+        // Legacy URL support: this page used to render posts dynamically via ?slug=.
+        // Each post now has its own static HTML page (better for SEO/GEO), so we
+        // forward old links straight there.
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var slug = params.get('slug');
+            var knownSlugs = ["digital-marketing-strategy-guide-2026","social-media-marketing-trends-2026","on-page-seo-checklist-2026","local-seo-guide-2026","modern-web-development-trends-2026","build-fast-seo-friendly-website"];
+            if (slug && knownSlugs.indexOf(slug) !== -1) {
+                window.location.replace(slug + '.html');
+            }
+        })();
+    </script>
 <noscript>
 <div class="seo-fallback-content" style="max-width:900px;margin:0 auto;padding:40px 20px;">
 <p><em>This page shows a single article based on the link you followed. Below are all OrbitGrow blog articles in full for reference.</em></p>
